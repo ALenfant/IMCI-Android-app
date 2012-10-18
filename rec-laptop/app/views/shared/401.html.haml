@@ -1,0 +1,19 @@
+.welcome
+  %h1 Connexion
+  %form#login(method='post' action=session_path)
+    - if @error
+      %p.error= @error
+    - if @to
+      %input{type: 'hidden', name: 'to', value: @to}/
+    %div
+      %label(for='session_login') Utilisateur
+      %select(name="session[user_id]")
+        - for id, name in User.local.to_login_select do
+          %option(value=id)!= name
+    %div
+      %label(for='session_password') Mot de passe
+      %input#session_password(type='password' name='session[password]')/
+    %div
+      %button(type='submit') Se connecter
+
+%img.preload(src="/images/hourglass.png" alt="")/

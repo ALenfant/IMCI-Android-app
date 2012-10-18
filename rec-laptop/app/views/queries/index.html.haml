@@ -1,0 +1,12 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Recherche Patient", children_path
+    %li Statistiques
+
+- queries = Query.order(:id)
+
+%section.illness.list-arrow
+  %h2 #{queries.size} statistiques
+  %ul
+    - queries.each do |q|
+      %li{ :class => cycle("odd", "even") }= link_to q.title, query_path(q)

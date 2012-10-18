@@ -1,0 +1,9 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Recherche Patient", children_path
+    %li= link_to "Utilisateurs", users_path
+    %li Nouvel Utilisateur
+    
+.welcome
+  %h1 Nouvel utilisateur
+  = partial 'new'

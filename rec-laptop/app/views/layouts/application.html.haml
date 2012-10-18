@@ -1,0 +1,23 @@
+!!! XML
+!!! 5
+%html
+  %head
+    %title CSPS
+    = stylesheet_link_tag 'screen', 'forms', media: 'screen'
+    = javascript_include_tag 'mootools', 'application'
+    = yield :head
+  %body
+    %header
+      = yield :header
+      = yield :breadcrumbs
+      = form_tag session_path, method: 'delete' do
+        Agent:
+        %strong= current_user.name
+        |
+        - if Csps.site
+          CSPS:
+          %strong= Csps.site
+        - else
+          Aucun CSPS
+        %button.confirm(type="submit" data-confirm="Etes vous sûr de vouloir vous déconnecter ?") Logout
+    = yield

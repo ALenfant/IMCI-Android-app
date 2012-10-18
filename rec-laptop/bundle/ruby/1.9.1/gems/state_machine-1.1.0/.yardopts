@@ -1,0 +1,6 @@
+--title "state_machine"
+--readme README.md
+--markup-provider redcarpet
+-
+CHANGELOG.md
+LICENSE

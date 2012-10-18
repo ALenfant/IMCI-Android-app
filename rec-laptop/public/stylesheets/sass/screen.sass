@@ -1,0 +1,1258 @@
+$link:      #007ec5
+$bg_th:     #f2ffe7
+$border_th: #ccff99
+$color_th:  #66cc33
+
+*
+  outline: none
+
+body
+  background: #e8e8e5 url(../images/backgrounds/bg-header.gif) repeat-x 0 -27px
+  font-family: Verdana
+  font-size: 12px
+  margin: auto
+  -webkit-font-smoothing: antialiased
+  width: 1000px
+  &.lobby, &.empty
+    margin-top: 100px
+  &.empty
+    background-image: none
+    &>.message
+      margin: auto
+      width: 400px
+      text-align: center
+      font-size: 3em
+html.pending body>*
+  opacity: 0.4
+.page-loader
+  display: block
+  content: ""
+  position: absolute
+  left: 0
+  top: 100px
+  width: 100%
+  height: 200px
+  background: url(../images/hourglass.png) transparent center center no-repeat
+  opacity: 1 !important
+  z-index: 4000
+.preload
+  visibility: hidden
+  position: absolute
+  width: 1px
+  height: 1px
+
+.warning
+  background-color: #ffffe0
+  color: red
+.profile-child strong.warning
+  background-color: transparent
+
+input.disabled
+  background: url(../images/backgrounds/disabled.gif) transparent center center no-repeat
+  opacity: 0.2
+input.invalid
+  border-color: red !important
+
+div#alert
+  position: absolute
+  padding: 2em 3em
+  background-color: rgba(0, 0, 0, 0.85)
+  color: white
+  font-size: 1.2em
+  font-weight: bold
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 1)
+  border-radius: 6px
+  visibility: hidden
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7)
+  
+div.query-graph
+  overflow: hidden
+  object
+    margin: -30px 0 -10px -150px
+  
+.treatment-help>.content
+  overflow: auto !important
+#transient
+  background-color: white
+  position: fixed
+  -webkit-box-shadow: 0 1px 0.5em rgba(0, 0, 0, 0.6)
+  -webkit-border-radius: 3px
+  padding: 0
+  &>.content
+    overflow: hidden
+    padding: 25px 10px 5px 10px
+  .close-transient
+    position: absolute
+    top: 0px
+    right: 10px
+    cursor: pointer
+    text-align: center
+    line-height: 20px
+    font-weight: bold
+    width: 40px
+    background-color: #c00
+    color: white
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5)
+    border-bottom-right-radius: 3px
+    border-bottom-left-radius: 3px
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6)
+  .close-transient:hover
+    background-color: #f00
+    -webkit-box-shadow: 0 0 7px rgba(255, 0, 0, 0.8)
+  .graph
+    margin: -40px -40px -20px -50px !important
+  h2
+    position: absolute
+    top: 1em
+    left: 1em
+#transient, section
+  *:first-child
+    margin-top: 0
+  *:last-child
+    margin-bottom: 0
+
+object
+  display: block
+  margin: auto
+
+.right
+  float: right
+
+.left
+  float: left
+
+button
+  cursor: pointer
+
+.welcome
+  h1, h2, p
+    color: #333
+    text-align: center
+  div.new, div.restore, div.back
+    display: none
+  h2
+    font-size: 1em
+    font-weight: normal
+  .choose, form
+    background-color: white
+    -webkit-border-radius: 12px
+    padding: 20px
+    width: 215px
+    margin: auto
+    border: 3px solid #d3d3d0
+    -webkit-border-radius: 12px
+    div>*
+      display: inline-block
+      width: 200px
+      font-size: 1.3em
+    div:last-child
+      margin-top: 10px
+      text-align: center
+    div.errors
+      color: red
+      margin: 0 0 5px 0
+      text-align: left
+      position: relative
+      top: -10px
+      font-size: 0.9em
+    label
+      font-size: 1.2em
+      display: block
+      margin: 0 0 5px
+      color: #333
+    input, select
+      margin: 0 0 15px
+    button
+      background: url(../images/backgrounds/bg-headings.gif) repeat-x 0 0
+      border: 2px solid #0096eb
+      color: white
+      font-weight: bold
+      -webkit-border-radius: 7px
+      width: 210px
+      height: 32px
+      line-height: 15px
+      &:hover
+        background: #45b0ec
+    
+input.blank
+  color: #999
+
+a
+  color: $link
+
+h1
+  color: maroon
+  font-size: 1.4em
+
+h2
+  font-size: 1.4em
+  &.em
+    text-align: center
+    font-size: 2em
+    color: #333
+    margin: 18px 0 0
+    text-shadow: 0 1px 0 rgba(250, 250, 250, 1)
+    &.show
+      font-size: 1.5em
+      & + nav
+        margin-top: -42px
+      .by
+        font-weight: normal
+        display: block
+        font-size: 0.9em
+h3
+  float: left
+
+select + .switch
+  cursor: pointer
+
+.switch
+  &.disabled
+    opacity: 0.7
+  border: 1px solid #c0c0c0
+  position: relative
+  display: inline-block
+  color: #666
+  font-weight: bold
+  font-size: 1.1em !important
+  background: url(../images/backgrounds/bg-switch.gif) repeat-x 0 0
+  padding: 1px 1px
+  -webkit-border-radius: 5px
+  overflow: hidden
+  -webkit-user-select: none
+  margin: 3px 0 0 0 !important
+  width: auto !important
+  &.no
+    .no
+      background-color: #51a100
+      color: white
+      border-color: #407e01
+    .yes
+      color: #777
+  &.yes
+    .yes
+      background-color: #f00
+      color: white
+      border-color: #ae0000
+    .no
+      color: #777
+  &.negative.no .no
+    background-color: #f00
+    border-color: #ae0000
+  &.negative.yes .yes
+    background-color: #51a100
+    border-color: #407e01
+  div
+    -webkit-border-radius: 4px
+    font-size: 10px !important
+    padding: 3px 2px
+    display: inline-block
+    width: 3em !important
+    border: 1px solid #b4b4b4
+    text-align: center
+    background-color: #ededed
+    color: #777
+    text-transform: uppercase
+    margin: 0 !important
+    &:last-child
+      margin: 0 3px 0 0 !important
+  .no
+    float: left
+  .yes
+    float: right
+    
+header
+  position: relative
+  display: block
+  height: 44px
+  line-height: 50px
+  margin: 0 0 10px
+  overflow: hidden
+  .menu
+    float: left
+    list-style: none
+    margin: 7px 0 0 10px
+    padding: 0
+    li
+      padding: 0
+      margin: 0 10px 0 0
+      float: left
+      font-size: 11px
+      a
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.2)
+        padding: 5px 10px 4px 35px
+        line-height: 20px !important
+        color: white
+        text-decoration: none
+        display: block
+        background: #777 url(../images/icons/menu.png) no-repeat 8px 7px
+        -webkit-border-radius: 4px
+        position: relative
+        &.search
+          background-position: 8px -124px
+        &.queries
+          background-position: 8px -43px
+        &.syncs
+          background-position: 8px -81px
+        &:hover
+          background-color: #333
+        strong
+          background: #c00
+          border: 2px solid white
+          -webkit-border-radius: 100px
+          -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 1px 3px
+          padding: 0 5px
+          height: 17px
+          line-height: 17px
+          position: absolute
+          right: -15px
+          top: -4px
+        
+  form
+    float: right
+    margin: 0 10px
+    font-size: 13px
+    position: relative
+    top: -4px
+    color: white
+  #user
+    font-weight: bold
+  button
+    background: url(../images/backgrounds/bg-header.gif) no-repeat
+    border: none
+    cursor: pointer
+    height: 27px
+    position: relative
+    top: -4px
+    width: 27px
+    color: transparent
+    font-size: 0
+    margin: 0 0 0 5px
+
+ul#breadcrumbs
+  float: left
+  list-style: none
+  margin: 11px 0 0 10px
+  padding: 0
+  li
+    margin: 0
+    float: left
+    font-size: 11px
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.2)
+    padding: 0 5px 0 20px
+    height: 20px
+    line-height: 20px !important
+    color: white
+    text-decoration: none
+    display: block
+    background: #777 url(../images/backgrounds/bg-breadcrumbs.gif) no-repeat left top
+    position: relative
+    &:last-child
+      background: #616161 url(../images/backgrounds/bg-breadcrumbs.gif) no-repeat left bottom
+      -webkit-border-bottom-right-radius: 3px
+      -webkit-border-top-right-radius: 3px
+      padding: 0 10px 0 20px
+    &:first-child
+      background: #777
+      padding: 0 0 0 5px
+      -webkit-border-bottom-left-radius: 3px
+      -webkit-border-top-left-radius: 3px
+    a
+      color: white
+      &:hover
+        text-shadow: 0 0 5px white
+
+.result-count
+  text-align: center
+  color: #666
+  font-size: 1.2em
+  padding: 10px 0
+  strong
+    color: #007EC5
+
+nav
+  display: block
+  text-align: center
+  overflow: hidden
+  margin: 0 0 15px
+  &.results
+    color: #555
+    margin: 20px 0 0
+    font-size: 1.1em
+    background: #f6f6f6
+    padding: 15px 0
+    -webkit-border-radius: 5px
+  &#prev
+    float: left
+    line-height: 43px
+    a
+      background-image: url(../images/backgrounds/button-back-index.png)
+      font-weight: bold
+      height: 38px
+      line-height: 38px
+      padding: 0 5px 0 37px
+      text-shadow 0 -1px 0 #0096eb
+      &:after  
+        background: url(../images/backgrounds/button-back-index.png) -39px right no-repeat
+        height: 38px
+  p.hint
+    background-color: #e4a000
+    border: 2px solid #b27d01
+    color: white 
+    display: inline-block
+    font-size: 1.15em
+    height: 29px
+    line-height: 29px
+    margin: 0
+    padding: 0 7px
+    -webkit-border-radius: 6px
+nav a, nav button, section button[type=submit]
+  display: inline-block
+  border: none
+  cursor: pointer
+  font-size: 12px
+  height: 29px
+  line-height: 29px
+  position: relative
+  padding: 0 2px 0 9px
+  margin: 0 17px 0 10px
+  text-decoration: none
+  /* Overrideable:
+  background: url(../images/bnl.png)
+  color: white
+  &.new-diagnostic
+    background: url(../images/backgrounds/button-new-diagnostic.gif)
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 7px 0 50px
+    &:after  
+      background: url(../images/backgrounds/button-new-diagnostic.gif) right -46px no-repeat
+      height: 46px
+      width: 10px
+  &.new-user
+    background: url(../images/backgrounds/button-new-user.gif)
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 7px 0 50px
+    &:after  
+      background: url(../images/backgrounds/button-new-user.gif) right -46px no-repeat
+      height: 46px
+      width: 10px
+  &.new-user-child
+    background: url(../images/backgrounds/button-new-child.gif)
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 7px 0 50px
+    &:after  
+      background: url(../images/backgrounds/button-new-child.gif) right -46px no-repeat
+      height: 46px
+      width: 10px
+  &.new-user-child-min
+    background: url(../images/backgrounds/button-new-child-min.gif)
+    font-size: 1em
+    font-weight: bold
+    height: 30px
+    line-height: 30px
+    padding: 0 3px 0 35px
+    &:after  
+      background: url(../images/backgrounds/button-new-child-min.gif) right -30px no-repeat
+      height: 46px
+      width: 7px
+  &.new-search
+    background: url(../images/backgrounds/button-new-search.gif)
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 7px 0 50px
+    &:after  
+      background: url(../images/backgrounds/button-new-search.gif) right -46px no-repeat
+      height: 46px
+      width: 10px
+  &.new-search-min
+    background: url(../images/backgrounds/button-new-search-min.gif)
+    font-size: 1em
+    font-weight: bold
+    height: 30px
+    line-height: 30px
+    padding: 0 3px 0 35px
+    &:after  
+      background: url(../images/backgrounds/button-new-search-min.gif) right -30px no-repeat
+      height: 46px
+      width: 7px
+  &.validation
+    background: url(../images/backgrounds/button-validation.gif)
+    float: right
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 42px 0 12px
+    &.disabled
+      background-position: 0 -92px
+      &:after
+        background-position: right -138px
+    &:after  
+      background: url(../images/backgrounds/button-validation.gif) right -46px no-repeat
+      height: 46px
+      width: 40px
+  &.edit
+    background: url(../images/backgrounds/button-edit.gif)
+    float: left
+    font-size: 1.4em
+    font-weight: bold
+    height: 46px
+    line-height: 46px
+    padding: 0 8px 0 47px
+    &.em
+      background: url(../images/backgrounds/button-edit-light.gif)
+      &:after  
+        background: url(../images/backgrounds/button-edit-light.gif) right -46px no-repeat
+    &:after  
+      background: url(../images/backgrounds/button-edit.gif) right -46px no-repeat
+      height: 46px
+      width: 15px
+  &:after
+    display: block
+    position: absolute
+    top: 0
+    right: -7px
+    content: ""
+    height: 29px
+    width: 7px
+    background: url(../images/bnr.png) right center no-repeat
+
+nav a
+  &.edit
+    font-size: 1.3em
+
+.profile-child
+  overflow: hidden
+  .photo
+    margin: 10px 0 0 13px
+    float: left
+    cursor: pointer
+    img
+      width: 110px
+      height: 110px
+
+  section
+    float: right
+    padding: 17px 20px
+    width: 800px
+    span.name
+      color: $link
+      font-size: 1.55em
+      font-weight: bold
+    .editable
+      width: 350px
+      float: left
+      position: relative
+      margin: 0 0 10px
+      form
+        margin: 0
+      button.edit
+        background: url(../images/icons/edit.gif) no-repeat 0 0
+        position: absolute
+        right: 5px
+        height: 19px
+        line-height: 19px
+        padding: 0 0 0 30px
+        color: $link
+        font-size: 1.2em
+        font-weight: bold
+        top: 5px
+        border: 0
+        margin: 0
+        &:hover
+          text-decoration: underline
+      form
+        button
+          background-position: 0 -19px
+          color: #7bdb27
+          &:after
+            background: none
+          
+      p
+        color: #666
+        font-size: 1.1em
+        line-height: 1.4em
+        margin: 12px 0 0
+        input[type=text]
+          min-width: 78px
+        &.name
+          margin: 0 0 3px
+          overflow: hidden
+          strong
+            padding: 5px 0 0
+            width: 85px
+            display: block
+            float: left
+          input[type=text]
+            font-size: 1.2em
+            width: 125px
+
+section
+  &.select-treatments
+    &>div
+      padding: 0.6em 0
+    select
+      float: right
+  &.consultation, &.resume
+    div.measurements
+      float: none
+      width: auto
+      h2
+        cursor: default !important
+      table
+        float: left
+        border-bottom: 2px solid #e6e6e6
+        -webkit-border-bottom-left-radius: 4px
+        td, th
+          height: auto
+      .ratios
+        float: right
+        clear: none
+        -webkit-border-top-right-radius: 4px
+        ul
+          border-bottom-left-radius: 0
+          border-left: none
+          li
+            &.weight_age
+              width: 169px
+            &.height_age
+              width: 169px
+            &.weight_height
+              width: 170px
+      &:after
+        display: block
+        content: ""
+        clear: both
+    
+.profile-child section, section.consultation, section.resume
+  .warn
+    float: left
+    color: red
+    margin-top: 2em
+  div.vaccinations
+    clear: both
+    margin: 10px 0 0
+    overflow: hidden
+    color: #666
+    input
+      margin: 0 0 0 5px
+    label
+      font-size: 1.1em
+    h3
+      float: left
+      font-size: 1.1em
+      margin: 0
+    ul
+      font-size: 1.1em
+      list-style: none
+      padding: 0
+      margin: 0
+      overflow: hidden
+      li
+        background: url(../images/icons/check.gif) no-repeat 0 2px
+        float: left
+        margin: 0 5px 0 10px
+        padding: 0 0 0 20px
+        &.no
+          background: url(../images/icons/no.gif) no-repeat 0 2px
+  .measurements
+    width: 440px
+    float: right
+    margin-bottom: 10px
+    h2
+      background: $bg_th
+      color: $color_th
+      font-size: 1.1em
+      padding: 5px 7px
+      text-align: center
+      border: 2px solid $border_th
+      -webkit-border-top-left-radius: 4px
+      -webkit-border-top-right-radius: 4px
+      margin: 0
+      min-height: 10px !important
+      line-height: normal
+    p, ul
+      display: block
+      border: 2px solid #e6e6e6
+      border-top: 0
+      margin: 0
+      -webkit-border-bottom-left-radius: 4px
+      -webkit-border-bottom-right-radius: 4px
+      padding: 10px
+      color: #666
+    table
+      background: white
+      border: 2px solid #e6e6e6
+      border-top: 0
+      border-bottom: 1px solid #e6e6e6
+      padding: 7px 0 5px
+      margin: 0
+      width: 440px !important
+      th
+        color: #666
+        text-align: right
+        font-size: 1.1em
+        width: auto
+      th, td
+        border-bottom: 0
+        min-width: inherit !important
+        -webkit-border-bottom-left-radius: 4px
+        -webkit-border-bottom-right-radius: 4px
+      td
+        border-right: 2px solid #e6e6e6
+        color: #333
+        min-width: 50px !important
+        &:last-child
+          border-right: 0
+      em
+        color: #9ebbcc
+        font-style: normal
+      input[type=text]
+        width: 30px
+    .ratios
+      overflow: hidden
+      clear: both
+      h3
+        display: block
+        color: #666
+        font-size: 1.1em
+      ul
+        padding: 0
+        display: block
+        margin: 0
+        padding: 7px 0
+        list-style: none
+        overflow: hidden
+        clear: both
+        li
+          width: 144px
+          text-align: center
+          background: white
+          border-right: 2px solid #E6E6E6
+          float: left
+          text-align: middle
+          color: $link
+          &.has-graph
+            cursor: pointer
+          &.weight_age
+            width: 137px
+          &.height_age
+            width: 142px
+          &.weight_height
+            width: 153px
+          span
+            font-size: 1em
+            font-weight: bold
+          strong
+            font-size: 1.3em
+            color: #3a3
+            font-weight: normal
+          div.graph
+            display: none
+          &:last-child
+            border-right: none
+          &.has-graph:hover
+            text-decoration: underline
+            strong
+          &.alert
+            strong
+              color: #c00
+            &:hover
+          &.warning
+            strong
+              color: #f80
+            &:hover
+          &.disabled
+            strong
+              color: #888
+        
+section
+  /* One section is 960px wide
+  background-color: #fff
+  border: 3px solid #d3d3d0
+  display: block
+  margin: 10px
+  padding: 10px
+  -webkit-border-radius: 12px
+  &>h2
+    &:first-child
+      background-color: #f96
+      margin: -10px
+      margin-bottom: 0
+      padding: 10px
+      border-bottom: solid 1px #888
+      -webkit-border-top-left-radius: 12px
+      -webkit-border-top-right-radius: 12px
+    &:last-child
+      -webkit-border-radius: 12px
+      border-bottom: none
+      margin-bottom: -10px
+  &.closed
+    -webkit-border-radius: 14px
+  h2.consultation
+    cursor: auto !important
+    background-position: 0 0 !important
+  &.list-arrow
+    ul
+      list-style: none
+      padding: 0
+      margin: 0
+      li
+        -webkit-border-radius: 5px
+        a
+          display: block
+          padding: 10px 12px
+          font-size: 1.2em
+          -webkit-border-radius: 5px
+          text-decoration: none
+          background: url(../images/icons/link.png) no-repeat right 7px
+          &:hover
+            background: $link url(../images/icons/link.png) no-repeat right -49px
+            color: white
+            .by
+              color: white
+              border-color: white
+        &.odd
+          background: #f4f4f4
+        .by
+          border-left: 1px solid #ccc
+          padding: 0 0 0 8px
+          margin: 0 0 0 8px
+          color: #333
+  &.resume
+    overflow: hidden
+    padding: 10px 10px 20px
+    .contain
+      overflow: hidden
+      margin: 0 0 7px
+      padding: 16px 0 13px
+      .measurements
+        margin: 0 !important
+    h2.resume
+      cursor: auto
+      background-position: 0 -168px
+  &.treatment
+    font-weight: bold
+    color: black
+    line-height: 1.4em
+    &.high
+      background: #ee5454
+      ol
+        li
+          border-bottom: 1px solid #db4747
+          
+    &.medium
+      background: #ffd510
+      ol
+        li
+          border-bottom: 1px solid #e7c00a
+          
+    &.low
+      background: #cbf2a4
+      ol
+        li
+          border-bottom: 1px solid #b3db8a
+          
+    ol
+      margin: 8px 0 0
+      padding: 0 0 0 27px
+      overflow: hidden
+      ol
+        font-size: 1em
+      li
+        margin: 5px 0 0
+        border-bottom: 1px solid #ededed
+        padding: 0 0 7px
+      li:last-child
+        border: none
+    textarea
+      width: 942px
+      height: 70px
+    h2
+      cursor: auto !important
+        
+  &.illness, &.consultation, &.resume, &.treatment
+    &.list-arrow
+      ul
+        margin: 10px 0 0
+    h2
+      background: #007dc4 url(../images/backgrounds/bg-headings.gif) repeat-x 0 0 
+      color: white
+      min-height: 32px
+      cursor: pointer
+      padding: 0 0 0 10px
+      line-height: 32px
+      border: 0
+      -webkit-border-top-left-radius: 9px
+      -webkit-border-top-right-radius: 9px
+      overflow: hidden
+      img
+        position: relative
+        float: right
+        top: 5px
+        right: 10px
+      a
+        color: white
+        text-decoration: underline
+        &.edit, &.treatments
+          border-left: 2px solid white
+          padding-left: 8px
+          margin-left: 8px
+        &.edit
+          background: url(../images/icons/edit.gif) no-repeat 7px -50px
+          padding-left: 34px
+          margin-left: 8px
+      ul
+        overflow: hidden
+        float: right
+        padding: 0
+        margin: 0 5px 0 0
+        width: 650px
+        text-align: right
+        li
+          color: #94ccec
+          display: inline-block 
+          line-height: 28px 
+          list-style: none
+          margin: 2px 0
+          &.true
+            background-color: red
+            color: white
+            padding: 0 7px 
+            -webkit-border-radius: 5px
+          &.false
+            display: none
+          &.error
+            display: none
+    tr
+      &:nth-child(even)
+        th, td
+          background-color: #ddd
+      th
+        color: #666
+        width: 650px
+        font-weight: normal
+      th, td
+        height: 25px
+        min-width: 100px
+        .question
+          margin: 0 20px 0 0
+          float: left
+          line-height: 28px
+  &.closed
+    padding-bottom: 0
+    &>*
+      display: none
+    &>h2
+      display: block
+      border: none
+      -webkit-border-radius: 12px
+  h1
+    background: url(../images/backgrounds/bg-headings.gif) repeat-x 0 0
+    border: 2px solid #0096eb
+    color: white
+    display: block
+    height: 32px
+    line-height: 32px
+    margin: 0
+    padding: 0 0 0 10px
+    -webkit-border-top-left-radius: 4px
+    -webkit-border-top-right-radius: 4px
+  h2
+    background: $bg_th
+    color: $color_th
+    font-size: 1.1em
+    padding: 5px 7px
+    border: 2px solid $border_th
+    -webkit-border-top-left-radius: 4px
+    -webkit-border-top-right-radius: 4px
+  tr.odd
+    td
+      background: #f6f6f6
+  table
+    border-spacing: 0
+    &.results
+      background: none
+      border-bottom: 2px solid #efefef
+      -webkit-border-bottom-left-radius: 5px
+      -webkit-border-bottom-right-radius: 5px
+      th
+        background: #edfae1
+        border: 2px solid #dcf4c8
+        border-left: 0
+        color: $color_th
+        font-size: 1em
+        padding: 5px 10px
+        &:first-child
+          border-left: 2px solid #dcf4c8
+          -webkit-border-top-left-radius: 6px
+        &:last-child
+          -webkit-border-top-right-radius: 6px
+      td
+        border-right: 2px solid #efefef
+        border-bottom: 0px solid #efefef
+        color: #666
+        font-size: 1.2em
+        padding: 8px 10px
+        strong
+          color: #222
+        &:first-child
+          border-left: 2px solid #efefef
+  ul.pagination
+    text-align: center
+    font-size: 1.2em
+    font-weight: bold
+    margin: 15px 0 10px
+    li
+      display: inline
+      color: #666
+      &.em
+        a
+          border: 0
+      a
+        border: 3px solid #e5e5e5
+        -webkit-border-radius: 50px
+        padding: 3px 7px
+        text-decoration: none
+        &:hover
+          background: $link
+          border-color: $link
+          color: white
+           
+table
+  background-color: #bbb
+  margin: 1em 0
+  width: 100%
+  border-spacing: 1px
+fieldset
+  border: solid 3px #ddd
+  margin: 1.4em 0
+  legend
+    font-size: 1.3em
+    padding: auto 1em
+  table
+    border-spacing: 0
+    background-color: transparent
+  th, td
+    border: none
+    background-color: transparent
+
+th, td
+  text-align: left
+  padding: 2px 4px
+
+th
+  background-color: white
+  a
+    float: right
+    text-decoration: none
+    background-color: #c7e7ac
+    color: white
+    -webkit-border-radius: 0.5em
+    margin-left: 2px
+    &.link
+      text-shadow: 0 1px 0 rgba(0,0,0,0.2)
+      -webkit-border-radius: 4px
+      padding: 3px 7px
+      font-size: 0.9em
+      &:hover
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.1)
+        background-color: $color_th - #333
+    &.current, &:hover
+      background-color: $color_th 
+
+td
+  background-color: white
+
+table+div.pagination
+  margin: -1em 0 0 0
+  border: solid 2px #bbb
+  border-top: none
+  background-color: #fed
+  form
+    text-align: center
+    margin: 0
+    padding: 2px
+    border: solid 1px white
+
+div.pagination
+  input
+    text-align: right
+    width: 2em
+  a
+    text-decoration: none
+    font-size: 1.2em
+    color: black
+
+.profile>div
+  float: left
+  padding: 4px
+
+.profile
+  h1
+    font-size: 1.6em
+  h2
+    font-size: 1em
+  img
+    width: 130px
+    height: 130px
+    display: block
+    -webkit-border-radius: 8px
+  div+div
+    margin-left: 10px
+    padding: 10px
+    width: 512px
+    height: 118px
+  div+div+div
+    margin-left: 10px
+    padding: 10px
+    width: 270px
+    height: 118px
+
+.consultation, .resume
+  table
+    float: left
+    width: 500px
+  table+table
+    float: right
+    width: 38%
+  table+ul, table+p
+    float: right
+    width: 37%
+    padding: 0
+  ul.classification
+    font-size: 1.3em
+    li
+      padding: 0 0 10px
+      color: red
+
+.profile:after, .consultation:after
+  display: block
+  content: ""
+  clear: both
+  height: 0
+
+tr.has-errors th, tr.unsynced td
+  color: red !important
+    
+div.fieldWithErrors 
+  display: inline
+  input[type=text], input[type=password]
+    border-color: red
+    &:focus
+      border-color: red
+      -webkit-box-shadow: rgba(250, 0, 0, 0.8) 0px 0px 5px
+
+p.tip
+  color: #666
+  font-size: 1.3em
+  text-align: center
+  padding: 10px 50px 10px
+  strong
+    color: #007EC5
+
+div.no-result
+  padding: 40px 0 
+  text-align: center
+  p
+    color: #666
+    font-size: 1.3em
+    padding: 0 0 20px
+    strong
+      color: #007EC5
+
+.next
+  margin-top: 15px
+  text-align: right
+  button.next
+    position: relative
+    display: inline-block
+    color: white
+    border: none
+    background: url(../images/backgrounds/button-next.gif)
+    font-size: 1.4em
+    font-weight: bold
+    height: 30px
+    line-height: 30px
+    padding: 0 40px 0 17px
+    &.disabled
+      background-position: 0 -60px
+      &:after
+        background-position: right -90px
+    &:after  
+      position: absolute
+      right: 0
+      top: 0
+      display: block
+      content: ""
+      background: url(../images/backgrounds/button-next.gif) right -30px no-repeat
+      height: 30px
+      width: 30px
+
+p.error
+  text-align: center
+  color: maroon !important
+  font-size: 1.1em
+  background: #ffecec
+  margin: 0 0 10px
+  padding: 10px 0
+
+.danger
+  color: red !important
+  font-weight: bold
+.ok
+  color: green !important
+
+.aided-search
+  select
+    display: none
+  input
+    display: block
+    width: 100%
+    font-size: 1.5em
+  ul
+    padding: 0
+    height: 13em
+    font-size: 1.5em
+    li
+      cursor: pointer
+      &:hover
+        background-color: #ffd
+
+section.resume .measurements table
+  width: 100% !important
+
+section.resume .measurements table.indices
+  th
+    color: #007acf
+    font-size: 14px
+    font-weight: bold
+  td
+    font-weight: bold
+    color: #888
+    font-size: 18px
+
+div.help
+  display: none
+
+p.age-group-warning
+  color: red
+  text-align: center
+  font-size: 1.2em
+  border: 2px solid red
+  padding: 5px
+  margin: 5px 10px 10px 10px
+
+table.users tr.remote
+  opacity: 0.8

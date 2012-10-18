@@ -1,0 +1,90 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Nouvelle Recherche", children_path
+    %li= link_to @diagnostic.child.name, @diagnostic.child
+    %li Evaluation
+    
+= partial 'children/profile'
+
+%h2.em.show
+  %strong
+    = l(@diagnostic.done_on.getlocal, :format => :long)
+    (#{t(:from, :scope => :datetime)}
+    #{time_ago_in_words(@diagnostic.done_on)})
+  %span.by Evaluation réalisée par #{@diagnostic.author.name}
+
+- editable = Csps.point? && @diagnostic.author == current_user
+- if editable || @diagnostic.classifications.any?
+  %nav
+    - if editable
+      = link_to 'Modifier', edit_child_diagnostic_path(@child, @diagnostic), :class => 'edit em'
+    - if @diagnostic.classifications.any?
+      = link_to 'Traitements', treatments_child_diagnostic_path(@child, @diagnostic), :class => 'validation'
+
+- if @child.age_group != @diagnostic.age_group
+  %p.age-group-warning
+    Ce diagnostic a été réalisé lorsque le patient était dans une tranche d'âge
+    différente.
+
+%section.resume
+  .measurements
+    %h2 Mesures lors de la consultation
+    %table
+      %tbody
+        %tr
+          %th Taille
+          - if @diagnostic.height.present?
+            %td #{@diagnostic.height.round(1)} cm
+          - else
+            %td -
+          %th Poids
+          - if @diagnostic.weight.present?
+            %td #{@diagnostic.weight.round(2)} kg
+          - else
+            %td -
+          %th Temp.
+          - if @diagnostic.temperature.present?
+            %td #{@diagnostic.temperature.round(1)} °C
+          - else
+            %td -
+          %th Périm. Brac.
+          - if @diagnostic.mac.present?
+            %td{ class: class_for_mac(@diagnostic.mac) } #{@diagnostic.mac} mm
+          - else
+            %td -
+        %tr
+    %table.indices
+      %tbody
+        %tr
+          - %w(weight_height height_age weight_age).each do |name|
+            - value = @diagnostic ? index_value(@diagnostic, name) : nil
+            %th= t(name, :scope => :indices)
+            %td= value ? value.to_i.to_s+' %' : '-'
+  - if @diagnostic.failed_classifications.try :any?
+    %section.warning
+      %h3 Les classifications suivante on échoués:
+      %ul
+        - for c in Classification.find(@diagnostic.failed_classifications) do
+          %li= c.name
+
+  - for i in Illness.order(:sequence) do
+    - answers = @diagnostic.sign_answers.for(i).sort.select {|a| a.applicable?}
+    - if answers.any?
+      %section.consultation
+        %h2.consultation= i.name
+        %table
+          - for sa in answers do
+            %tr
+              %th(scope="row")!= sa.sign.question
+              %td!= sa.html_value rescue sa.value
+        - cs = @diagnostic.classifications.for(i)
+        %ul.classification
+          - for c in cs do
+            %li= c.name
+
+- if editable || @diagnostic.classifications.any?
+  %nav
+    - if editable
+      = link_to 'Modifier', edit_child_diagnostic_path(@child, @diagnostic), :class => 'edit em'
+    - if @diagnostic.classifications.any?
+      = link_to 'Traitements', treatments_child_diagnostic_path(@child, @diagnostic), :class => 'validation'

@@ -1,0 +1,35 @@
+.profile-child{'data-gender' => @child.gender.to_s}
+  #mugshot.photo{:"data-field" => 'child[photo]', :"data-action" => child_path(@child)}
+    %img{alt: '', src: @child.photo.url}
+  %section
+    .editable
+      %span.name= @child.name
+      %p
+        %strong< #{@child.gender ? 'Né' : 'Née'} le :
+        - if @diagnostic.new_record?
+          - @diagnostic.born_on = @child.born_on
+          = form.date_select(:born_on, :start_year => Date.today.year, :end_year => Date.today.year - 18, :include_blank => true)
+          %br/
+          %span.warning Ne modifiez la date que si celle-ci est incorrecte !
+        - else
+          #{l @diagnostic.born_on},
+          %span.age{'data-age' => @diagnostic.age, 'data-months' => @diagnostic.months}<= months_to_text @diagnostic.months
+        %br/
+        %strong Zone : #{@child.village.try(:name) || '-'}
+
+    .measurements= partial 'diagnostics/edit_measurements', locals: { form: form }
+    .vaccinations
+      %h3 Etat vaccinal :
+      = form.fields_for :child do |fields|
+        - for key, name in Child::VACCINATIONS do
+          = fields.check_box key, checked: @child.send(key)
+          = fields.label key, name
+    .warn{'data-condition' => 'data.enfant.age < 5'}
+      L'âge de l'enfant doit être compris entre 0 et 59 mois.
+    .next
+      %button.next(type="button") Continuer
+
+.illnesses= partial 'diagnostics/edit_signs', locals: { form: form }
+
+%nav
+  %button.validation(type="submit") Choisir les traitements

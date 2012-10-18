@@ -1,0 +1,21 @@
+.profile-child
+  #mugshot.photo{:"data-field" => 'child[photo]', :"data-action" => child_path(@child)}
+    %img{alt: '', src: @child.photo.url}
+  %section
+    .editable{'data-edit-href' => edit_child_path(@child)}
+      = partial 'children/'+(show? ? 'show' : 'edit'), locals: { child: @child }
+    .measurements
+      %h2 Dernières mesures
+      - if @child.last_visit
+        = partial 'children/measurements', locals: { diagnostic: @child.last_visit }
+        = partial 'diagnostics/indices', locals: { diagnostic: @child.last_visit }
+      - else
+        %p Never measured.
+    .vaccinations
+      %h3 Etat vaccinal :
+      %ul
+        - Child::VACCINATIONS.each do |k,n|
+          - if @child.send(k)
+            %li.yes= n
+          - else
+            %li.no= n

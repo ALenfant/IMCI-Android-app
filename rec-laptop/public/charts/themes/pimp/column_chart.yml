@@ -1,0 +1,32 @@
+<%= chart :column %>
+  <%=comp :chart_border %>
+    top_thickness: 0
+    bottom_thickness: 1
+    left_thickness: 0
+    color: 000000
+    right_thickness: 0
+
+  <%=comp :axis_category %>
+    size: 13
+
+  <%=comp :axis_value %>
+    size: 14
+
+  <%=comp :chart_guide %>
+    radius:                 5
+    background_color:  ffffff
+    alpha:                 30
+    line_alpha:            50
+    thickness:              1
+    text_h_alpha:          80
+    text_v_alpha:          80
+    horizontal:          true
+    vertical:            true
+    type:              dashed
+    line_thickness:         1
+  
+  <%=comp :chart_transition %>
+    delay:               0
+    order:          series
+    type:      drop
+    duration:           1

@@ -1,0 +1,41 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Recherche Patient", children_path
+    %li Utilisateurs
+
+%nav= link_to 'Nouvel utilisateur', new_user_path, :class => 'new-user'
+
+%section
+  %h1 Utilisateurs de ce CSPS
+  %table.results.users
+    %thead
+      %tr
+        %th Nom
+        %th Administrateur
+        %th
+    %tbody
+      - for user in @users.where(zone_id: Zone.csps.id) do
+        %tr.local
+          %td= link_to user.name, [ :edit, user ]
+          %td= user.admin? ? 'Oui' : 'Non'
+          %td
+            - if user != current_user && user.diagnostics.empty?
+              - form_for user, html: { :method => :delete, :class => 'confirm', 'data-confirm' => "Supprimer #{user.name} ?" } do
+                %button{type: 'submit'} Supprimer
+            - else
+              Non autorisé à supprimer
+
+%section
+  %h1 Utilisateurs d'autres CSPS
+  %table.results.users
+    %thead
+      %tr
+        %th Nom
+        %th Administrateur
+        %th
+    %tbody
+      - for user in @users.where('zone_id != ?', Zone.csps.id) do
+        %tr.remote
+          %td= user.name
+          %td= user.admin? ? 'Oui' : 'Non'
+          %td Non autorisé à supprimer

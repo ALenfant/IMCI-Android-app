@@ -1,0 +1,27 @@
+%h2 Nouvelles mesures
+%table
+  %tbody
+    %tr
+      %th(scope='row') Taille
+      %td
+        = form.text_field :height, size: 4, class: 'float needed', 'data-condition' => 'data.enfant.age < 5', 'data-validate' => 'value >= 40 && value <= 170'
+        %em cm
+      %th(scope='row') Temp.
+      %td
+        = form.text_field :temperature, size: 4, class: 'float needed', 'data-condition' => 'data.enfant.age < 5', 'data-validate' => 'value >= 13 && value <= 47'
+        %em °C
+    %tr
+      %th(scope='row') Poids
+      %td
+        = form.text_field :weight, size: 4, class: 'float needed', 'data-condition' => 'data.enfant.age < 5', 'data-validate' => 'value >= 1 && value <= 40'
+        %em kg
+      - if form.object.new_record? or (form.object.months > 6 and form.object.months < 60)
+        %th(scope='row') Périm. Brac.
+        %td
+          = form.text_field :mac, size: 4, class: 'integer needed', 'data-condition' => 'data.enfant.months >= 6 && data.enfant.age < 5', 'data-key' => 'muac', 'data-validate' => 'value >= 50 && value <= 200'
+          %em mm
+.ratios
+  %ul
+    = partial 'diagnostics/index', locals: { name: 'weight_height', diagnostic: @diagnostic, graph: false }
+    = partial 'diagnostics/index', locals: { name: 'height_age', diagnostic: @diagnostic, graph: false }
+    = partial 'diagnostics/index', locals: { name: 'weight_age', diagnostic: @diagnostic, graph: false }

@@ -1,0 +1,45 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Nouvelle Recherche", children_path
+    %li= link_to @diagnostic.child.name, @diagnostic.child
+    %li= link_to "Evaluation", child_diagnostic_path(@diagnostic.child, @diagnostic)
+    %li Traitements
+    
+- unless @diagnostic.classifications.any?
+  - content_for :head do
+    %link{type:"application/json", rel:"calculations", href:calculations_child_diagnostic_path(@child, @diagnostic)}/
+
+= partial 'children/profile'
+
+%h2.em Traitements
+
+- if @diagnostic.failed_classifications.try :any?
+  %section.warning
+    %h3 Les classifications suivante on échoués:
+    %ul
+      - for c in Classification.find(@diagnostic.failed_classifications) do
+        %li= c.name
+
+- for res in @diagnostic.results.to_display do
+  %section.treatment{:class => Classification::LEVELS[res.classification.level]}
+    %h2= res.treatment.name
+    != res.treatment.html @diagnostic
+
+- form_for @diagnostic, url: child_diagnostic_path(@child, @diagnostic), html: { class: 'edit' } do |form|
+  - if @diagnostic.author == current_user
+    %section.treatment
+      %h2 Autres observations
+      = form.text_area :comments, cols:20, rows:5
+  - elsif @diagnostic.comments.present?
+    %section.treatment
+      %h2 Autres observations
+      %div= @diagnostic.comments
+    
+  %nav
+    - if Csps.point? && @diagnostic.author == current_user
+      = link_to "Modifier l'évaluation", edit_child_diagnostic_path(@child, @diagnostic), :class => 'edit'
+    - if @diagnostic.author == current_user
+      %input{type: 'hidden', name: 'diagnostic[state]', value:'closed'}/
+      %button.validation(type="submit") Terminer l'évaluation
+    - else
+      = link_to "Terminer l'évaluation", [ @child, @diagnostic ], :class => 'validation'

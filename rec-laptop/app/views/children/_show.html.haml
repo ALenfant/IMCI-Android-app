@@ -1,0 +1,11 @@
+%span.name= child.name
+%p
+  %strong #{child.gender ? 'Né' : 'Née'} le :
+  %span.age{'data-age' => child.age, 'data-months' => child.months}
+    #{l(child.born_on, :format => :long)}, #{months_to_text child.months}
+
+  %br/
+  %strong Village : 
+  #{child.village.try(:name) || '-'}
+- if Csps.point?
+  %button.edit(type="button") Modifier

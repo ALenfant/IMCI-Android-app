@@ -1,0 +1,18 @@
+- content_for :breadcrumbs do
+  %ul#breadcrumbs
+    %li= link_to "Nouvelle Recherche", children_path
+    %li= @child.name
+    
+%nav
+  - if Csps.point?
+    %p.hint Le patient se présente t-il à nouveau au dispensaire ?
+    = link_to 'Nouvelle évaluation', new_child_diagnostic_path(@child), :class => 'new-diagnostic'
+  
+= partial 'children/profile'
+
+%h2.em Liste des évaluations
+
+%section.list-arrow
+  %ul
+    - for diag in @child.diagnostics.order('id DESC').limit(5) do
+      %li{ :class => cycle("odd", "even") }= partial 'diagnostics/header', locals: { diagnostic: diag }

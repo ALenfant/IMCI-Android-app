@@ -1,0 +1,129 @@
+fr:
+  date:
+    formats:
+      default: '%d/%m/%Y'
+      short: '%d/%m'
+      long: '%d %B %Y'
+    order:
+      - :day
+      - :month
+      - :year
+    month_names: [ nil, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre ]
+    abbr_month_names: [ nil, Jan, Fév, Mar, Avr, Mai, Juin, Juil, Août, Sep, Oct, Nov, Déc ]
+ 
+  time:
+    formats:
+      default: "%d %B %Y %H:%M"
+      time: "%H:%M"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y %H:%M"
+      long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
+      only_second: "%S"
+      diagnostic: '%d/%m/%Y %Hh'
+    am: 'am'
+    pm: 'pm'
+  datetime:
+    from: 'Il y a'
+    distance_in_words:
+      half_a_minute: "une demi-minute"
+      less_than_x_seconds:
+        zero:  "moins d'une seconde"
+        one:   "moins de 1 seconde"
+        other: "moins de %{count} secondes"
+      x_seconds:
+        one:   "1 seconde"
+        other: "%{count} secondes"
+      less_than_x_minutes:
+        zero:  "moins d'une minute"
+        one:   "moins de 1 minute"
+        other: "moins de %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "environ une heure"
+        other: "environ %{count} heures"
+      x_days:
+        one:   "1 jour"
+        other: "%{count} jours"
+      about_x_months:
+        one:   "environ un mois"
+        other: "environ %{count} mois"
+      x_months:
+        one:   "1 mois"
+        other: "%{count} mois"
+      about_x_years:
+        one:   "environ un an"
+        other: "environ %{count} ans"
+      over_x_years:
+        one:   "plus d'un an"
+        other: "plus de %{count} ans"
+  signs:
+    'no': Non
+    medium: Moyen
+    high: Elevé
+    'yes+': 'Oui +'
+    'yes++': 'Oui ++'
+    'yes+++': 'Oui +++'
+    none: Aucun
+    lethargique_inconscient: Léthargique ou inconscient
+    agite_irritable: Agité ou irritable
+    normal: Normal
+    normales: Normales
+    normale: Normale
+    rapides: Rapides
+    hypothermique: Hypothermique
+    hypothermie_moderee: Hypothermie moderée
+    hypothermie_severe: Hypothermie sévère
+    fievre: Fièvre
+    nombreuses_severes: Nombreuses ou sévères
+    normalement: Normalement
+    avide: Avide
+    impossible: Difficilement
+    lentement: Lentement
+    tres_lentement: Très lentement
+    respiration_normale: Respiration normale
+    respiration_rapide: Respiration rapide
+    inconnue: Inconnue
+    inconnu: Inconnu
+    positive: Positive
+    negative: Négative
+    pas_prise: Pas de prise de sein
+    mauvaise_prise: Mauvaise prise de sein
+    bonne_prise: Bonne prise de sein
+    pas_succion: Pas de succion du tout
+    non_efficace: Succion non efficase
+    efficace: Succion efficace
+    pas_de_test: Pas de test
+    positif: Positif
+    negatif: Négatif
+    absente: Absente
+    absentes: Absentes
+    presentes: Présentes
+    profondes_etendues: Profondes et étendues
+    legere: Légère
+    severe: Sévère
+    aucun: Aucun
+    eruption: Eruption actuelle
+    antecedent: Antecedent
+    pas_indique: Pas indiqué
+    normaux: Normaux
+    bouge_stimule: Mouvements seulement si stimulation
+    pas_mouvements: Pas de mouvements même si stimulation
+    faible: faible
+    tres_faible: Très faible
+    negatif_grossesse: Négatif pendant la grossesse
+  indices:
+    weight_age: Poids/Age
+    height_age: Taille/Age
+    weight_height: Poids/Taille
+  levels:
+    low: Bas
+    medium: Moyen
+    high: Haut
+  activerecord:
+    errors:
+      messages:
+        blank: doit être rempli(e)
+        taken: déjà utilisé
+        confirmation: ne concorde pas avec la confirmation
