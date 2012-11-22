@@ -1,0 +1,136 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+ 
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+    	<TextView
+        	android:id="@+id/TextView1"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/name"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextName"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView3"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/family_name"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextFamilyName"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView5"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/idcard"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextIDcard"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+    	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView7"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/birth"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextBirth"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+    	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView9"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/address"
+    	    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextAddress"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView11"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/town"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextTown"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/textView13"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/postcode"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextPostcode"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+    	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+ 		<LinearLayout
+    		    android:layout_width="match_parent"
+   		    	android:layout_height="wrap_content"
+   		    	android:orientation="horizontal" >
+   		    
+ 	    	<Button
+	        	android:id="@+id/button1"
+	        	android:layout_width="wrap_content"
+	        	android:layout_height="match_parent"
+	        	android:layout_weight="1"
+	        	android:text="@string/confirm"
+	        	android:onClick="confirmInfo" />
+	
+	    	<Button
+    	        android:id="@+id/button2"
+   	    	    android:layout_width="wrap_content"
+   	        	android:layout_height="wrap_content"
+   	        	android:layout_weight="1"
+       	    	android:text="@string/modify"
+       	    	android:onClick="modifyInfo" />
+    	</LinearLayout>
+   	</LinearLayout>
+ 	
+	
+</ScrollView>
+

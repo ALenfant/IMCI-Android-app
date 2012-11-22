@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RegisterPatients</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_usuarios_sqlite_helper">UsuariosSQLiteHelper</string>
+    <string name="title_activity_patients_sqlite_helper">PatientsSQLiteHelper</string>
+    <string name="introduce">Introduce New Patient</string>
+    <string name="create">Create</string>
+    <string name="title_activity_new_patient">New Patient</string>
+    <string name="name">First Name</string>
+    <string name="family_name">Family Name</string>
+    <string name="birth">Date of Bitrh (dd/mm/yyyy)</string>
+    <string name="address">Address</string>
+    <string name="town">Town</string>
+    <string name="idcard">Identity Card</string>
+    <string name="postcode">Postal Code</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_display_info">New Patient\'s Information</string>
+    <string name="text_name">Reusable Name Patient</string>
+    <string name="text_family">Reusable Name Patient</string>
+    <string name="text_idcard">Reusable Name Patient</string>
+    <string name="text_birth">Reusable Name Patient</string>
+    <string name="text_address">Reusable Name Patient</string>
+    <string name="text_town">Reusable Name Patient</string>
+    <string name="text_postcode">Reusable Name Patient</string>
+    <string name="invalidName">Error: please enter a valid Name</string>
+    <string name="invalidFamily">Error: please enter a valid Family Name</string>
+    <string name="invalidID">Error: please enter a valid ID Document</string>
+    <string name="invalidBirth">Error: please enter a valid Date of Bird</string>
+    <string name="invalidAddress">Error: please enter a valid Address</string>
+    <string name="invalidPost">Error: please enter a valid Postal Code</string>
+    <string name="invalidTown">Error: please enter a valid Town</string>
+    <string name="confirm">Confirm</string>
+    <string name="modify">Modify</string>
+    <string name="title_activity_done_register">Patient Created Correctly</string>
+    <string name="patientCreated">This patient has been created correctly</string>
+    <string name="goBack">Return</string>
+    <color name="bkgColor">#A9E2F3</color>
+
+</resources>
