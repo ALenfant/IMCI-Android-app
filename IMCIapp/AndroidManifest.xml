@@ -24,6 +24,24 @@
             android:name=".QuestionsActivity"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity
+            android:name=".InitializationActivity"
+            android:label="@string/title_activity_initialization" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ZoneChoiceActivity"
+            android:label="@string/title_activity_zone_choice" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
