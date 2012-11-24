@@ -14,11 +14,11 @@
         	android:id="@+id/TextView1"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="@string/name"
+        	android:text="@string/first_name"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
-        	android:id="@+id/TextName"
+        	android:id="@+id/TextFirstName"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
@@ -28,11 +28,11 @@
         	android:id="@+id/TextView3"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="@string/family_name"
+        	android:text="@string/last_name"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
-        	android:id="@+id/TextFamilyName"
+        	android:id="@+id/TextLastName"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
@@ -42,16 +42,16 @@
         	android:id="@+id/TextView5"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="@string/idcard"
+        	android:text="@string/gender"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
-        	android:id="@+id/TextIDcard"
+        	android:id="@+id/TextGender"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
-
+  
     	<TextView
         	android:id="@+id/TextView7"
         	android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
-
+<!--  
     	<TextView
         	android:id="@+id/TextView9"
         	android:layout_width="wrap_content"
@@ -79,21 +79,21 @@
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
-
+-->
     	<TextView
         	android:id="@+id/TextView11"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="@string/town"
+        	android:text="@string/village"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
-        	android:id="@+id/TextTown"
+        	android:id="@+id/TextVillage"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
-
+<!-- 
     	<TextView
         	android:id="@+id/textView13"
         	android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
-
+ -->
  		<LinearLayout
     		    android:layout_width="match_parent"
    		    	android:layout_height="wrap_content"

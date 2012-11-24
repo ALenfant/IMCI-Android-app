@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Register extends Activity {
+public class RegisterActivity extends Activity {
 
 	
 	@Override
@@ -19,7 +19,7 @@ public class Register extends Activity {
 	/** Called when the user clicks the Send button */
 	public void pushCreate(View view) {
 		// Do something in response to button
-		Intent intent = new Intent(this, NewPatient.class);
+		Intent intent = new Intent(this, NewPatientActivity.class);
 		startActivity(intent);
 	}
 		
