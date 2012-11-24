@@ -16,9 +16,8 @@ public class RegisterActivity extends Activity {
 		setContentView(R.layout.activity_register);
 	}
 	   	
-	/** Called when the user clicks the Send button */
+	//Answer to Create button click
 	public void pushCreate(View view) {
-		// Do something in response to button
 		Intent intent = new Intent(this, NewPatientActivity.class);
 		startActivity(intent);
 	}

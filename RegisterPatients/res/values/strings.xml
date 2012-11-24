@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">RegisterPatients</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_register">Register</string>
-    <string name="title_activity_usuarios_sqlite_helper">UsuariosSQLiteHelper</string>
-    <string name="title_activity_patients_sqlite_helper">PatientsSQLiteHelper</string>
-    <string name="introduce">Introduce New Patient</string>
+    <string name="title_activity_register">Register New Patient</string>
+    <string name="addPatient">Press button to add a new patient into system</string>
     <string name="create">Create</string>
-    <string name="title_activity_new_patient">New Patient</string>
+    <string name="title_activity_new_patient">New Patient Data</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="birth">Date of Bitrh (dd/mm/yyyy)</string>
-    <string name="address">Address</string>
+    <string name="birth">Date of Bitrh</string>
     <string name="village">Village</string>
     <string name="gender">Gender</string>
-    <string name="postcode">Postal Code</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_display_info">New Patient\'s Information</string>
-    <string name="invalidName">Error: please enter a valid Name</string>
-    <string name="invalidFamily">Error: please enter a valid Family Name</string>
+    <string name="invalidFirstName">Error: please enter a valid First Name</string>
+    <string name="invalidFamilyName">Error: please enter a valid Family Name</string>
     <string name="invalidVillage">Error: please enter a valid Village</string>
     <string name="confirm">Confirm</string>
     <string name="modify">Modify</string>
     <string name="title_activity_done_register">Patient Created Correctly</string>
     <string name="patientCreated">This patient has been created correctly</string>
     <string name="goBack">Return</string>
-
-    <color name="bkgColor">#A9E2F3</color>
-
+    <color name="bkgColor">#CEECF5</color>
     <string name="male">Male</string>
     <string name="female">Female</string>
-
 </resources>

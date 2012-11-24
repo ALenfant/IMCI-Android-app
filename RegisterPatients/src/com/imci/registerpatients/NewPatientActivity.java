@@ -26,14 +26,15 @@ public class NewPatientActivity extends Activity {
         setContentView(R.layout.activity_new_patient);
     }
     
-    /** Called when the user clicks the Send button */
+    //Answer to Send button click
     public void sendInfo(View view) {
 
     	Intent intent = new Intent(this, DisplayInfoActivity.class);
     	
+    	//Passing data to next activity
     	EditText editFirstName = (EditText) findViewById(R.id.edit_first_name);
     	if (editFirstName.getText().length() == 0) {
-            Toast.makeText(this, R.string.invalidName,
+            Toast.makeText(this, R.string.invalidFirstName,
                 Toast.LENGTH_LONG).show();
             return;
     	} else {    	
@@ -43,7 +44,7 @@ public class NewPatientActivity extends Activity {
     	
     	EditText editLastName = (EditText) findViewById(R.id.edit_last_name);
     	if (editLastName.getText().length() == 0) {
-            Toast.makeText(this, R.string.invalidFamily,
+            Toast.makeText(this, R.string.invalidFamilyName,
                 Toast.LENGTH_LONG).show();
             return;
     	} else {    	
@@ -51,47 +52,45 @@ public class NewPatientActivity extends Activity {
         	intent.putExtra(EXTRA_LAST_NAME, last_name);
     	}
     	
+    	//Check value of Gender Radio Group
     	RadioButton maleButton = (RadioButton) findViewById(R.id.radio0);
         RadioButton femaleButton = (RadioButton) findViewById(R.id.radio1);
-//        boolean gender;
         
         if (maleButton.isChecked()) {
-//        	gender = true;
         	intent.putExtra(EXTRA_GENDER, true);
         } else if (femaleButton.isChecked()) {
-//        	gender = false;
         	intent.putExtra(EXTRA_GENDER, false);
         }
 
+        //Getting date of birth
     	DatePicker birth = (DatePicker) findViewById(R.id.datePicker1);
-//    	Integer year = birth.getYear();
-//    	Integer month = birth.getMonth() +1; 
-//    	Integer day = birth.getDayOfMonth();
     	intent.putExtra(EXTRA_DAY, birth.getDayOfMonth());
     	intent.putExtra(EXTRA_MONTH, birth.getMonth());
     	intent.putExtra(EXTRA_YEAR, birth.getYear());
 
     	EditText editVillage = (EditText) findViewById(R.id.edit_village);
     	if (editVillage.getText().length() == 0) {
-            Toast.makeText(this, R.string.invalidName,
+            Toast.makeText(this, R.string.invalidVillage,
                 Toast.LENGTH_LONG).show();
             return;
-    	} else {    	
+    	} else {
+    		//Checking field Village is a number
         	try {
-    		Integer villageID = 
+        		Integer villageID = 
         			Integer.parseInt(editVillage.getText().toString());
-//        		String village = editVillage.getText().toString();
         		intent.putExtra(EXTRA_VILLAGE, villageID);
         	} catch (NumberFormatException e) {
-        		Toast.makeText(this, R.string.invalidName,
+        		Toast.makeText(this, R.string.invalidVillage,
                         Toast.LENGTH_LONG).show();
                     return;
         	}
     	}
-    	   	    
+    	
+    	//Starting new activity and hoping a result for finish by itself
         startActivityForResult(intent, 0);
     }
     
+    //Answer to Cancel button
     public void cancel(View view) {
     	finish();
     }

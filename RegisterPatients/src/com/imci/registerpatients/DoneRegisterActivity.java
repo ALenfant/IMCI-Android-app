@@ -11,7 +11,8 @@ public class DoneRegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_done_register);
 	}
-
+	
+	//Finishing activity when Return button is pressed
 	public void onClick(View view){
     	finish();
 	}

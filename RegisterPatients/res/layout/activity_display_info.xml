@@ -1,7 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent"
+    android:background="@color/bkgColor" >
  
 	<LinearLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,21 +66,7 @@
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
-<!--  
-    	<TextView
-        	android:id="@+id/TextView9"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/address"
-    	    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    	<TextView
-        	android:id="@+id/TextAddress"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="center_horizontal"
-        	android:textAppearance="?android:attr/textAppearanceLarge" />
--->
     	<TextView
         	android:id="@+id/TextView11"
         	android:layout_width="wrap_content"
@@ -93,21 +80,7 @@
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
-<!-- 
-    	<TextView
-        	android:id="@+id/textView13"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/postcode"
-        	android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    	<TextView
-        	android:id="@+id/TextPostcode"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="center_horizontal"
-    	    android:textAppearance="?android:attr/textAppearanceLarge" />
- -->
  		<LinearLayout
     		    android:layout_width="match_parent"
    		    	android:layout_height="wrap_content"
