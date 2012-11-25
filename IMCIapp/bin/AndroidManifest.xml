@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.imciapp"
+    package="com.imci.ica"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -10,9 +10,10 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:allowBackup= "true" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.imci.ica.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,26 +22,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".QuestionsActivity"
+            android:name="com.imci.ica.QuestionsActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".InitializationActivity"
+            android:name="com.imci.ica.InitializationActivity"
             android:label="@string/title_activity_initialization" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ZoneChoiceActivity"
             android:label="@string/title_activity_zone_choice" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.imci.ica.RegisterPatientActivity"
+            android:label="@string/title_activity_register_patient" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.NewPatientActivity"
+            android:label="@string/title_activity_new_patient" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.ShowNewPatientActivity"
+            android:label="@string/title_activity_show_new_patient" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.DoneRegisterPatientActivity"
+            android:label="@string/title_activity_done_register_patient" >
         </activity>
     </application>
 

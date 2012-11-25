@@ -1,21 +1,18 @@
-package com.example.imciapp;
+package com.imci.ica;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;

@@ -1,0 +1,109 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bkgColor" >
+ 
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+    	<TextView
+        	android:id="@+id/TextView1"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/first_name"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextFirstName"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView3"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/last_name"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextLastName"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView5"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/gender"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextGender"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+    	    android:textAppearance="?android:attr/textAppearanceLarge" />
+  
+    	<TextView
+        	android:id="@+id/TextView7"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/birth"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextBirth"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+    	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    	<TextView
+        	android:id="@+id/TextView11"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/village"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    	<TextView
+        	android:id="@+id/TextVillage"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:textAppearance="?android:attr/textAppearanceLarge" />
+
+ 		<LinearLayout
+    		    android:layout_width="match_parent"
+   		    	android:layout_height="wrap_content"
+   		    	android:orientation="horizontal" >
+   		    
+ 	    	<Button
+	        	android:id="@+id/button1"
+	        	android:layout_width="wrap_content"
+	        	android:layout_height="match_parent"
+	        	android:layout_weight="1"
+	        	android:text="@string/confirm"
+	        	android:onClick="confirmInfo" />
+	
+	    	<Button
+    	        android:id="@+id/button2"
+   	    	    android:layout_width="wrap_content"
+   	        	android:layout_height="wrap_content"
+   	        	android:layout_weight="1"
+       	    	android:text="@string/modify"
+       	    	android:onClick="modifyInfo" />
+    	</LinearLayout>
+   	</LinearLayout>
+ 	
+	
+</ScrollView>
+

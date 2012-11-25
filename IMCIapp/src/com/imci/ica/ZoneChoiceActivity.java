@@ -1,25 +1,21 @@
-package com.example.imciapp;
+package com.imci.ica;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ZoneChoiceActivity extends Activity {
 	public final static String EXTRA_PARENT_ZONE_ID = "com.example.imciapp.PARENT_ZONE_ID";

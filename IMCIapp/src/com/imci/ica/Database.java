@@ -1,10 +1,9 @@
-package com.example.imciapp;
+package com.imci.ica;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -21,7 +20,7 @@ public class Database extends SQLiteAssetHelper {
 
 	public Cursor getSigns() {
 		SQLiteDatabase db = getReadableDatabase();
-		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+//		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		/*
 		 * String [] sqlSelect = {"0 id", "illness_id", "type", "key",
