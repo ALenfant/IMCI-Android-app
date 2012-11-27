@@ -10,6 +10,11 @@ public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	//Launch init activity
+    	//Miguel : comment this if necessary
+    	startActivity(new Intent(this, InitializationActivity.class));
+    	finish();
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

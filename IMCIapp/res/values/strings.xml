@@ -4,8 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Intelligent Consultation Assistant</string>
-    <string name="title_activity_initialization">InitializationActivity</string>
-    <string name="title_activity_zone_choice">ZoneChoiceActivity</string>
+    <string name="title_activity_initialization">Initialization</string>
+    <string name="title_activity_zone_choice">Zone Choice</string>
 	<string name="title_activity_register_patient">Register New Patient</string>
     <string name="title_activity_show_new_patient">New Patient Information</string>
     <string name="title_activity_new_patient">New Patient Data</string>
@@ -29,6 +29,21 @@
     <color name="bkgColor">#CEECF5</color>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="options">OPTIONS</string>
-    
+    <string name="options">Options</string>
+    <string name="welcome">Welcome</string>
+    <string name="initialization_description">This assistant will guide you through the initialization of the application</string>
+    <string name="new_center">New Center</string>
+    <string name="restore_center">Restore Center</string>
+    <string name="accessibility_horizontal_bar">Horizontal Bar</string>
+    <string name="initialization_selectcenterlocation">Please select the treatment center\'s location</string>
+    <string name="select_location">Select Location</string>
+    <string name="selected_location">Selected Location:</string>
+    <string name="none">None</string>
+    <string name="select">Select</string>
+    <string name="full_name">Full Name</string>
+    <string name="password">Password</string>
+    <string name="password_repeat">Password (Repeated)</string>
+    <string name="setup_center">Setup Center</string>
+    <string name="fullname_default">John Doe</string>
+    <string name="initialization_enteradmindetails">Please enter your administator account\'s details</string>
 </resources>
