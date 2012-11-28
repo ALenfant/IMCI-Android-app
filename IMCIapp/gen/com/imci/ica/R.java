@@ -106,6 +106,7 @@ public final class R {
         public static final int cancel=0x7f040012;
         public static final int confirm=0x7f040016;
         public static final int createNewPatient=0x7f04000b;
+        public static final int databaseError=0x7f04002d;
         public static final int female=0x7f04001b;
         public static final int first_name=0x7f04000c;
         public static final int full_name=0x7f040027;

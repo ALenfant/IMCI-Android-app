@@ -20,7 +20,7 @@ public class Database extends SQLiteAssetHelper {
 
 	public Cursor getSigns() {
 		SQLiteDatabase db = getReadableDatabase();
-//		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		// SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		/*
 		 * String [] sqlSelect = {"0 id", "illness_id", "type", "key",
@@ -57,7 +57,7 @@ public class Database extends SQLiteAssetHelper {
 		c.moveToFirst();
 		return c;
 	}
-	
+
 	public Cursor getZone(int id) {
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -70,11 +70,37 @@ public class Database extends SQLiteAssetHelper {
 		 * null, null, null);
 		 */
 		Cursor c = db.rawQuery(
-				"SELECT `_id`, `name` FROM `zones` WHERE `_id` = "
-						+ id, new String[0]);
+				"SELECT `_id`, `name` FROM `zones` WHERE `_id` = " + id,
+				new String[0]);
 		c.moveToFirst();
 		return c;
 	}
 
 	// SELECT * FROM zones WHERE IFNULL(parent_id,0) = 0
+
+	//Register a New Patient into Database
+	public boolean insertNewPatient(int village_id, String first_name,
+			String last_name, boolean gender, String born_on, String created_at) {
+
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Check database is right opened
+		if (db != null) {
+
+			// Insert of data in database
+			db.execSQL("INSERT INTO children (village_id, first_name, "
+					+ "last_name," + "gender, born_on, created_at) "
+					+ "VALUES ('" + village_id + "', '" + first_name + "', '"
+					+ last_name + "', '" + gender + "', '" + born_on + "', '"
+					+ created_at + "')");
+
+			// Closing database
+			db.close();
+
+			return true;
+			
+		} else {
+			return false;
+		}
+	}
 }

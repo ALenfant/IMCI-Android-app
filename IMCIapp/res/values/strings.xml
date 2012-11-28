@@ -46,4 +46,5 @@
     <string name="setup_center">Setup Center</string>
     <string name="fullname_default">John Doe</string>
     <string name="initialization_enteradmindetails">Please enter your administator account\'s details</string>
+    <string name="databaseError">Error in access to Database</string>
 </resources>
