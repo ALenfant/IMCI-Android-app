@@ -33,10 +33,10 @@ public class ZoneChoiceActivity extends Activity {
 		setContentView(R.layout.activity_zone_choice);
 
 		Intent intent = getIntent();
-		parent_zone_id = intent.getIntExtra(this.EXTRA_PARENT_ZONE_ID, -1); // -1
+		parent_zone_id = intent.getIntExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1); // -1
 																			// default
 																			// value
-		parentZones = intent.getStringArrayListExtra(this.EXTRA_PARENT_ZONES);
+		parentZones = intent.getStringArrayListExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONES);
 		if (parentZones == null) {
 			parentZones = new ArrayList<String>();
 		} else {
