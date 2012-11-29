@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.imci.ica"
     android:versionCode="1"
@@ -8,10 +9,10 @@
         android:targetSdkVersion="15" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:allowBackup= "true" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.imci.ica.MainActivity"
             android:label="@string/title_activity_main" >
@@ -30,7 +31,7 @@
             android:label="@string/title_activity_initialization" >
         </activity>
         <activity
-            android:name=".ZoneChoiceActivity"
+            android:name="com.imci.ica.ZoneChoiceActivity"
             android:label="@string/title_activity_zone_choice" >
         </activity>
         <activity
@@ -48,6 +49,10 @@
         <activity
             android:name="com.imci.ica.DoneRegisterPatientActivity"
             android:label="@string/title_activity_done_register_patient" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.LoginActivity"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 

@@ -12,7 +12,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
     	//Launch init activity
     	//Miguel : comment this if necessary
-    	startActivity(new Intent(this, InitializationActivity.class));
+    	startActivity(new Intent(this, LoginActivity.class));
     	finish();
     	
         super.onCreate(savedInstanceState);

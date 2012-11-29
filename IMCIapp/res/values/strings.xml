@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Intelligent Consultation Assistant</string>
@@ -6,7 +7,7 @@
     <string name="title_activity_main">Intelligent Consultation Assistant</string>
     <string name="title_activity_initialization">Initialization</string>
     <string name="title_activity_zone_choice">Zone Choice</string>
-	<string name="title_activity_register_patient">Register New Patient</string>
+    <string name="title_activity_register_patient">Register New Patient</string>
     <string name="title_activity_show_new_patient">New Patient Information</string>
     <string name="title_activity_new_patient">New Patient Data</string>
     <string name="title_activity_done_register_patient">Patient Created Correctly</string>
@@ -26,7 +27,9 @@
     <string name="modify">Modify</string>
     <string name="patientCreated">This patient has been created correctly</string>
     <string name="goBack">Return</string>
+
     <color name="bkgColor">#CEECF5</color>
+
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="options">Options</string>
@@ -47,4 +50,13 @@
     <string name="fullname_default">John Doe</string>
     <string name="initialization_enteradmindetails">Please enter your administator account\'s details</string>
     <string name="databaseError">Error in access to Database</string>
+    <string name="error_impossible_create_user">Error: Impossible to create a new user!</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">Login</string>
+    <string name="login_description">Please login with your account</string>
+    <string name="error_invalid_login">Error: Invalid login credentials</string>
+    <string name="error_empty_fullname">Error: Empty full name</string>
+    <string name="error_empty_password">Error: Empty password</string>
+    <string name="error_empty_location">Error: You did not choose a location</string>
+    <string name="error_different_passwords">Error: The two passwords are different</string>
 </resources>

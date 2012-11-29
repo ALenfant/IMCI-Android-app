@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 public class InitializationActivity extends Activity {
 	protected int selected_zone_id = -1;
+	protected String selected_zone_name = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,9 +77,9 @@ public class InitializationActivity extends Activity {
 		Database db = new Database(this);
 		Cursor parentCursor = db.getZone(parent_zone_id);
 		if (parentCursor.getCount() > 0) {
-			String zone_name = parentCursor.getString(1);
+			selected_zone_name = parentCursor.getString(1);
 			((TextView) (findViewById(R.id.textView_selectedzone)))
-					.setText(zone_name);
+					.setText(selected_zone_name);
 			selected_zone_id = parent_zone_id; //We set the selected zone id
 			
 			// And show the next step
@@ -93,24 +94,32 @@ public class InitializationActivity extends Activity {
 		String password2 = ((EditText)(findViewById(R.id.editText_password2))).getText().toString();
 		
 		if (selected_zone_id == -1) {
-			Toast.makeText(this, "@string/error_empty_location", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.error_empty_location, Toast.LENGTH_LONG).show();
 			return;
 		}
 		
 		if (full_name.length() == 0) {
-			Toast.makeText(this, "@string/error_empty_fullname", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.error_empty_fullname, Toast.LENGTH_LONG).show();
 			return;
 		}
 		
 		if (password.length() == 0) {
-			Toast.makeText(this, "@string/error_empty_password", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.error_empty_password, Toast.LENGTH_LONG).show();
 			return;
 		}
 		
 		if (!password.equals(password2)) {
-			Toast.makeText(this, "@string/error_different_passwords", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.error_different_passwords, Toast.LENGTH_LONG).show();
 			return;
 		}
+		
+		Database db = new Database(this);
+		if (!db.addUser(full_name, password, true, selected_zone_id, selected_zone_name+"/1")) {
+			Toast.makeText(this, R.string.error_impossible_create_user, Toast.LENGTH_LONG).show();
+			return;
+		}
+		finish();
+		
 	}
 
 	@Override
