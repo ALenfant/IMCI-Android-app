@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteFullException;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -82,18 +81,18 @@ public class Database extends SQLiteAssetHelper {
 		c.moveToFirst();
 		return c;
 	}
-	
+
 	// SELECT * FROM zones WHERE IFNULL(parent_id,0) = 0
 
-	//Register a New Patient into Database
+	// Register a New Patient into Database
 	public boolean insertNewPatient(int village_id, String first_name,
-			String last_name, boolean gender, String born_on, String created_at) {
+			String last_name, boolean gender, String born_on) {
 
 		SQLiteDatabase db = getWritableDatabase();
 
 		// Check database is right opened
 		if (db != null) {
-
+			String created_at= getCurrentDateTime();
 			// Insert of data in database
 			db.execSQL("INSERT INTO children (village_id, first_name, "
 					+ "last_name," + "gender, born_on, created_at) "
@@ -105,29 +104,31 @@ public class Database extends SQLiteAssetHelper {
 			db.close();
 
 			return true;
-			
+
 		} else {
 			return false;
 		}
-		
-	//Global id = zone_name/user_number
-	public Boolean addUser(String name, String password, Boolean administrator, int zone_id, String global_id) {
+	}
+
+	// Global id = zone_name/user_number
+	public Boolean addUser(String name, String password, Boolean administrator,
+			int zone_id, String global_id) {
 		SQLiteDatabase db = getReadableDatabase();
-		
-		//We set the values to be inserted...
+
+		// We set the values to be inserted...
 		ContentValues values = new ContentValues();
-		
+
 		try {
 			values.put("name", name);
 			values.put("crypted_password", MD5.md5(PASSWORD_SALT + password));
-			values.put("admin", administrator?"t":"f");
+			values.put("admin", administrator ? "t" : "f");
 			values.put("zone_id", zone_id);
 			values.put("global_id", global_id);
-			
+
 			String currentdatetime = getCurrentDateTime();
 			values.put("created_at", currentdatetime);
 			values.put("updated_at", currentdatetime);
-			
+
 			long resultID = db.insert("users", null, values);
 			if (resultID == -1)
 				return false;
@@ -135,25 +136,35 @@ public class Database extends SQLiteAssetHelper {
 			return false;
 		}
 		db.close();
-		
+
 		return true;
 	}
-	
+
 	public boolean LoginUser(String name, String password) {
 		SQLiteDatabase db = getReadableDatabase();
 		try {
-			Cursor cursor = db.query("users", new String[] {"name", "admin"}, "name=? AND crypted_password=?", new String[] {name, MD5.md5(PASSWORD_SALT + password)}, null, null, null);
-			//Cursor cursor = db.query("users", new String[] {"name", "admin", "crypted_password"}, "name LIKE ?", new String[] {name}, null, null, null);
-			//Cursor cursor = db.query("users", new String[] {"name", "admin", "crypted_password"}, "crypted_password = ?", new String[] {MD5.md5(PASSWORD_SALT + password)}, null, null, null);
+			Cursor cursor = db.query("users", new String[] { "name", "admin" },
+					"name=? AND crypted_password=?",
+					new String[] { name, MD5.md5(PASSWORD_SALT + password) },
+					null, null, null);
+			// Cursor cursor = db.query("users", new String[] {"name", "admin",
+			// "crypted_password"}, "name LIKE ?", new String[] {name}, null,
+			// null, null);
+			// Cursor cursor = db.query("users", new String[] {"name", "admin",
+			// "crypted_password"}, "crypted_password = ?", new String[]
+			// {MD5.md5(PASSWORD_SALT + password)}, null, null, null);
 			if (cursor.getCount() == 0)
 				return false;
 			cursor.moveToFirst();
 			String dbname = cursor.getString(0);
 			String admin = cursor.getString(1);
-			/*System.out.println("DBNAME : " + dbname);
-			System.out.println("  NAME : " + name);
-			System.out.println("PWD IN DB : " + cursor.getString(2));
-			System.out.println("PWD ENCOD : " + MD5.md5(PASSWORD_SALT + password));*/
+			/*
+			 * System.out.println("DBNAME : " + dbname);
+			 * System.out.println("  NAME : " + name);
+			 * System.out.println("PWD IN DB : " + cursor.getString(2));
+			 * System.out.println("PWD ENCOD : " + MD5.md5(PASSWORD_SALT +
+			 * password));
+			 */
 			System.out.println("LOGIN OKAY");
 			cursor.close();
 			db.close();
@@ -163,14 +174,16 @@ public class Database extends SQLiteAssetHelper {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Gives the current date and time adapted to a SQLite datetime column
+	 * 
 	 * @return the current time in SQLite datetime format
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private String getCurrentDateTime() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}

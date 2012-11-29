@@ -1,7 +1,5 @@
 package com.imci.ica;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,24 +68,12 @@ public class ShowNewPatientActivity extends Activity {
 
 	// Answer to Confirm button click
 	public void confirmInfo(View view) {
-
-		// Getting current date
-		Calendar curDate = Calendar.getInstance();
-		Integer curDay = curDate.get(Calendar.DAY_OF_MONTH);
-		Integer curMonth = curDate.get(Calendar.MONTH);
-		Integer curYear = curDate.get(Calendar.YEAR);
-		Integer curHour = curDate.get(Calendar.HOUR_OF_DAY);
-		Integer curMin = curDate.get(Calendar.MINUTE);
-		Integer curSec = curDate.get(Calendar.SECOND);
-
-		String created_at = dateTimeString(curDay, curMonth, curYear, curHour,
-				curMin, curSec);
-
+		
 		// Register in Database
 		Database dbah = new Database(this);
 
 		if (dbah.insertNewPatient(village_id, first_name, last_name, gender,
-				born_on, created_at)) {
+				born_on)) {
 			// Closing previus activity
 			Intent intentPrev = new Intent();
 			setResult(Activity.RESULT_OK, intentPrev);
