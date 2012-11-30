@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +20,14 @@ import android.widget.Toast;
 
 public class ZoneChoiceActivity extends Activity {
 	public final static String EXTRA_PARENT_ZONE_ID = "com.imci.ica.PARENT_ZONE_ID";
+	public final static String EXTRA_PARENT_TWO_ZONE_ID = "com.imci.ica.PARENT_TWO_ZONE_ID";
 	public final static String EXTRA_PARENT_ZONES = "com.imci.ica.PARENT_ZONES";
 	public final static String EXTRA_RETURNED_ZONE_ID = "com.imci.ica.RETURNED_ZONE_ID";
-
+	public final static String EXTRA_CHECK_RESULT = "com.imci.ica.CHECK_RESULT";
+	
 	private int parent_zone_id;
+	private int parent_two_zone_id;
+	
 	private ArrayList<String> parentZones;
 	
 	private Database db; // your db adapter
@@ -34,9 +39,11 @@ public class ZoneChoiceActivity extends Activity {
 
 		Intent intent = getIntent();
 		parent_zone_id = intent.getIntExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1); // -1
+		parent_two_zone_id = intent.getIntExtra(ZoneChoiceActivity.EXTRA_PARENT_TWO_ZONE_ID, -1); // -1
 																			// default
 																			// value
 		parentZones = intent.getStringArrayListExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONES);
+		
 		if (parentZones == null) {
 			parentZones = new ArrayList<String>();
 		} else {
@@ -60,6 +67,8 @@ public class ZoneChoiceActivity extends Activity {
 					//Button clicked, we return the selected zone
 					Intent i = new Intent();
 					i.putExtra(ZoneChoiceActivity.EXTRA_RETURNED_ZONE_ID, parent_zone_id);
+					i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, parent_two_zone_id);
+					i.putExtra(ZoneChoiceActivity.EXTRA_CHECK_RESULT, true);
 					setResult(0,i);//Here I am Requestcode 0
 					finish();
 				}
@@ -92,6 +101,7 @@ public class ZoneChoiceActivity extends Activity {
 				
 				Intent i = new Intent(ZoneChoiceActivity.this,
 						ZoneChoiceActivity.class);
+				i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_TWO_ZONE_ID, parent_zone_id);
 				i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, selected_id); //New parent
 				i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONES, parentZones); //List of parent zones
 																			
@@ -122,5 +132,16 @@ public class ZoneChoiceActivity extends Activity {
 	        ret += (i == strArray.size() - 1) ? strArray.get(i) : strArray.get(i) + glue;
 	    }
 	    return ret;
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intent = getIntent();
+			intent.putExtra(EXTRA_CHECK_RESULT, false);
+			setResult(Activity.RESULT_OK, intent);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

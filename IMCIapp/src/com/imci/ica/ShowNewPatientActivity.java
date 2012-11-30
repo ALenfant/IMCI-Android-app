@@ -3,6 +3,7 @@ package com.imci.ica;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ public class ShowNewPatientActivity extends Activity {
 	boolean gender;
 	String born_on;
 	int village_id;
+	int zone_id;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,8 @@ public class ShowNewPatientActivity extends Activity {
 		day = intent.getIntExtra(NewPatientActivity.EXTRA_DAY, 0);
 		month = intent.getIntExtra(NewPatientActivity.EXTRA_MONTH, 0);
 		year = intent.getIntExtra(NewPatientActivity.EXTRA_YEAR, 0);
-		village_id = intent.getIntExtra(NewPatientActivity.EXTRA_VILLAGE, 0);
+		village_id = intent.getIntExtra(NewPatientActivity.EXTRA_VILLAGE_ID, 0);
+		zone_id = intent.getIntExtra(NewPatientActivity.EXTRA_ZONE_ID, 0);
 
 		// Putting in TextView data of new patient
 		TextView textName = (TextView) findViewById(R.id.TextFirstName);
@@ -57,6 +60,8 @@ public class ShowNewPatientActivity extends Activity {
 		TextView textVillage = (TextView) findViewById(R.id.TextVillage);
 		textVillage.setText(Integer.toString(village_id));
 
+		TextView textZone = (TextView) findViewById(R.id.TextZone);
+		textZone.setText(Integer.toString(zone_id));
 	}
 
 	@Override
@@ -68,14 +73,15 @@ public class ShowNewPatientActivity extends Activity {
 
 	// Answer to Confirm button click
 	public void confirmInfo(View view) {
-		
+
 		// Register in Database
 		Database dbah = new Database(this);
 
 		if (dbah.insertNewPatient(village_id, first_name, last_name, gender,
 				born_on)) {
 			// Closing previus activity
-			Intent intentPrev = new Intent();
+			Intent intentPrev = getIntent();
+			intentPrev.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, true);
 			setResult(Activity.RESULT_OK, intentPrev);
 
 			// Creating DoneRegisterActivity
@@ -93,6 +99,9 @@ public class ShowNewPatientActivity extends Activity {
 
 	// Answer to Modify button
 	public void modifyInfo(View view) {
+		Intent intent = getIntent();
+		intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
+		setResult(Activity.RESULT_OK, intent);
 		finish();
 	}
 
@@ -127,5 +136,20 @@ public class ShowNewPatientActivity extends Activity {
 			str = number.toString();
 
 		return str;
+	}
+
+	public boolean backButton = false;
+	public boolean homeButton = false;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intent = getIntent();
+			intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
+			setResult(Activity.RESULT_OK, intent);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

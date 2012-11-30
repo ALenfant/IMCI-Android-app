@@ -59,4 +59,6 @@
     <string name="error_empty_password">Error: Empty password</string>
     <string name="error_empty_location">Error: You did not choose a location</string>
     <string name="error_different_passwords">Error: The two passwords are different</string>
+    <string name="select_village">Press to select a Village</string>
+    <string name="zone">Zone</string>
 </resources>
