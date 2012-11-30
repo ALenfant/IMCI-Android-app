@@ -18,9 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ZoneChoiceActivity extends Activity {
-	public final static String EXTRA_PARENT_ZONE_ID = "com.example.imciapp.PARENT_ZONE_ID";
-	public final static String EXTRA_PARENT_ZONES = "com.example.imciapp.PARENT_ZONES";
-	public final static String EXTRA_RETURNED_ZONE_ID = "com.example.imciapp.RETURNED_ZONE_ID";
+	public final static String EXTRA_PARENT_ZONE_ID = "com.imci.ica.PARENT_ZONE_ID";
+	public final static String EXTRA_PARENT_ZONES = "com.imci.ica.PARENT_ZONES";
+	public final static String EXTRA_RETURNED_ZONE_ID = "com.imci.ica.RETURNED_ZONE_ID";
 
 	private int parent_zone_id;
 	private ArrayList<String> parentZones;

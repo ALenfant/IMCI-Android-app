@@ -8,14 +8,16 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
+	/*
+	COMMENTS:
+	BY THE MOMENT WE DISPLAY A BUTTON FOR ANY FUNCTIONALITY,
+	TO TEST THEM BY SEPARATE. AFTER IMPLEMENTATION, WE'LL
+	CREATE THE RELATIONS BETWEEN THEM
+	*/
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	//Launch init activity
-    	//Miguel : comment this if necessary
-    	startActivity(new Intent(this, LoginActivity.class));
-    	finish();
-    	
-        super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
@@ -31,5 +33,10 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, RegisterPatientActivity.class);
     	startActivity(intent);
     }
-
+   
+  //Answer to Login button click
+    public void login(View view) {
+    	Intent intent = new Intent(this, LoginActivity.class);
+    	startActivity(intent);
+    }
 }
