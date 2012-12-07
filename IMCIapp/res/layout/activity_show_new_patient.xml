@@ -117,7 +117,5 @@
        	    	android:onClick="modifyInfo" />
     	</LinearLayout>
    	</LinearLayout>
- 	
-	
 </ScrollView>
 

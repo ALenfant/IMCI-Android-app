@@ -76,6 +76,13 @@
             android:text="@string/birth"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <Button
+            android:id="@+id/buttonDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showPicker"
+            android:text="@string/IntroDate" />
+
         <DatePicker
             android:id="@+id/datePicker"
             android:layout_width="wrap_content"
@@ -87,16 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/village"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-        <!--
-	    <EditText
-	        android:id="@+id/edit_village"
-    	    android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:ems="10"
-        	android:inputType="text" />
-        	
-    	-->
-        	
+
         <Button
             android:id="@+id/buttonVillage"
             android:layout_width="wrap_content"

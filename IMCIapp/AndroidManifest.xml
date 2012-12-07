@@ -54,6 +54,14 @@
             android:name="com.imci.ica.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name="com.imci.ica.SearchPatientActivity"
+            android:label="@string/title_activity_search_patient" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.FoundPatientsActivity"
+            android:label="@string/title_activity_found_patients" >
+        </activity>
     </application>
 
 </manifest>

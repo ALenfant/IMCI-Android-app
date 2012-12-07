@@ -28,9 +28,15 @@ public class MainActivity extends Activity {
     }
     
    	
-    //Answer to Create button click
+    //Answer to Create Patient button click
     public void createPatient(View view) {
     	Intent intent = new Intent(this, RegisterPatientActivity.class);
+    	startActivity(intent);
+    }
+    
+  //Answer to Search Patient button click
+    public void searchPatient(View view) {
+    	Intent intent = new Intent(this, SearchPatientActivity.class);
     	startActivity(intent);
     }
    

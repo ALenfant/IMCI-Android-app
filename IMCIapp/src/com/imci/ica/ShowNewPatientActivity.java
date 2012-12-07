@@ -2,6 +2,7 @@ package com.imci.ica;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -24,18 +25,17 @@ public class ShowNewPatientActivity extends Activity {
 		Intent intent = getIntent();
 		setContentView(R.layout.activity_show_new_patient);
 
-		Integer day;
-		Integer month;
-		Integer year;
-
 		// Catch of the data from NewPatientActivity
-		first_name = intent.getStringExtra(NewPatientActivity.EXTRA_FIRST_NAME);
-		last_name = intent.getStringExtra(NewPatientActivity.EXTRA_LAST_NAME);
-		gender = intent.getBooleanExtra(NewPatientActivity.EXTRA_GENDER, true);
-		day = intent.getIntExtra(NewPatientActivity.EXTRA_DAY, 0);
-		month = intent.getIntExtra(NewPatientActivity.EXTRA_MONTH, 0);
-		year = intent.getIntExtra(NewPatientActivity.EXTRA_YEAR, 0);
-		village_id = intent.getIntExtra(NewPatientActivity.EXTRA_VILLAGE_ID, 0);
+		first_name = intent
+				.getStringExtra(NewPatientActivity.EXTRA_FIRST_NAME);
+		last_name = intent
+				.getStringExtra(NewPatientActivity.EXTRA_LAST_NAME);
+		gender = intent.getBooleanExtra(NewPatientActivity.EXTRA_GENDER,
+				true);
+		born_on = intent
+				.getStringExtra(NewPatientActivity.EXTRA_BORN_ON);
+		village_id = intent.getIntExtra(NewPatientActivity.EXTRA_VILLAGE_ID,
+				0);
 		zone_id = intent.getIntExtra(NewPatientActivity.EXTRA_ZONE_ID, 0);
 
 		// Putting in TextView data of new patient
@@ -52,16 +52,25 @@ public class ShowNewPatientActivity extends Activity {
 		else
 			textGender.setText(R.string.female);
 
-		born_on = dateString(day, month, year);
-
 		TextView textBornOn = (TextView) findViewById(R.id.TextBirth);
 		textBornOn.setText(born_on);
 
-		TextView textVillage = (TextView) findViewById(R.id.TextVillage);
-		textVillage.setText(Integer.toString(village_id));
+		Database db = new Database(this);
+		Cursor villageCursor = db.getZone(village_id);
+		if (villageCursor.getCount() > 0) {
+			String villageName = villageCursor.getString(1);
 
-		TextView textZone = (TextView) findViewById(R.id.TextZone);
-		textZone.setText(Integer.toString(zone_id));
+			TextView textVillage = (TextView) findViewById(R.id.TextVillage);
+			textVillage.setText(villageName);
+		}
+
+		villageCursor = db.getZone(zone_id);
+		if (villageCursor.getCount() > 0) {
+			String zoneName = villageCursor.getString(1);
+
+			TextView textZone = (TextView) findViewById(R.id.TextZone);
+			textZone.setText(zoneName);
+		}
 	}
 
 	@Override
@@ -75,9 +84,9 @@ public class ShowNewPatientActivity extends Activity {
 	public void confirmInfo(View view) {
 
 		// Register in Database
-		Database dbah = new Database(this);
+		Database db = new Database(this);
 
-		if (dbah.insertNewPatient(village_id, first_name, last_name, gender,
+		if (db.insertNewPatient(village_id, first_name, last_name, gender,
 				born_on)) {
 			// Closing previus activity
 			Intent intentPrev = getIntent();
@@ -113,18 +122,6 @@ public class ShowNewPatientActivity extends Activity {
 		return strDate;
 	}
 
-	// Creating a string with DateTime format
-	public String dateTimeString(Integer day, Integer month, Integer year,
-			Integer hour, Integer min, Integer sec) {
-
-		String strDateTime = twoDigitsString(year) + "-"
-				+ twoDigitsString(month + 1) + "-" + twoDigitsString(day) + " "
-				+ twoDigitsString(hour) + ":" + twoDigitsString(min) + ":"
-				+ twoDigitsString(sec);
-
-		return strDateTime;
-	}
-
 	// Creating a string from a Integer with two digits,
 	// even if number is less than 10.
 	public String twoDigitsString(Integer number) {
@@ -137,9 +134,6 @@ public class ShowNewPatientActivity extends Activity {
 
 		return str;
 	}
-
-	public boolean backButton = false;
-	public boolean homeButton = false;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -61,4 +61,10 @@
     <string name="error_different_passwords">Error: The two passwords are different</string>
     <string name="select_village">Press to select a Village</string>
     <string name="zone">Zone</string>
+    <string name="title_activity_search_patient">Introduce Data of Patient</string>
+    <string name="title_activity_found_patients">List of Patients</string>
+    <string name="IntroDate">Introduce Date of Birth</string>
+    <string name="searchPatient">Search Patient</string>
+    <string name="noPatientsFound">Any patient found with parameters of search</string>
+
 </resources>

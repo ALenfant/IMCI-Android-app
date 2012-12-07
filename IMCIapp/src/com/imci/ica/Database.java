@@ -43,6 +43,8 @@ public class Database extends SQLiteAssetHelper {
 								+ "ORDER BY `illnesses`.`sequence`",
 						new String[0]);
 		// c.moveToFirst(); //Check if bugs?
+
+		db.close();
 		return c;
 	}
 
@@ -61,6 +63,8 @@ public class Database extends SQLiteAssetHelper {
 				"SELECT `_id`, `name` FROM `zones` WHERE `parent_id` = "
 						+ parent_id, new String[0]);
 		c.moveToFirst();
+
+		db.close();
 		return c;
 	}
 
@@ -79,6 +83,8 @@ public class Database extends SQLiteAssetHelper {
 				"SELECT `_id`, `name` FROM `zones` WHERE `_id` = " + id,
 				new String[0]);
 		c.moveToFirst();
+
+		db.close();
 		return c;
 	}
 
@@ -217,6 +223,49 @@ public class Database extends SQLiteAssetHelper {
 				"yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
+	}
+
+	public Cursor getPatients(String first_name, String last_name,
+			boolean gender, String born_on, int village_id) {
+
+		String genderStr;
+		if (gender) {
+			genderStr = "t";
+		} else {
+			genderStr = "f";
+		}
+
+		SQLiteDatabase db = getReadableDatabase();
+		
+		Cursor c = db.rawQuery(
+				"SELECT _id, first_name, last_name, gender, born_on, "
+						+ "village_id FROM children WHERE last_name=\""
+						+ last_name
+						+ "\" AND gender=\""
+						+ genderStr
+						+ "\" AND CASE WHEN \""
+						+ first_name
+						+ "\" <> '' THEN first_name=\""
+						+ first_name
+						+ "\" ELSE first_name=first_name END"
+						+ " AND CASE WHEN \""
+						+ born_on
+						+ "\" <> '' THEN born_on=\""
+						+ born_on
+						+ "\" ELSE born_on=born_on END"
+						+ " AND CASE WHEN "
+						+ village_id
+						+ " <> -1 THEN village_id="
+						+ village_id + " ELSE village_id=village_id END", null);
+		
+		if (c.getCount()==0) {
+			c = null;
+		}
+		db.close();
+		
+		
+		//c.moveToFirst();
+		return c;
 	}
 }
 
