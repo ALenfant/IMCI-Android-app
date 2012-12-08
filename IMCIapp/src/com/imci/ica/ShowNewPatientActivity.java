@@ -27,16 +27,16 @@ public class ShowNewPatientActivity extends Activity {
 
 		// Catch of the data from NewPatientActivity
 		first_name = intent
-				.getStringExtra(NewPatientActivity.EXTRA_FIRST_NAME);
+				.getStringExtra(SearchPatientActivity.EXTRA_FIRST_NAME);
 		last_name = intent
-				.getStringExtra(NewPatientActivity.EXTRA_LAST_NAME);
-		gender = intent.getBooleanExtra(NewPatientActivity.EXTRA_GENDER,
+				.getStringExtra(SearchPatientActivity.EXTRA_LAST_NAME);
+		gender = intent.getBooleanExtra(SearchPatientActivity.EXTRA_GENDER,
 				true);
 		born_on = intent
-				.getStringExtra(NewPatientActivity.EXTRA_BORN_ON);
-		village_id = intent.getIntExtra(NewPatientActivity.EXTRA_VILLAGE_ID,
+				.getStringExtra(SearchPatientActivity.EXTRA_BORN_ON);
+		village_id = intent.getIntExtra(SearchPatientActivity.EXTRA_VILLAGE_ID,
 				0);
-		zone_id = intent.getIntExtra(NewPatientActivity.EXTRA_ZONE_ID, 0);
+		zone_id = intent.getIntExtra(SearchPatientActivity.EXTRA_ZONE_ID, 0);
 
 		// Putting in TextView data of new patient
 		TextView textName = (TextView) findViewById(R.id.TextFirstName);
@@ -90,14 +90,13 @@ public class ShowNewPatientActivity extends Activity {
 				born_on)) {
 			// Closing previus activity
 			Intent intentPrev = getIntent();
-			intentPrev.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, true);
+			intentPrev.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY, true);
 			setResult(Activity.RESULT_OK, intentPrev);
 
 			// Creating DoneRegisterActivity
 			Intent intentNew = new Intent(this,
 					DoneRegisterPatientActivity.class);
 			startActivity(intentNew);
-
 			finish();
 		} else {
 			Toast.makeText(this, R.string.databaseError, Toast.LENGTH_LONG)
@@ -109,7 +108,7 @@ public class ShowNewPatientActivity extends Activity {
 	// Answer to Modify button
 	public void modifyInfo(View view) {
 		Intent intent = getIntent();
-		intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
+		//intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
 		setResult(Activity.RESULT_OK, intent);
 		finish();
 	}
@@ -139,7 +138,7 @@ public class ShowNewPatientActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = getIntent();
-			intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
+			//intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
 			setResult(Activity.RESULT_OK, intent);
 			finish();
 			return true;

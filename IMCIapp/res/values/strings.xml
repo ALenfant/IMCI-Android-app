@@ -66,5 +66,6 @@
     <string name="IntroDate">Introduce Date of Birth</string>
     <string name="searchPatient">Search Patient</string>
     <string name="noPatientsFound">Any patient found with parameters of search</string>
+    <string name="title_activity_info_patient">Patient Information</string>
 
 </resources>

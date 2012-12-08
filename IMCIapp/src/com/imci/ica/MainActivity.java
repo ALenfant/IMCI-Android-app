@@ -27,12 +27,12 @@ public class MainActivity extends Activity {
         return true;
     }
     
-   	
-    //Answer to Create Patient button click
-    public void createPatient(View view) {
-    	Intent intent = new Intent(this, RegisterPatientActivity.class);
-    	startActivity(intent);
-    }
+//   	
+//    //Answer to Create Patient button click
+//    public void createPatient(View view) {
+//    	Intent intent = new Intent(this, RegisterPatientActivity.class);
+//    	startActivity(intent);
+//    }
     
   //Answer to Search Patient button click
     public void searchPatient(View view) {

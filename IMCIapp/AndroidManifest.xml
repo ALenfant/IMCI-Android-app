@@ -35,14 +35,6 @@
             android:label="@string/title_activity_zone_choice" >
         </activity>
         <activity
-            android:name="com.imci.ica.RegisterPatientActivity"
-            android:label="@string/title_activity_register_patient" >
-        </activity>
-        <activity
-            android:name="com.imci.ica.NewPatientActivity"
-            android:label="@string/title_activity_new_patient" >
-        </activity>
-        <activity
             android:name="com.imci.ica.ShowNewPatientActivity"
             android:label="@string/title_activity_show_new_patient" >
         </activity>
@@ -61,6 +53,10 @@
         <activity
             android:name="com.imci.ica.FoundPatientsActivity"
             android:label="@string/title_activity_found_patients" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.InfoPatientActivity"
+            android:label="@string/title_activity_info_patient" >
         </activity>
     </application>
 

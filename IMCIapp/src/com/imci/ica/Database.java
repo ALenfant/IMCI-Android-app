@@ -257,14 +257,12 @@ public class Database extends SQLiteAssetHelper {
 						+ village_id
 						+ " <> -1 THEN village_id="
 						+ village_id + " ELSE village_id=village_id END", null);
-		
-		if (c.getCount()==0) {
-			c = null;
-		}
+
+		c.moveToFirst();
+//		if (c.getCount()==0) {
+//			c = null;
+//		}
 		db.close();
-		
-		
-		//c.moveToFirst();
 		return c;
 	}
 }

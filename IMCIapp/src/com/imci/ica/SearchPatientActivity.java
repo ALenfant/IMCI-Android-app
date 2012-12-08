@@ -19,11 +19,22 @@ public class SearchPatientActivity extends Activity {
 	public final static String EXTRA_GENDER = "com.imci.ica.GENDER";
 	public final static String EXTRA_BORN_ON = "com.imci.ica.BORN_ON";
 	public final static String EXTRA_VILLAGE_ID = "com.imci.ica.VILLAGE";
-//	public final static String EXTRA_ZONE_ID = "com.imci.ica.ZONE";
-	public final static String EXTRA_FINISH_ACTIVITY = "com.imci.ica.EXTRA_FINISH_ACTIVITY";
+	public final static String EXTRA_ZONE_ID = "com.imci.ica.ZONE";
+	public final static String EXTRA_CHANGE_MODE = "com.imci.ica.CHANGE_MODE";
+	public final static String EXTRA_FINISH_ACTIVITY = "com.imci.ica.FINISH_ACTIVITY";
+	//
+	// public final static int DO_NOTHING = 0;
+	// public final static int FINISH = 1;
+	// public final static int GET_VILLAGE = 2;
+	// public final static int CHANGE_MODE = 3;
+	// int on_result = DO_NOTHING;
 
-	boolean check_result = false;
-	boolean send_date = false;
+	public final static int SEARCH = 0;
+	public final static int CREATE = 1;
+	int mode = SEARCH;
+
+	boolean CHECK_VILLAGE = false;
+	boolean SEND_DATE = false;
 
 	int village_id = -1;
 	int zone_id = -1;
@@ -47,25 +58,46 @@ public class SearchPatientActivity extends Activity {
 		return true;
 	}
 
-	public void selectVillage(View view) {
-
-		check_result = true;
-
-		// We start the zone selection activity
-		Intent i = new Intent(SearchPatientActivity.this,
-				ZoneChoiceActivity.class);
-		i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, 0);
-
-		// Activity not finish at return
-		i.putExtra(EXTRA_FINISH_ACTIVITY, false);
-		startActivityForResult(i, 0);
-	}
-
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+		// switch (on_result) {
+		// case FINISH: {
+		// finish();
+		// }
+		// break;
+		// case GET_VILLAGE: {
+		// if (data.getBooleanExtra(ZoneChoiceActivity.EXTRA_CHECK_RESULT,
+		// true)) {
+		// super.onActivityResult(requestCode, resultCode, data);
+		//
+		// village_id = data.getIntExtra(
+		// ZoneChoiceActivity.EXTRA_RETURNED_ZONE_ID, -1);
+		// zone_id = data.getIntExtra(
+		// ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1);
+		//
+		// Database db = new Database(this);
+		// Cursor villageCursor = db.getZone(village_id);
+		// if (villageCursor.getCount() > 0) {
+		// String villageName = villageCursor.getString(1);
+		//
+		// Button villageButton = ((Button) findViewById(R.id.buttonVillage));
+		// villageButton.setText(villageName);
+		// }
+		// on_result = DO_NOTHING;
+		// }
+		// }
+		// break;
+		// case CHANGE_MODE: {
+		// mode = CREATE;
+		// showPicker(findViewById(R.id.linearLayoutSearch));
+		// }
+		// break;
+		// }
 		if (data.getBooleanExtra(EXTRA_FINISH_ACTIVITY, false)) {
 			finish();
-		} else if (check_result) {
+		}
+		if (CHECK_VILLAGE) {
 
 			super.onActivityResult(requestCode, resultCode, data);
 
@@ -82,9 +114,29 @@ public class SearchPatientActivity extends Activity {
 				Button villageButton = ((Button) findViewById(R.id.buttonVillage));
 				villageButton.setText(villageName);
 			}
-
-			check_result = false;
+			CHECK_VILLAGE = false;
+			return;
 		}
+		if (data.getBooleanExtra(EXTRA_CHANGE_MODE, false)) {
+			mode = CREATE;
+			showPicker(findViewById(R.id.linearLayoutSearch));
+
+		}
+	}
+
+	public void selectVillage(View view) {
+
+		// check_result = true;
+
+		// We start the zone selection activity
+		Intent i = new Intent(SearchPatientActivity.this,
+				ZoneChoiceActivity.class);
+		i.putExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, 0);
+
+		// Activity not finish at return
+		// i.putExtra(EXTRA_MODE_RESULT, GET_VILLAGE);
+		CHECK_VILLAGE = true;
+		startActivityForResult(i, 0);
 	}
 
 	// Answer to Cancel button
@@ -94,7 +146,18 @@ public class SearchPatientActivity extends Activity {
 
 	// Answer to Send button click
 	public void sendInfo(View view) {
+		switch (mode) {
+		case SEARCH:
+			searchPatient(view);
+			break;
+		case CREATE:
+			createPatient(view);
+			break;
+		}
+		;
+	}
 
+	public void searchPatient(View view) {
 		Intent intent = new Intent(this, FoundPatientsActivity.class);
 
 		// Passing data to next activity
@@ -126,11 +189,12 @@ public class SearchPatientActivity extends Activity {
 			intent.putExtra(EXTRA_GENDER, false);
 		}
 
-		if (send_date) {
+		if (SEND_DATE) {
 			// Getting date of birth
 			DatePicker birth = (DatePicker) findViewById(R.id.datePicker);
-			String born_on = dateString(birth.getDayOfMonth(), birth.getMonth(), birth.getYear());
-			
+			String born_on = dateString(birth.getDayOfMonth(),
+					birth.getMonth(), birth.getYear());
+
 			intent.putExtra(EXTRA_BORN_ON, born_on);
 		} else {
 			intent.putExtra(EXTRA_BORN_ON, "");
@@ -144,7 +208,64 @@ public class SearchPatientActivity extends Activity {
 		// Starting new activity and hoping a result for finish by itself
 		startActivityForResult(intent, 0);
 	}
-	
+
+	public void createPatient(View view) {
+		Intent intent = new Intent(this, ShowNewPatientActivity.class);
+
+		// Passing data to next activity
+		EditText editFirstName = (EditText) findViewById(R.id.edit_first_name);
+		if (editFirstName.getText().length() == 0) {
+			Toast.makeText(this, R.string.invalidFirstName, Toast.LENGTH_LONG)
+					.show();
+			return;
+		} else {
+			String first_name = editFirstName.getText().toString();
+			intent.putExtra(EXTRA_FIRST_NAME, first_name);
+		}
+
+		EditText editLastName = (EditText) findViewById(R.id.edit_last_name);
+		if (editLastName.getText().length() == 0) {
+			Toast.makeText(this, R.string.invalidFamilyName, Toast.LENGTH_LONG)
+					.show();
+			return;
+		} else {
+			String last_name = editLastName.getText().toString();
+			intent.putExtra(EXTRA_LAST_NAME, last_name);
+		}
+
+		// Check value of Gender Radio Group
+		RadioButton maleButton = (RadioButton) findViewById(R.id.radio0);
+		RadioButton femaleButton = (RadioButton) findViewById(R.id.radio1);
+
+		if (maleButton.isChecked()) {
+			intent.putExtra(EXTRA_GENDER, true);
+		} else if (femaleButton.isChecked()) {
+			intent.putExtra(EXTRA_GENDER, false);
+		}
+
+		// Getting date of birth
+		DatePicker birth = (DatePicker) findViewById(R.id.datePicker);
+
+		String born_on = dateString(birth.getDayOfMonth(), birth.getMonth(),
+				birth.getYear());
+
+		intent.putExtra(EXTRA_BORN_ON, born_on);
+
+		if (village_id == -1 || zone_id == -1) {
+			Toast.makeText(this, R.string.invalidVillage, Toast.LENGTH_LONG)
+					.show();
+			return;
+		} else {
+			intent.putExtra(EXTRA_VILLAGE_ID, village_id);
+			intent.putExtra(EXTRA_ZONE_ID, zone_id);
+		}
+		intent.putExtra(EXTRA_FINISH_ACTIVITY, false);
+
+		// Starting new activity and hoping a result for finish by itself
+		startActivityForResult(intent, 0);
+
+	}
+
 	// If the date is be sent
 	public void showPicker(View view) {
 		// We hide the button
@@ -152,10 +273,9 @@ public class SearchPatientActivity extends Activity {
 
 		// And show the next step
 		findViewById(R.id.datePicker).setVisibility(View.VISIBLE);
-		
-		send_date = true;
+
+		SEND_DATE = true;
 	}
-	
 
 	// Creating a string with Date format
 	public String dateString(Integer day, Integer month, Integer year) {

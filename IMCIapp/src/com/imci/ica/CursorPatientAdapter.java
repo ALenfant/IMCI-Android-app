@@ -33,10 +33,10 @@ public class CursorPatientAdapter extends CursorAdapter {
 		holder.firstName.setText(cursor.getString(1).toString());
 		holder.lastName.setText(cursor.getString(2).toString());
 		String genderValue = cursor.getString(3).toString();
-		if (genderValue.equals("true")) {
-			holder.gender.setText("Male");
+		if (genderValue.equals("t")) {
+			holder.gender.setText(R.string.male);
 		} else {
-			holder.gender.setText("Female");
+			holder.gender.setText(R.string.female);
 		}
 		holder.bornOn.setText(cursor.getString(4).toString());
 
