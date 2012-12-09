@@ -27,6 +27,13 @@
         android:layout_height="wrap_content"
         android:onClick="searchPatient"
         android:text="@string/searchPatient" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="manageUsers"
+        android:text="@string/manage_users" />
     
     <Button
         android:id="@+id/button3"

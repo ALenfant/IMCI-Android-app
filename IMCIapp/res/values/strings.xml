@@ -67,5 +67,18 @@
     <string name="searchPatient">Search Patient</string>
     <string name="noPatientsFound">Any patient found with parameters of search</string>
     <string name="title_activity_info_patient">Patient Information</string>
+    <string name="rememberme">Remember me</string>
+    <string name="manage_users">Manage Users</string>
+    <string name="title_activity_manage_users">ManageUsersActivity</string>
+    <string name="add_user">Add User</string>
+    <string name="current_center_users">Current Center Users</string>
+    <string name="title_activity_edit_user">EditUserActivity</string>
+    <string name="edituser_description">Use this form to add or edit the selected user</string>
+    <string name="is_admin">Administrator?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="edituser_title">Edit User</string>
+    <string name="edituser_title_add">Add User</string>
+    <string name="edituser_description_add">Use this form to add a new user</string>
 
 </resources>

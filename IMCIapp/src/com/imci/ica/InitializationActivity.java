@@ -133,8 +133,9 @@ public class InitializationActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 			return;
 		}
+		
+		ApplicationPreferences.initializeCenter(this, selected_zone_id);
 		finish();
-
 	}
 
 	@Override

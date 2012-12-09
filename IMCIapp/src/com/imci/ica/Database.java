@@ -172,32 +172,22 @@ public class Database extends SQLiteAssetHelper {
 			try {
 				Cursor cursor = db
 						.query("users",
-								new String[] { "name", "admin" },
+								new String[] { "_id", "name", "admin" },
 								"name=? AND crypted_password=?",
 								new String[] { name,
 										MD5.md5(PASSWORD_SALT + password) },
 								null, null, null);
-				// Cursor cursor = db.query("users", new String[] {"name",
-				// "admin",
-				// "crypted_password"}, "name LIKE ?", new String[] {name},
-				// null,
-				// null, null);
-				// Cursor cursor = db.query("users", new String[] {"name",
-				// "admin",
-				// "crypted_password"}, "crypted_password = ?", new String[]
-				// {MD5.md5(PASSWORD_SALT + password)}, null, null, null);
+
 				if (cursor.getCount() == 0)
 					return false;
+
 				cursor.moveToFirst();
-				// dbname = cursor.getString(0);
-				// String admin = cursor.getString(1);
-				/*
-				 * System.out.println("DBNAME : " + dbname);
-				 * System.out.println("  NAME : " + name);
-				 * System.out.println("PWD IN DB : " + cursor.getString(2));
-				 * System.out.println("PWD ENCOD : " + MD5.md5(PASSWORD_SALT +
-				 * password));
-				 */
+				Boolean admin = cursor.getString(2).equals("t") ? true : false;
+				User user = new User(cursor.getInt(0), cursor.getString(1),
+						admin); // We create the user
+				ApplicationPreferences.loggedin_user = user; // We set the user
+																// as logged in
+
 				System.out.println("LOGIN OKAY");
 				cursor.close();
 				db.close();
@@ -209,7 +199,68 @@ public class Database extends SQLiteAssetHelper {
 		} else {
 			return false;
 		}
+	}
 
+	public Cursor getUsers() {
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor cursor = db.query("users",
+				new String[] { "_id", "name", "admin" }, "", new String[] {},
+				null, null, null);
+
+		cursor.moveToFirst();
+
+		return cursor;
+	}
+
+	public Cursor getUser(int userId) {
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor cursor = db.query("users",
+				new String[] { "_id", "name", "admin" }, "_id=?",
+				new String[] { Integer.toString(userId) }, null, null, null);
+
+		cursor.moveToFirst();
+
+		return cursor;
+	}
+
+	public Boolean editUser(int userId, String name, String password,
+			Boolean administrator, int zone_id, String global_id) {
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Check database is right opened
+		if (db != null) {
+			// We set the values to be inserted...
+			ContentValues values = new ContentValues();
+
+			try {
+				values.put("name", name);
+				if (password.length() != 0) {
+					values.put("crypted_password",
+							MD5.md5(PASSWORD_SALT + password));
+				}
+				values.put("admin", administrator ? "t" : "f");
+				values.put("zone_id", zone_id);
+				values.put("global_id", global_id);
+
+				String currentdatetime = getCurrentDateTime();
+				values.put("updated_at", currentdatetime);
+
+				long resultID = db.update("users", values, "_id=?",
+						new String[] { Integer.toString(userId) });
+				if (resultID == -1)
+					return false;
+			} catch (Exception e) {
+				return false;
+			}
+			db.close();
+
+			return true;
+
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -236,32 +287,24 @@ public class Database extends SQLiteAssetHelper {
 		}
 
 		SQLiteDatabase db = getReadableDatabase();
-		
+
 		Cursor c = db.rawQuery(
 				"SELECT _id, first_name, last_name, gender, born_on, "
 						+ "village_id FROM children WHERE last_name=\""
-						+ last_name
-						+ "\" AND gender=\""
-						+ genderStr
-						+ "\" AND CASE WHEN \""
-						+ first_name
-						+ "\" <> '' THEN first_name=\""
-						+ first_name
+						+ last_name + "\" AND gender=\"" + genderStr
+						+ "\" AND CASE WHEN \"" + first_name
+						+ "\" <> '' THEN first_name=\"" + first_name
 						+ "\" ELSE first_name=first_name END"
-						+ " AND CASE WHEN \""
-						+ born_on
-						+ "\" <> '' THEN born_on=\""
-						+ born_on
-						+ "\" ELSE born_on=born_on END"
-						+ " AND CASE WHEN "
-						+ village_id
-						+ " <> -1 THEN village_id="
-						+ village_id + " ELSE village_id=village_id END", null);
+						+ " AND CASE WHEN \"" + born_on
+						+ "\" <> '' THEN born_on=\"" + born_on
+						+ "\" ELSE born_on=born_on END" + " AND CASE WHEN "
+						+ village_id + " <> -1 THEN village_id=" + village_id
+						+ " ELSE village_id=village_id END", null);
 
 		c.moveToFirst();
-//		if (c.getCount()==0) {
-//			c = null;
-//		}
+		// if (c.getCount()==0) {
+		// c = null;
+		// }
 		db.close();
 		return c;
 	}

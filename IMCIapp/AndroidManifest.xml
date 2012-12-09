@@ -58,6 +58,17 @@
             android:name="com.imci.ica.InfoPatientActivity"
             android:label="@string/title_activity_info_patient" >
         </activity>
+        <activity
+            android:name="com.imci.ica.ManageUsersActivity"
+            android:label="@string/title_activity_manage_users" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.EditUserActivity"
+            android:label="@string/title_activity_edit_user" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.imci.ica.ManageUsersActivity" />
+        </activity>
     </application>
 
 </manifest>
