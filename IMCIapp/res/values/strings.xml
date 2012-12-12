@@ -80,5 +80,9 @@
     <string name="edituser_title">Edit User</string>
     <string name="edituser_title_add">Add User</string>
     <string name="edituser_description_add">Use this form to add a new user</string>
+    <string name="descr_image">Picture of patient</string>
+    <string name="space"></string>
+    <string name="new_diagnostic">New Diagnostic</string>
+    <string name="title_activity_get_signs">Getting Signs</string>
 
 </resources>

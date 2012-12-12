@@ -69,6 +69,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.imci.ica.ManageUsersActivity" />
         </activity>
+        <activity
+            android:name="com.imci.ica.GetSignsActivity"
+            android:label="@string/title_activity_get_signs" >
+        </activity>
     </application>
 
 </manifest>

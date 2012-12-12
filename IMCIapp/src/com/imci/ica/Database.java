@@ -87,6 +87,17 @@ public class Database extends SQLiteAssetHelper {
 		db.close();
 		return c;
 	}
+	
+	public String getNameOfZone(int id) {
+		String str;
+		Cursor c = getZone(id);
+		if (c.getCount() > 0)
+			str = c.getString(1);
+		else
+			str = "";
+		
+		return str;
+	}
 
 	// SELECT * FROM zones WHERE IFNULL(parent_id,0) = 0
 
@@ -305,6 +316,17 @@ public class Database extends SQLiteAssetHelper {
 		// if (c.getCount()==0) {
 		// c = null;
 		// }
+		db.close();
+		return c;
+	}
+	
+	public Cursor getPatientById (int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor c = db.rawQuery(
+				"SELECT * FROM children WHERE _id = " + id,
+				new String[0]);
+		c.moveToFirst();
+
 		db.close();
 		return c;
 	}

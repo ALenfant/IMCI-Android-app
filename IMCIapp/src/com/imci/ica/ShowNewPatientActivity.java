@@ -2,7 +2,6 @@ package com.imci.ica;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -56,21 +55,25 @@ public class ShowNewPatientActivity extends Activity {
 		textBornOn.setText(born_on);
 
 		Database db = new Database(this);
-		Cursor villageCursor = db.getZone(village_id);
-		if (villageCursor.getCount() > 0) {
-			String villageName = villageCursor.getString(1);
+		String villageName = db.getNameOfZone(village_id);
+//		
+//		Cursor villageCursor = db.getZone(village_id);
+//		if (villageCursor.getCount() > 0) {
+//			String villageName = villageCursor.getString(1);
 
 			TextView textVillage = (TextView) findViewById(R.id.TextVillage);
 			textVillage.setText(villageName);
-		}
-
-		villageCursor = db.getZone(zone_id);
-		if (villageCursor.getCount() > 0) {
-			String zoneName = villageCursor.getString(1);
-
+//		}
+//
+//		villageCursor = db.getZone(zone_id);
+//		if (villageCursor.getCount() > 0) {
+//			String zoneName = villageCursor.getString(1);
+//
+			String zoneName = db.getNameOfZone(zone_id);
+			
 			TextView textZone = (TextView) findViewById(R.id.TextZone);
 			textZone.setText(zoneName);
-		}
+//		}
 	}
 
 	@Override
