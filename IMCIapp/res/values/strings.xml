@@ -84,5 +84,6 @@
     <string name="space"></string>
     <string name="new_diagnostic">New Diagnostic</string>
     <string name="title_activity_get_signs">Getting Signs</string>
+    <string name="next">Next</string>
 
 </resources>

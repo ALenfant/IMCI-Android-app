@@ -40,17 +40,17 @@ public class FoundPatientsActivity extends Activity {
 				0);
 
 		Database db = new Database(this);
-		Cursor c = db.getPatients(first_name, last_name, gender, born_on, village_id);
-		startManagingCursor(c);
-		if (c.getCount()==0) {
+		Cursor mCursor = db.getPatients(first_name, last_name, gender, born_on, village_id);
+		startManagingCursor(mCursor);
+		if (mCursor.getCount()==0) {
 			Toast.makeText(this, R.string.noPatientsFound, Toast.LENGTH_LONG)
 			.show();
 			/* please ignore this block */
 		} else {
-			c.moveToFirst();
+			mCursor.moveToFirst();
 
 			ListView listView = (ListView) findViewById(R.id.listViewPatients);
-			listView.setAdapter(new CursorPatientAdapter(this, c));
+			listView.setAdapter(new CursorPatientAdapter(this, mCursor));
 
 			listView.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> adapter, View view,

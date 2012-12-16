@@ -87,7 +87,7 @@ public class Database extends SQLiteAssetHelper {
 		db.close();
 		return c;
 	}
-	
+
 	public String getNameOfZone(int id) {
 		String str;
 		Cursor c = getZone(id);
@@ -95,7 +95,7 @@ public class Database extends SQLiteAssetHelper {
 			str = c.getString(1);
 		else
 			str = "";
-		
+
 		return str;
 	}
 
@@ -181,7 +181,7 @@ public class Database extends SQLiteAssetHelper {
 		if (db != null) {
 
 			try {
-				Cursor cursor = db
+				Cursor mCursor = db
 						.query("users",
 								new String[] { "_id", "name", "admin" },
 								"name=? AND crypted_password=?",
@@ -189,18 +189,18 @@ public class Database extends SQLiteAssetHelper {
 										MD5.md5(PASSWORD_SALT + password) },
 								null, null, null);
 
-				if (cursor.getCount() == 0)
+				if (mCursor.getCount() == 0)
 					return false;
 
-				cursor.moveToFirst();
-				Boolean admin = cursor.getString(2).equals("t") ? true : false;
-				User user = new User(cursor.getInt(0), cursor.getString(1),
+				mCursor.moveToFirst();
+				Boolean admin = mCursor.getString(2).equals("t") ? true : false;
+				User user = new User(mCursor.getInt(0), mCursor.getString(1),
 						admin); // We create the user
 				ApplicationPreferences.loggedin_user = user; // We set the user
 																// as logged in
 
 				System.out.println("LOGIN OKAY");
-				cursor.close();
+				mCursor.close();
 				db.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -215,25 +215,24 @@ public class Database extends SQLiteAssetHelper {
 	public Cursor getUsers() {
 		SQLiteDatabase db = getReadableDatabase();
 
-		Cursor cursor = db.query("users",
-				new String[] { "_id", "name", "admin" }, "", new String[] {},
-				null, null, null);
+		Cursor mCursor = db.query("users", new String[] { "_id", "name",
+				"admin" }, "", new String[] {}, null, null, null);
 
-		cursor.moveToFirst();
+		mCursor.moveToFirst();
 
-		return cursor;
+		return mCursor;
 	}
 
 	public Cursor getUser(int userId) {
 		SQLiteDatabase db = getReadableDatabase();
 
-		Cursor cursor = db.query("users",
-				new String[] { "_id", "name", "admin" }, "_id=?",
-				new String[] { Integer.toString(userId) }, null, null, null);
+		Cursor mCursor = db.query("users", new String[] { "_id", "name",
+				"admin" }, "_id=?", new String[] { Integer.toString(userId) },
+				null, null, null);
 
-		cursor.moveToFirst();
+		mCursor.moveToFirst();
 
-		return cursor;
+		return mCursor;
 	}
 
 	public Boolean editUser(int userId, String name, String password,
@@ -299,37 +298,73 @@ public class Database extends SQLiteAssetHelper {
 
 		SQLiteDatabase db = getReadableDatabase();
 
-		Cursor c = db.rawQuery(
-				"SELECT _id, first_name, last_name, gender, born_on, "
-						+ "village_id FROM children WHERE last_name=\""
-						+ last_name + "\" AND gender=\"" + genderStr
+		Cursor mCursor = db.rawQuery(
+				"SELECT `_id`, `first_name`, `last_name`, `gender`, `born_on`, "
+						+ "`village_id` FROM `children` WHERE `last_name`=\""
+						+ last_name + "\" AND `gender`=\"" + genderStr
 						+ "\" AND CASE WHEN \"" + first_name
-						+ "\" <> '' THEN first_name=\"" + first_name
-						+ "\" ELSE first_name=first_name END"
+						+ "\" <> '' THEN `first_name`=\"" + first_name
+						+ "\" ELSE `first_name`=`first_name` END"
 						+ " AND CASE WHEN \"" + born_on
-						+ "\" <> '' THEN born_on=\"" + born_on
-						+ "\" ELSE born_on=born_on END" + " AND CASE WHEN "
-						+ village_id + " <> -1 THEN village_id=" + village_id
-						+ " ELSE village_id=village_id END", null);
+						+ "\" <> '' THEN `born_on`=\"" + born_on
+						+ "\" ELSE `born_on`=`born_on` END" + " AND CASE WHEN "
+						+ village_id + " <> -1 THEN `village_id`=" + village_id
+						+ " ELSE `village_id`=`village_id` END", null);
 
-		c.moveToFirst();
-		// if (c.getCount()==0) {
-		// c = null;
-		// }
+		if (mCursor.getCount() != 0)
+			mCursor.moveToFirst();
+		
+			//			mCursor = null;
+//		else
+
 		db.close();
-		return c;
+		return mCursor;
+	}
+
+	public Cursor getPatientById(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor mCursor = db.rawQuery(
+				"SELECT * FROM `children` WHERE `_id` = " + id, new String[0]);
+		mCursor.moveToFirst();
+
+		db.close();
+		return mCursor;
+	}
+
+	public Cursor getIllnesses() {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor mCursor = db.rawQuery("SELECT `_id`, `key` FROM `illnesses`",
+				new String[0]);
+		mCursor.moveToFirst();
+
+		db.close();
+		return mCursor;
+	}
+
+	public String getIllnessKey(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor mCursor = db.rawQuery("SELECT `key` FROM `illnesses` WHERE `_id` = " +id,
+				new String[0]);
+		mCursor.moveToFirst();
+		
+		String key = mCursor.getString(mCursor.getColumnIndex("key"));
+		mCursor.close();
+		db.close();
+		return key;
 	}
 	
-	public Cursor getPatientById (int id) {
+	public Cursor getQuestions(int age_group) {
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor c = db.rawQuery(
-				"SELECT * FROM children WHERE _id = " + id,
-				new String[0]);
-		c.moveToFirst();
+		Cursor mCursor = db
+				.rawQuery(
+						"SELECT `_id`, `illness_id`, `type`, `key`, `question`, `values`, `dep`, `negative` FROM `signs` WHERE `age_group`="
+								+ age_group, new String[0]);
+		mCursor.moveToFirst();
 
 		db.close();
-		return c;
+		return mCursor;
 	}
+
 }
 
 class MD5 {
