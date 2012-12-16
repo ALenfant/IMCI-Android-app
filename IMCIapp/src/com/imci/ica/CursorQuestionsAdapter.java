@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -126,7 +125,7 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 	public void putIntegerLayout(View view, Cursor cursor) {
 		ViewHolderInteger holder = new ViewHolderInteger();
 		holder.textQuestion = (TextView) view.findViewById(R.id.textQuestion);
-		holder.editValue = (EditText) view.findViewById(R.id.editValue);
+//		holder.editValue = (EditText) view.findViewById(R.id.editValue);
 		
 		holder.textQuestion.setText(cursor.getString(cursor.getColumnIndex("question")));
 	}
@@ -167,10 +166,7 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 	}
 	
 	public String createKey(String illness_key) {
-		String key = "data['" + illness_key + ".";
-		String add = mCursor.getString(mCursor.getColumnIndex("key"));
-		
-		key = key + add + "']";
+		String key = illness_key + "." + mCursor.getString(mCursor.getColumnIndex("key"));
 		return key;
 	}
 	
@@ -182,7 +178,7 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 
 	static class ViewHolderInteger {
 		private TextView textQuestion;
-		private EditText editValue;
+//		private EditText editValue;
 	}
 
 	static class ViewHolderList {

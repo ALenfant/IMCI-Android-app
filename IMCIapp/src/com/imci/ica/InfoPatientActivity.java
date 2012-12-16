@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +20,6 @@ public class InfoPatientActivity extends Activity {
 	public String born_on;
 	public final static int POS_BIRTH = 4;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,18 +45,32 @@ public class InfoPatientActivity extends Activity {
 		return true;
 	}
 
-	public void newDiagnostic(View view) {
-		Intent intent = new Intent(this, GetSignsActivity.class);
-		intent.putExtra(GetSignsActivity.EXTRA_ID_PATIENT, id_patient);
-		intent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP,
-				getAgeGroup());
-		startActivityForResult(intent, 0);
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intent = getIntent();
+//			intent.putExtra(FoundPatientsActivity.EXTRA_FINISH_ACTIVITY, false);
+			setResult(Activity.RESULT_OK, intent);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
+	public void newDiagnostic(View view) {
+		Intent prevIntent = getIntent();
+		prevIntent.putExtra(FoundPatientsActivity.EXTRA_FINISH_ACTIVITY, true);
+		setResult(Activity.RESULT_OK, prevIntent);
+		
+		Intent newIntent = new Intent(this, GetSignsActivity.class);
+		newIntent.putExtra(GetSignsActivity.EXTRA_ID_PATIENT, id_patient);
+		newIntent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP, getAgeGroup());
+		startActivity(newIntent);
+	}
+
 	public int getAgeGroup() {
 
 		int age_group;
-//		int months;
 		int days;
 
 		String[] birthArray = born_on.split("\\-");
@@ -66,25 +80,17 @@ public class InfoPatientActivity extends Activity {
 		GregorianCalendar birth = new GregorianCalendar(bYear, bMonth, bDay);
 		GregorianCalendar current = new GregorianCalendar();
 		int yearRange = current.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-//		months = current.get(Calendar.MONTH) - birth.get(Calendar.MONTH)
-//				+ yearRange * 12;
-//		if (months > 1)
-//			days = -1;
-//		else
-			days = current.get(Calendar.DAY_OF_YEAR)
-					- birth.get(Calendar.DAY_OF_YEAR) + yearRange * 365;
+		days = current.get(Calendar.DAY_OF_YEAR)
+				- birth.get(Calendar.DAY_OF_YEAR) + yearRange * 365;
 
-//		if(months>=2) {
-//			age_group = 2;
-//		} else 
-			if (days >= 0 && days <= 7) {
+		if (days >= 0 && days <= 7) {
 			age_group = 0;
-		} else if (days >= 8 && days <= 60){
+		} else if (days >= 8 && days <= 60) {
 			age_group = 1;
 		} else {
 			age_group = 2;
 		}
-		
+
 		return age_group;
 	}
 }

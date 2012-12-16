@@ -20,15 +20,9 @@ public class SearchPatientActivity extends Activity {
 	public final static String EXTRA_BORN_ON = "com.imci.ica.BORN_ON";
 	public final static String EXTRA_VILLAGE_ID = "com.imci.ica.VILLAGE";
 	public final static String EXTRA_ZONE_ID = "com.imci.ica.ZONE";
-	public final static String EXTRA_CHANGE_MODE = "com.imci.ica.CHANGE_MODE";
+	public final static String EXTRA_MODE_CREATE = "com.imci.ica.MODE_CREATE";
 	public final static String EXTRA_FINISH_ACTIVITY = "com.imci.ica.FINISH_ACTIVITY";
-	//
-	// public final static int DO_NOTHING = 0;
-	// public final static int FINISH = 1;
-	// public final static int GET_VILLAGE = 2;
-	// public final static int CHANGE_MODE = 3;
-	// int on_result = DO_NOTHING;
-
+	
 	public final static int SEARCH = 0;
 	public final static int CREATE = 1;
 	int mode = SEARCH;
@@ -61,39 +55,6 @@ public class SearchPatientActivity extends Activity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		// switch (on_result) {
-		// case FINISH: {
-		// finish();
-		// }
-		// break;
-		// case GET_VILLAGE: {
-		// if (data.getBooleanExtra(ZoneChoiceActivity.EXTRA_CHECK_RESULT,
-		// true)) {
-		// super.onActivityResult(requestCode, resultCode, data);
-		//
-		// village_id = data.getIntExtra(
-		// ZoneChoiceActivity.EXTRA_RETURNED_ZONE_ID, -1);
-		// zone_id = data.getIntExtra(
-		// ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1);
-		//
-		// Database db = new Database(this);
-		// Cursor villageCursor = db.getZone(village_id);
-		// if (villageCursor.getCount() > 0) {
-		// String villageName = villageCursor.getString(1);
-		//
-		// Button villageButton = ((Button) findViewById(R.id.buttonVillage));
-		// villageButton.setText(villageName);
-		// }
-		// on_result = DO_NOTHING;
-		// }
-		// }
-		// break;
-		// case CHANGE_MODE: {
-		// mode = CREATE;
-		// showPicker(findViewById(R.id.linearLayoutSearch));
-		// }
-		// break;
-		// }
 		if (data.getBooleanExtra(EXTRA_FINISH_ACTIVITY, false)) {
 			finish();
 		}
@@ -117,7 +78,7 @@ public class SearchPatientActivity extends Activity {
 			CHECK_VILLAGE = false;
 			return;
 		}
-		if (data.getBooleanExtra(EXTRA_CHANGE_MODE, false)) {
+		if (data.getBooleanExtra(EXTRA_MODE_CREATE, false)) {
 			mode = CREATE;
 			showPicker(findViewById(R.id.linearLayoutSearch));
 
@@ -148,16 +109,16 @@ public class SearchPatientActivity extends Activity {
 	public void sendInfo(View view) {
 		switch (mode) {
 		case SEARCH:
-			searchPatient(view);
+			searchPatient();
 			break;
 		case CREATE:
-			createPatient(view);
+			createPatient();
 			break;
 		}
 		;
 	}
 
-	public void searchPatient(View view) {
+	public void searchPatient() {
 		Intent intent = new Intent(this, FoundPatientsActivity.class);
 
 		// Passing data to next activity
@@ -184,9 +145,11 @@ public class SearchPatientActivity extends Activity {
 		RadioButton femaleButton = (RadioButton) findViewById(R.id.radio1);
 
 		if (maleButton.isChecked()) {
-			intent.putExtra(EXTRA_GENDER, true);
+			intent.putExtra(EXTRA_GENDER, "t");
 		} else if (femaleButton.isChecked()) {
-			intent.putExtra(EXTRA_GENDER, false);
+			intent.putExtra(EXTRA_GENDER, "f");
+		} else {
+			intent.putExtra(EXTRA_GENDER, "");
 		}
 
 		if (SEND_DATE) {
@@ -209,7 +172,7 @@ public class SearchPatientActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 
-	public void createPatient(View view) {
+	public void createPatient() {
 		Intent intent = new Intent(this, ShowNewPatientActivity.class);
 
 		// Passing data to next activity
@@ -238,9 +201,13 @@ public class SearchPatientActivity extends Activity {
 		RadioButton femaleButton = (RadioButton) findViewById(R.id.radio1);
 
 		if (maleButton.isChecked()) {
-			intent.putExtra(EXTRA_GENDER, true);
+			intent.putExtra(EXTRA_GENDER, "t");
 		} else if (femaleButton.isChecked()) {
-			intent.putExtra(EXTRA_GENDER, false);
+			intent.putExtra(EXTRA_GENDER, "f");
+		} else {
+			Toast.makeText(this, R.string.pressGender, Toast.LENGTH_LONG)
+			.show();
+			return;
 		}
 
 		// Getting date of birth

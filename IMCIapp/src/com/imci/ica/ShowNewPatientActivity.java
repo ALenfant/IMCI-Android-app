@@ -13,7 +13,7 @@ public class ShowNewPatientActivity extends Activity {
 
 	String first_name;
 	String last_name;
-	boolean gender;
+	String gender;
 	String born_on;
 	int village_id;
 	int zone_id;
@@ -29,8 +29,7 @@ public class ShowNewPatientActivity extends Activity {
 				.getStringExtra(SearchPatientActivity.EXTRA_FIRST_NAME);
 		last_name = intent
 				.getStringExtra(SearchPatientActivity.EXTRA_LAST_NAME);
-		gender = intent.getBooleanExtra(SearchPatientActivity.EXTRA_GENDER,
-				true);
+		gender = intent.getStringExtra(SearchPatientActivity.EXTRA_GENDER);
 		born_on = intent
 				.getStringExtra(SearchPatientActivity.EXTRA_BORN_ON);
 		village_id = intent.getIntExtra(SearchPatientActivity.EXTRA_VILLAGE_ID,
@@ -46,7 +45,7 @@ public class ShowNewPatientActivity extends Activity {
 
 		TextView textGender = (TextView) findViewById(R.id.TextGender);
 		// Creating Male or Female text
-		if (gender == true)
+		if (gender.equals("t"))
 			textGender.setText(R.string.male);
 		else
 			textGender.setText(R.string.female);

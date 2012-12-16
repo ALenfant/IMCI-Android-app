@@ -16,15 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 public class GetSignsActivity extends Activity {
 
 	public final static String EXTRA_ID_PATIENT = "com.imci.ica.ID_PATIENT";
 	public final static String EXTRA_AGE_GROUP = "com.imci.ica.AGE_GROUP";
+	public final static String EXTRA_HASHMAP = "com.imci.ica.HASHMAP";
 
 	private final int TYPE_BOOLEAN = 1;
 	private final int TYPE_INTEGER = 2;
-//	private final int TYPE_LIST = 3;
 
 	int id_patient, age_group;
 	int illness_id, count;
@@ -37,7 +38,8 @@ public class GetSignsActivity extends Activity {
 
 	HashMap<String, String> types;
 	// HashMap<String, View> views;
-	HashMap<String, String> answers;
+	HashMap<String, String> answersAllQuestions;
+	HashMap<String, String> answersOneIllness;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,8 @@ public class GetSignsActivity extends Activity {
 
 		types = new HashMap<String, String>();
 		// views = new HashMap<String, View>();
-		answers = new HashMap<String, String>();
+		answersAllQuestions = new HashMap<String, String>();
+		answersOneIllness = new HashMap<String, String>();
 
 		tableQuestions = null;
 
@@ -96,7 +99,6 @@ public class GetSignsActivity extends Activity {
 			key = mAdapter.createKey(illness_key);
 			view.setTag(key);
 
-			// views.put(key, view);
 			types.put(key, mAdapter.getType(mAdapter.getCursor()));
 
 			tableQuestions.addView(view);
@@ -111,86 +113,123 @@ public class GetSignsActivity extends Activity {
 	}
 
 	public void saveAnswers(View view) {
-		if (!end) {
-			View mView;
-			String key;
-			String type;
 
-			// Iterator<View> itViews = views.values().iterator();
-			Iterator<Entry<String, String>> iterator = types.entrySet().iterator();
-//			Iterator<String> itTypes = types.values().iterator();
+		View mView;
+		String key;
+		String type;
 
-			// while (itViews.hasNext() && itTypes.hasNext()) {
-			// mView = (View) itViews.next();
-			while (iterator.hasNext()){ //&& itTypes.hasNext()) {
+		Iterator<Entry<String, String>> iterator = types.entrySet().iterator();
 
-//				key = itKeys.next();
-				Entry<String,String> e = iterator.next();
-				key = e.getKey();
-				type = e.getValue();//(String) itTypes.next();
-				Log.w(key, type);
-				
-				mView = (View) tableQuestions.findViewWithTag(key);
-				switch (mAdapter.getTypeQuestion(type)) {
-				case TYPE_BOOLEAN:
-					takeAnswersBoolean(mView, key);
-					break;
-				case TYPE_INTEGER:
-					takeAnswersInteger(mView, key);
-					break;
-				default:
-					takeAnswersList(mView, key);
-					break;
+		while (iterator.hasNext()) {
+			Entry<String, String> e = iterator.next();
+			key = e.getKey();
+			type = e.getValue();
+
+			mView = (View) tableQuestions.findViewWithTag(key);
+
+			switch (mAdapter.getTypeQuestion(type)) {
+			case TYPE_BOOLEAN: {
+				if (!takeAnswersBoolean(mView, key)) {
+					answersOneIllness.clear();
+					return;
 				}
-				
 			}
-			
-			types.clear();
-			// Hiding previous illnesses questions
-			tableQuestions.setVisibility(View.GONE);
+				break;
+			case TYPE_INTEGER: {
+				if (!takeAnswersInteger(mView, key)) {
+					answersOneIllness.clear();
+					return;
+				}
+			}
+				break;
+			default:
+				takeAnswersList(mView, key);
+				break;
+			}
 
+		}
+		registerAnswersOneIllness(answersOneIllness);
+
+		types.clear();
+		answersOneIllness.clear();
+		// Hiding previous illnesses questions
+		tableQuestions.setVisibility(View.GONE);
+
+		if (!end) {
 			showNextIllness();
 		} else {
-			//Only for check result of data entry
-			Iterator<String> itKey = answers.keySet().iterator();
-			String key;
+			// Only for check result of data entry
+			Iterator<String> itKey = answersAllQuestions.keySet().iterator();
 			String value;
-			while(itKey.hasNext()){
+			while (itKey.hasNext()) {
 				key = itKey.next();
-				value = answers.get(key);
-				
+				value = answersAllQuestions.get(key);
+
 				Log.w(key, value);
 			}
 
+			// ANTONIN, YOU HAVE HERE THE CODE TO PASS TO THE NEW ACTIVITY
+			// JUST CHANGE THE NAME "NameNewActivity" FOR THE NAME OF THIS
+			//
+			// Intent intent = new Intent(this, NameNewActivity.class);
+			// intent.putExtra(EXTRA_HASHMAP, answers);
+			// startActivity(intent);
+			// finish();
+
 		}
 	}
 
-	public void takeAnswersBoolean(View view, String key) {
+	public boolean takeAnswersBoolean(View view, String key) {
 		RadioButton yesButton = (RadioButton) view.findViewById(R.id.buttonYes);
 		RadioButton noButton = (RadioButton) view.findViewById(R.id.buttonNo);
-		String value="nada";
-		if (yesButton.isChecked()) {
-			answers.put(key, "true");
-			value = "true";
-		} else if (noButton.isChecked()) {
-			answers.put(key, "false");
-			value = "false";
-		}
-		Log.w(key, value);
 
+		if (!yesButton.isChecked() && !noButton.isChecked()) {
+			Toast.makeText(this, R.string.allQuestionsMarked, Toast.LENGTH_LONG)
+					.show();
+			return false;
+		} else {
+			if (yesButton.isChecked()) {
+				answersOneIllness.put(key, "true");
+			} else if (noButton.isChecked()) {
+				answersOneIllness.put(key, "false");
+			}
+			return true;
+		}
 	}
 
-	public void takeAnswersInteger(View view, String key) {
+	public boolean takeAnswersInteger(View view, String key) {
 		EditText entry = (EditText) view.findViewById(R.id.editValue);
 		String number = entry.getText().toString();
 
-		answers.put(key, number);
+		if (number.length() == 0) {
+			Toast.makeText(this, R.string.allQuestionsMarked, Toast.LENGTH_LONG)
+					.show();
+			return false;
+		} else {
+			answersOneIllness.put(key, number);
+			return true;
+		}
 	}
 
-	public void takeAnswersList(View view, String key) {
+	public boolean takeAnswersList(View view, String key) {
 		Spinner list = (Spinner) view.findViewById(R.id.spinner);
 		String election = list.getSelectedItem().toString();
 
-		answers.put(key, election);
+		answersOneIllness.put(key, election);
+		return true;
+	}
+
+	public void registerAnswersOneIllness(HashMap<String, String> hm) {
+		String key;
+		String value;
+		Iterator<Entry<String, String>> iterator = hm.entrySet().iterator();
+
+		while (iterator.hasNext()) {
+			Entry<String, String> e = iterator.next();
+			key = e.getKey();
+			value = e.getValue();
+
+			answersAllQuestions.put(key, value);
+		}
 	}
 }

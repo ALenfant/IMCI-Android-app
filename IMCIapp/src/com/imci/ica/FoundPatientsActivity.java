@@ -14,9 +14,11 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class FoundPatientsActivity extends Activity {
 
+	public final static String EXTRA_FINISH_ACTIVITY = "com.imci.ica.FINISH_ACTIVITY";
+	
 	String first_name;
 	String last_name;
-	boolean gender;
+	String gender;
 	String born_on;
 	int village_id;
 
@@ -33,8 +35,7 @@ public class FoundPatientsActivity extends Activity {
 				.getStringExtra(SearchPatientActivity.EXTRA_FIRST_NAME);
 		last_name = intent
 				.getStringExtra(SearchPatientActivity.EXTRA_LAST_NAME);
-		gender = intent.getBooleanExtra(SearchPatientActivity.EXTRA_GENDER,
-				true);
+		gender = intent.getStringExtra(SearchPatientActivity.EXTRA_GENDER);
 		born_on = intent.getStringExtra(SearchPatientActivity.EXTRA_BORN_ON);
 		village_id = intent.getIntExtra(SearchPatientActivity.EXTRA_VILLAGE_ID,
 				0);
@@ -55,19 +56,18 @@ public class FoundPatientsActivity extends Activity {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> adapter, View view,
 						int position, long id) {
-//					int selected_id = (int) id;
-//
-//					Toast.makeText(getApplicationContext(),
-//							"selected: pos" + position + " id:" + selected_id,
-//							Toast.LENGTH_SHORT).show();
+					Intent prevIntent = getIntent();
+					prevIntent.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY, true);
+					setResult(Activity.RESULT_OK, prevIntent);
 
 					Cursor selectItem = (Cursor) adapter.getItemAtPosition(position);
 				    int idItem = Integer.parseInt(selectItem.getString(0));
 					
-					Intent i = new Intent(FoundPatientsActivity.this, InfoPatientActivity.class);
-					i.putExtra(InfoPatientActivity.EXTRA_ID_PATIENT, idItem);
-																				
-					startActivity(i);
+					Intent newIntent = new Intent(FoundPatientsActivity.this, InfoPatientActivity.class);
+					newIntent.putExtra(InfoPatientActivity.EXTRA_ID_PATIENT, idItem);
+					newIntent.putExtra(EXTRA_FINISH_ACTIVITY, false);
+
+					startActivityForResult(newIntent, 0);
 				}
 			});
 		}
@@ -84,19 +84,25 @@ public class FoundPatientsActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = getIntent();
-//			intent.putExtra(SearchPatientActivity.EXTRA_MODE_RESULT, 
-//					SearchPatientActivity.DO_NOTHING);
 			setResult(Activity.RESULT_OK, intent);
 			finish();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(data.getBooleanExtra(EXTRA_FINISH_ACTIVITY, false)) {
+			finish();
+		}
+	}
+
 	
 	//Answer to Create Patient button click
     public void createPatient(View view) {
     	Intent intent = getIntent();
-    	intent.putExtra(SearchPatientActivity.EXTRA_CHANGE_MODE, true);
+    	intent.putExtra(SearchPatientActivity.EXTRA_MODE_CREATE, true);
 		setResult(Activity.RESULT_OK, intent);
     	finish();
     }

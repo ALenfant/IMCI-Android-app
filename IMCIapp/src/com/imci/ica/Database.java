@@ -103,7 +103,7 @@ public class Database extends SQLiteAssetHelper {
 
 	// Register a New Patient into Database
 	public boolean insertNewPatient(int village_id, String first_name,
-			String last_name, boolean gender, String born_on) {
+			String last_name, String gender, String born_on) {
 		SQLiteDatabase db = getWritableDatabase();
 
 		// Check database is right opened
@@ -115,7 +115,7 @@ public class Database extends SQLiteAssetHelper {
 				values.put("village_id", village_id);
 				values.put("first_name", first_name);
 				values.put("last_name", last_name);
-				values.put("gender", gender ? "t" : "f");
+				values.put("gender", gender);
 				values.put("born_on", born_on);
 
 				String currentdatetime = getCurrentDateTime();
@@ -287,24 +287,27 @@ public class Database extends SQLiteAssetHelper {
 	}
 
 	public Cursor getPatients(String first_name, String last_name,
-			boolean gender, String born_on, int village_id) {
+			String gender, String born_on, int village_id) {
 
-		String genderStr;
-		if (gender) {
-			genderStr = "t";
-		} else {
-			genderStr = "f";
-		}
+//		String genderStr;
+//		if (gender) {
+//			genderStr = "t";
+//		} else {
+//			genderStr = "f";
+//		}
 
 		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor mCursor = db.rawQuery(
 				"SELECT `_id`, `first_name`, `last_name`, `gender`, `born_on`, "
 						+ "`village_id` FROM `children` WHERE `last_name`=\""
-						+ last_name + "\" AND `gender`=\"" + genderStr
-						+ "\" AND CASE WHEN \"" + first_name
+						+ last_name + "\""                                //  + "\" AND `gender`=\"" + genderStr
+						+ " AND CASE WHEN \"" + first_name
 						+ "\" <> '' THEN `first_name`=\"" + first_name
 						+ "\" ELSE `first_name`=`first_name` END"
+						+ " AND CASE WHEN \"" + gender
+						+ "\" <> '' THEN `gender`=\"" + gender
+						+ "\" ELSE `gender`=`gender` END"
 						+ " AND CASE WHEN \"" + born_on
 						+ "\" <> '' THEN `born_on`=\"" + born_on
 						+ "\" ELSE `born_on`=`born_on` END" + " AND CASE WHEN "

@@ -149,6 +149,7 @@ public final class R {
         public static final int accessibility_horizontal_bar=0x7f050021;
         public static final int addPatient=0x7f05000a;
         public static final int add_user=0x7f050042;
+        public static final int allQuestionsMarked=0x7f050052;
         public static final int app_name=0x7f050000;
         public static final int birth=0x7f05000e;
         public static final int cancel=0x7f050012;
@@ -198,6 +199,7 @@ public final class R {
         public static final int password=0x7f050028;
         public static final int password_repeat=0x7f050029;
         public static final int patientCreated=0x7f050018;
+        public static final int pressGender=0x7f050051;
         public static final int rememberme=0x7f05003f;
         public static final int restore_center=0x7f050020;
         public static final int searchPatient=0x7f05003c;
