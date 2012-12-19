@@ -42,4 +42,11 @@
         android:text="@string/login"
         android:onClick="login" />
     
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DEBUG Classifications"
+        android:onClick="debugClassifications" />
+    
 </LinearLayout>

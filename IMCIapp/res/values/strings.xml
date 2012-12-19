@@ -87,5 +87,7 @@
     <string name="next">Next</string>
     <string name="pressGender">Error: please select a value for gender</string>
     <string name="allQuestionsMarked">Error: All questions must be marked</string>
+    <string name="title_activity_signs_classification">SignsClassificationActivity</string>
+    <string name="signsclassification_title">Results</string>
 
 </resources>

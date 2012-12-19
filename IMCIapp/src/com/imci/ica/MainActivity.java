@@ -50,4 +50,10 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, ManageUsersActivity.class);
 		startActivity(intent);
 	}
+	
+	//Debug button
+	public void debugClassifications(View view) {
+		Intent intent = new Intent(this, SignsClassificationActivity.class);
+		startActivity(intent);
+	}
 }

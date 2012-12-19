@@ -38,14 +38,14 @@ public final class R {
         public static final int TextView8=0x7f09000b;
         public static final int TextVillage=0x7f09003d;
         public static final int TextZone=0x7f09003f;
-        public static final int button=0x7f090041;
+        public static final int button=0x7f090042;
         public static final int button1=0x7f090001;
         public static final int button2=0x7f090024;
         public static final int button3=0x7f090025;
         public static final int buttonDate=0x7f090031;
-        public static final int buttonNo=0x7f090048;
+        public static final int buttonNo=0x7f090049;
         public static final int buttonVillage=0x7f090033;
-        public static final int buttonYes=0x7f090047;
+        public static final int buttonYes=0x7f090048;
         public static final int button_adduser=0x7f090026;
         public static final int button_edituser=0x7f09000f;
         public static final int button_login=0x7f090022;
@@ -58,26 +58,27 @@ public final class R {
         public static final int editText_fullname=0x7f090006;
         public static final int editText_password=0x7f090008;
         public static final int editText_password2=0x7f09000a;
-        public static final int editValue=0x7f090049;
+        public static final int editValue=0x7f09004a;
         public static final int edit_first_name=0x7f09002c;
         public static final int edit_last_name=0x7f09002d;
-        public static final int imageView1=0x7f09004c;
+        public static final int imageView1=0x7f09004d;
         public static final int layoutIllnessContainer=0x7f09002a;
-        public static final int layoutIllnessQuestionsContainer=0x7f090044;
+        public static final int layoutIllnessQuestionsContainer=0x7f090045;
         public static final int layoutMain=0x7f090028;
-        public static final int layoutQuestion=0x7f090045;
+        public static final int layoutQuestion=0x7f090046;
         public static final int layoutQuestions=0x7f090013;
-        public static final int layout_info_patient=0x7f09004b;
-        public static final int layout_list_patients=0x7f090052;
+        public static final int layout_info_patient=0x7f09004c;
+        public static final int layout_list_patients=0x7f090053;
         public static final int linearLayoutSearch=0x7f09002b;
         public static final int linearLayout_logindetails=0x7f09001e;
         public static final int linearlayout_initbuttons=0x7f090016;
         public static final int linearlayout_zoneselection=0x7f090019;
-        public static final int listView=0x7f090042;
+        public static final int listView=0x7f090043;
         public static final int listViewPatients=0x7f090011;
+        public static final int listView_classifications=0x7f090040;
         public static final int listView_currentcenterusers=0x7f090027;
         public static final int main_layout=0x7f090014;
-        public static final int menu_settings=0x7f090054;
+        public static final int menu_settings=0x7f090055;
         public static final int radio0=0x7f09002f;
         public static final int radio1=0x7f090030;
         public static final int radioButton_no=0x7f09000e;
@@ -86,16 +87,16 @@ public final class R {
         public static final int radioGroup_admin=0x7f09000c;
         public static final int scrollView=0x7f090012;
         public static final int scrollView1=0x7f090002;
-        public static final int spinner=0x7f09004a;
-        public static final int textBirth=0x7f090050;
-        public static final int textDate=0x7f090053;
-        public static final int textFirst=0x7f09004d;
-        public static final int textGender=0x7f09004f;
-        public static final int textIllness=0x7f090043;
-        public static final int textLast=0x7f09004e;
-        public static final int textQuestion=0x7f090046;
+        public static final int spinner=0x7f09004b;
+        public static final int textBirth=0x7f090051;
+        public static final int textDate=0x7f090054;
+        public static final int textFirst=0x7f09004e;
+        public static final int textGender=0x7f090050;
+        public static final int textIllness=0x7f090044;
+        public static final int textLast=0x7f09004f;
+        public static final int textQuestion=0x7f090047;
         public static final int textTitle=0x7f090029;
-        public static final int textView=0x7f090040;
+        public static final int textView=0x7f090041;
         public static final int textView1=0x7f090000;
         public static final int textView2=0x7f090015;
         public static final int textView3=0x7f09001a;
@@ -107,7 +108,7 @@ public final class R {
         public static final int textView_description=0x7f090004;
         public static final int textView_selectedzone=0x7f09001d;
         public static final int textView_title=0x7f090003;
-        public static final int textVillage=0x7f090051;
+        public static final int textVillage=0x7f090052;
     }
     public static final class layout {
         public static final int activity_done_register_patient=0x7f030000;
@@ -122,13 +123,14 @@ public final class R {
         public static final int activity_questions=0x7f030009;
         public static final int activity_search_patient=0x7f03000a;
         public static final int activity_show_new_patient=0x7f03000b;
-        public static final int activity_zone_choice=0x7f03000c;
-        public static final int layout_illness=0x7f03000d;
-        public static final int layout_illness_question_boolean=0x7f03000e;
-        public static final int layout_illness_question_integer=0x7f03000f;
-        public static final int layout_illness_question_list=0x7f030010;
-        public static final int layout_info_patient=0x7f030011;
-        public static final int layout_list_patients=0x7f030012;
+        public static final int activity_signs_classification=0x7f03000c;
+        public static final int activity_zone_choice=0x7f03000d;
+        public static final int layout_illness=0x7f03000e;
+        public static final int layout_illness_question_boolean=0x7f03000f;
+        public static final int layout_illness_question_integer=0x7f030010;
+        public static final int layout_illness_question_list=0x7f030011;
+        public static final int layout_info_patient=0x7f030012;
+        public static final int layout_list_patients=0x7f030013;
     }
     public static final class menu {
         public static final int activity_done_register_patient=0x7f080000;
@@ -141,7 +143,8 @@ public final class R {
         public static final int activity_manage_users=0x7f080007;
         public static final int activity_search_patient=0x7f080008;
         public static final int activity_show_new_patient=0x7f080009;
-        public static final int activity_zone_choice=0x7f08000a;
+        public static final int activity_signs_classification=0x7f08000a;
+        public static final int activity_zone_choice=0x7f08000b;
     }
     public static final class string {
         public static final int IntroDate=0x7f05003b;
@@ -208,6 +211,7 @@ public final class R {
         public static final int select_village=0x7f050037;
         public static final int selected_location=0x7f050024;
         public static final int setup_center=0x7f05002a;
+        public static final int signsclassification_title=0x7f050054;
         public static final int space=0x7f05004d;
         public static final int title_activity_done_register_patient=0x7f050009;
         public static final int title_activity_edit_user=0x7f050044;
@@ -222,6 +226,7 @@ public final class R {
         public static final int title_activity_register_patient=0x7f050006;
         public static final int title_activity_search_patient=0x7f050039;
         public static final int title_activity_show_new_patient=0x7f050007;
+        public static final int title_activity_signs_classification=0x7f050053;
         public static final int title_activity_zone_choice=0x7f050005;
         public static final int village=0x7f05000f;
         public static final int welcome=0x7f05001d;

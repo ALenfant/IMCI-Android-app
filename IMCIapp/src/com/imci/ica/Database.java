@@ -272,6 +272,17 @@ public class Database extends SQLiteAssetHelper {
 			return false;
 		}
 	}
+	
+	public Cursor getClassifications() {
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor mCursor = db.query("classifications", new String[] { "_id", "name",
+				"equation", "level" }, "", new String[] {}, null, null, null);
+
+		mCursor.moveToFirst();
+
+		return mCursor;
+	}
 
 	/**
 	 * Gives the current date and time adapted to a SQLite datetime column

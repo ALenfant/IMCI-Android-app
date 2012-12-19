@@ -171,10 +171,10 @@ public class GetSignsActivity extends Activity {
 			// ANTONIN, YOU HAVE HERE THE CODE TO PASS TO THE NEW ACTIVITY
 			// JUST CHANGE THE NAME "NameNewActivity" FOR THE NAME OF THIS
 			//
-			// Intent intent = new Intent(this, NameNewActivity.class);
-			// intent.putExtra(EXTRA_HASHMAP, answers);
-			// startActivity(intent);
-			// finish();
+			Intent intent = new Intent(this, SignsClassificationActivity.class);
+			//intent.putExtra(SignsClassificationActivity.EXTRA_HASHMAP_DATA, answers);
+			startActivity(intent);
+			finish();
 
 		}
 	}

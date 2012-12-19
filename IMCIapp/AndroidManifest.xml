@@ -73,6 +73,10 @@
             android:name="com.imci.ica.GetSignsActivity"
             android:label="@string/title_activity_get_signs" >
         </activity>
+        <activity
+            android:name="com.imci.ica.SignsClassificationActivity"
+            android:label="@string/title_activity_signs_classification" >
+        </activity>
     </application>
 
 </manifest>
