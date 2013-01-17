@@ -11,6 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Class responsible for the Initialization activity Used to initialize a
+ * medical center (when the application is executed for the first time)
+ * 
+ * @author Antonin
+ * 
+ */
 public class InitializationActivity extends Activity {
 	protected int selected_zone_id = -1;
 	protected String selected_zone_name = "";
@@ -94,6 +101,9 @@ public class InitializationActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Called when the button Setup Center is pressed
+	 */
 	protected void setupCenter() {
 		String full_name = ((EditText) (findViewById(R.id.editText_fullname)))
 				.getText().toString();
@@ -133,7 +143,7 @@ public class InitializationActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		
+
 		ApplicationPreferences.initializeCenter(this, selected_zone_id);
 		finish();
 	}

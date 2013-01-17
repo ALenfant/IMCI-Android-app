@@ -172,7 +172,8 @@ public class GetSignsActivity extends Activity {
 			// JUST CHANGE THE NAME "NameNewActivity" FOR THE NAME OF THIS
 			//
 			Intent intent = new Intent(this, SignsClassificationActivity.class);
-			//intent.putExtra(SignsClassificationActivity.EXTRA_HASHMAP_DATA, answers);
+			//intent.putExtra(SignsClassificationActivity.EXTRA_HASHMAP_DATA, answers); //The answers
+			intent.putExtra(SignsClassificationActivity.EXTRA_ID_PATIENT, id_patient); //The patient's id
 			startActivity(intent);
 			finish();
 

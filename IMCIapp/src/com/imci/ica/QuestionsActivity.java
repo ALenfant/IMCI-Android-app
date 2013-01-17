@@ -18,6 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Class responsible for the Questions activity Not used any more, was for a
+ * test at the start of the development. Replaced by GetSignsActivity
+ * 
+ * @author Antonin
+ * 
+ */
 public class QuestionsActivity extends Activity {
 
 	@Override
@@ -98,7 +105,8 @@ public class QuestionsActivity extends Activity {
 
 					// Create an ArrayAdapter using the string array and a
 					// default spinner layout
-					ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, value);
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+							this, android.R.layout.simple_spinner_item, value);
 					// Specify the layout to use when the list of choices
 					// appears
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -129,7 +137,7 @@ public class QuestionsActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.activity_main, menu);
+		// getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
 

@@ -15,10 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
+/**
+ * Class responsible for the Edit User activity
+ * 
+ * @author Antonin
+ * 
+ */
 public class EditUserActivity extends Activity {
 	public final static String EXTRA_USER_ID = "com.imci.ica.USER_ID";
-	private int edit_userId = -1;
-	private Boolean editMode = false;
+	private int edit_userId = -1; // The id of the user we're editing
+	private Boolean editMode = false; // If we are editing or creating a new
+										// user
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,10 @@ public class EditUserActivity extends Activity {
 				});
 	}
 
+	/**
+	 * Called when the button Edit User (or Create User when creating) is
+	 * clicked
+	 */
 	private void editUser() {
 		String name = ((EditText) findViewById(R.id.editText_fullname))
 				.getText().toString();

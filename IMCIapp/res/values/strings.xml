@@ -89,5 +89,7 @@
     <string name="allQuestionsMarked">Error: All questions must be marked</string>
     <string name="title_activity_signs_classification">SignsClassificationActivity</string>
     <string name="signsclassification_title">Results</string>
+    <string name="logout">Logout</string>
+    <string name="error_no_diagnostic_data">Error: No diagnostics data for this child (weight height etc). Some results may be wrong.</string>
 
 </resources>

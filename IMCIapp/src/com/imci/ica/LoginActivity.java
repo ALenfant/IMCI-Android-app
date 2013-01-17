@@ -11,9 +11,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Class responsible for the Login activity
+ * 
+ * @author Antonin
+ * 
+ */
 public class LoginActivity extends Activity {
-	private Boolean user_remembered = false;
-	
+	private Boolean user_remembered = false; // If a there is a remembered user
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (!ApplicationPreferences.isCenterInitialized(this)) {
@@ -23,7 +29,12 @@ public class LoginActivity extends Activity {
 
 		if (ApplicationPreferences.loggedin_user != null) {
 			// User already logged in
-			// TODO : redirect to main activity
+			// We display the main menu
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+
+			// And close this activity
+			finish();
 		}
 
 		super.onCreate(savedInstanceState);
@@ -36,23 +47,29 @@ public class LoginActivity extends Activity {
 						login();
 					}
 				});
-		
-		//After everything is loaded, we check if there is a remembered user
+
+		// After everything is loaded, we check if there is a remembered user
 		if (ApplicationPreferences.isUserRemembered(this)) {
 			// The user checked "remember me"
 			user_remembered = true;
-			login(); //We login directly
+			login(); // We login directly
 		}
 	}
 
+	/**
+	 * Called when the Login button is clicked
+	 */
 	protected void login() {
 		String name = "", password = "";
 		if (!user_remembered) {
-		name = ((EditText) findViewById(R.id.editText_fullname))
-				.getText().toString();
-		password = ((EditText) findViewById(R.id.editText_password))
-				.getText().toString();
+			// If there isn't a remembered user, we get the values from the form
+			name = ((EditText) findViewById(R.id.editText_fullname)).getText()
+					.toString();
+			password = ((EditText) findViewById(R.id.editText_password))
+					.getText().toString();
 		} else {
+			// If there is a remembered user, we load the values from the
+			// application parameters
 			name = ApplicationPreferences.getRememberedUserName(this);
 			password = ApplicationPreferences.getRememberedUserPassword(this);
 		}
@@ -76,17 +93,30 @@ public class LoginActivity extends Activity {
 			// User not found
 			Toast.makeText(this, R.string.error_invalid_login,
 					Toast.LENGTH_LONG).show();
-			user_remembered = false; //If it was a "remember me" user, we disable it
+			user_remembered = false; // If it was a "remember me" user, we
+										// disable it
 			return;
 		} else {
-			if (ApplicationPreferences.loggedin_user != null) {
-				Toast.makeText(this, ApplicationPreferences.loggedin_user.name,
-						Toast.LENGTH_LONG).show();
-				
-				if (((CheckBox)findViewById(R.id.checkBox_remember)).isChecked()) {
-					//Remember me option selected!
-					ApplicationPreferences.rememberUser(this, name, password); //We store the login data
+			// If everything worked
+			if (ApplicationPreferences.loggedin_user != null) { // User really
+																// logged in
+
+				if (((CheckBox) findViewById(R.id.checkBox_remember))
+						.isChecked()) {
+					// Remember me option selected!
+					ApplicationPreferences.rememberUser(this, name, password); // We
+																				// store
+																				// the
+																				// login
+																				// data
 				}
+
+				// We then display the main menu
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+
+				// And close this activity
+				finish();
 			}
 		}
 	}

@@ -29,24 +29,31 @@
         android:text="@string/searchPatient" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="manageUsers"
         android:text="@string/manage_users" />
     
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:onClick="login" />
     
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DEBUG Classifications"
         android:onClick="debugClassifications" />
+    
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:onClick="logout" />
     
 </LinearLayout>

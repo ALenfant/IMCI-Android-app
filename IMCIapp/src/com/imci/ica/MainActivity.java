@@ -56,4 +56,22 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, SignsClassificationActivity.class);
 		startActivity(intent);
 	}
+	
+	//Logout button
+	public void logout(View view) {
+		//We disable the "remember me" feature if it's activated...
+		if (ApplicationPreferences.isUserRemembered(this)) {
+			ApplicationPreferences.setUserRemembered(this, false);
+		}
+		
+		//We log out the current user...
+		ApplicationPreferences.loggedin_user = null;
+		
+		//And we go to the Login activity!
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		
+		//Without forgetting to close this one
+		finish();
+	}
 }
