@@ -58,8 +58,9 @@ public class LoginActivity extends Activity {
 
 	/**
 	 * Called when the Login button is clicked
+	 * @return if the login was successful
 	 */
-	protected void login() {
+	public boolean login() {
 		String name = "", password = "";
 		if (!user_remembered) {
 			// If there isn't a remembered user, we get the values from the form
@@ -78,14 +79,14 @@ public class LoginActivity extends Activity {
 			// Empty name
 			Toast.makeText(this, R.string.error_empty_fullname,
 					Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		if (password.length() == 0) {
 			// Empty password
 			Toast.makeText(this, R.string.error_empty_password,
 					Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		Database db = new Database(this);
@@ -95,7 +96,7 @@ public class LoginActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 			user_remembered = false; // If it was a "remember me" user, we
 										// disable it
-			return;
+			return false;
 		} else {
 			// If everything worked
 			if (ApplicationPreferences.loggedin_user != null) { // User really
@@ -117,8 +118,11 @@ public class LoginActivity extends Activity {
 
 				// And close this activity
 				finish();
+				
+				return true;
 			}
 		}
+		return false;
 	}
 
 	@Override
