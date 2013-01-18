@@ -280,6 +280,7 @@ public class Database extends SQLiteAssetHelper {
 				db.close();
 			} catch (Exception e) {
 				e.printStackTrace();
+				db.close();
 				return false;
 			}
 			return true;
@@ -319,7 +320,7 @@ public class Database extends SQLiteAssetHelper {
 				null, null, null);
 
 		mCursor.moveToFirst();
-
+		db.close();
 		return mCursor;
 	}
 
@@ -391,7 +392,7 @@ public class Database extends SQLiteAssetHelper {
 				null);
 
 		mCursor.moveToFirst();
-
+		db.close();
 		return mCursor;
 	}
 

@@ -71,8 +71,10 @@ public class EditUserActivity extends Activity {
 	/**
 	 * Called when the button Edit User (or Create User when creating) is
 	 * clicked
+	 * 
+	 * @return if the operation worked successfully
 	 */
-	private void editUser() {
+	public boolean editUser() {
 		String name = ((EditText) findViewById(R.id.editText_fullname))
 				.getText().toString();
 		String password = ((EditText) findViewById(R.id.editText_password))
@@ -92,19 +94,19 @@ public class EditUserActivity extends Activity {
 		if (name.length() == 0) {
 			Toast.makeText(this, R.string.error_empty_fullname,
 					Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		if (!editMode && password.length() == 0) {
 			Toast.makeText(this, R.string.error_empty_password,
 					Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		if (!password.equals(password2)) {
 			Toast.makeText(this, R.string.error_different_passwords,
 					Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		if (!editMode) {
@@ -129,6 +131,7 @@ public class EditUserActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 			}
 		}
+		return true;
 	}
 
 	@Override
@@ -153,6 +156,15 @@ public class EditUserActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Get if the activity is in edit or create mode. Used for testing
+	 * 
+	 * @return if the activity is in edit mode (else it's in create mode)
+	 */
+	public boolean getEditMode() {
+		return editMode;
 	}
 
 }

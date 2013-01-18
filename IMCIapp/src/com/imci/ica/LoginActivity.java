@@ -52,12 +52,21 @@ public class LoginActivity extends Activity {
 		if (ApplicationPreferences.isUserRemembered(this)) {
 			// The user checked "remember me"
 			user_remembered = true;
-			login(); // We login directly
+			if (login()) {
+				// IF the login is successful
+				// We then display the main menu
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+
+				// And close this activity
+				finish();
+			}
 		}
 	}
 
 	/**
 	 * Called when the Login button is clicked
+	 * 
 	 * @return if the login was successful
 	 */
 	public boolean login() {
@@ -96,29 +105,20 @@ public class LoginActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 			user_remembered = false; // If it was a "remember me" user, we
 										// disable it
+			db.close();
 			return false;
 		} else {
 			// If everything worked
-			if (ApplicationPreferences.loggedin_user != null) { // User really
-																// logged in
+			if (ApplicationPreferences.loggedin_user != null) {
+				// User really logged in
 
 				if (((CheckBox) findViewById(R.id.checkBox_remember))
 						.isChecked()) {
 					// Remember me option selected!
-					ApplicationPreferences.rememberUser(this, name, password); // We
-																				// store
-																				// the
-																				// login
-																				// data
+					// We store the login data
+					ApplicationPreferences.rememberUser(this, name, password);
 				}
-
-				// We then display the main menu
-				Intent intent = new Intent(this, MainActivity.class);
-				startActivity(intent);
-
-				// And close this activity
-				finish();
-				
+				db.close();
 				return true;
 			}
 		}
