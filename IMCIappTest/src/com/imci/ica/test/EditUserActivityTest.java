@@ -37,7 +37,6 @@ public class EditUserActivityTest extends
 		assertEquals(false, editUserActivity.getEditMode());
 
 		// We change part of the data
-		Log.d("Testing Debug", "UI thread");
 		((EditText) editUserActivity.findViewById(R.id.editText_fullname))
 				.setText("testUser_");
 		((EditText) editUserActivity.findViewById(R.id.editText_password))

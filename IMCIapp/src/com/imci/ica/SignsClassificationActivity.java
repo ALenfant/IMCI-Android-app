@@ -8,16 +8,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.os.Bundle;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import org.mozilla.javascript.*;
 
 /**
  * Class responsible for the Signs Classification activity. Uses the answers
@@ -63,9 +64,9 @@ public class SignsClassificationActivity extends Activity {
 		 */
 		HashMap<String, Object> child = new HashMap<String, Object>();
 		Database db = new Database(this);
-		Cursor cursor = db.getChildrenDiagnostics(patient_id);
+		Cursor cursor = db.getPatientDiagnostics(patient_id);
 		if (cursor.getCount() != 0) {
-			// There is data about this child
+			// There is measurement data about this child
 			// We get it
 			Date birthdate;
 			try {
@@ -100,11 +101,22 @@ public class SignsClassificationActivity extends Activity {
 		String jsDataVar = hashMapToJavascript(data, "data");
 		String jsChildVar = hashMapToJavascript(child, "enfant");
 
+		// We get the child data
+		int age_group;
+		Cursor patient = db.getPatientById(patient_id);
+		if (patient.getCount() > 0) {
+			String birth_date = patient.getString(patient
+					.getColumnIndex("born_on"));
+			age_group = InfoPatientActivity.getAgeGroup(birth_date);
+		} else {
+			age_group = 2; //For debugging purposes
+		}
+
 		// Will contain the results to display
 		ArrayList<String> results = new ArrayList<String>();
 
 		// Get all the equations...
-		Cursor classificationsCursor = db.getClassifications();
+		Cursor classificationsCursor = db.getClassifications(age_group);
 		do {
 			String eq = jsDataVar + " " + jsChildVar + " " + baseJS + " "
 					+ classificationsCursor.getString(2);// " !(data['danger.boire'] || data['danger.vomit'] || data['danger.convulsions_passe'] || data['danger.lethargie'] || data['danger.convulsions_present'])";

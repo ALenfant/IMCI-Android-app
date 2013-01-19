@@ -64,16 +64,16 @@ public class InfoPatientActivity extends Activity {
 		
 		Intent newIntent = new Intent(this, GetSignsActivity.class);
 		newIntent.putExtra(GetSignsActivity.EXTRA_ID_PATIENT, id_patient);
-		newIntent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP, getAgeGroup());
+		newIntent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP, getAgeGroup(born_on));
 		startActivity(newIntent);
 	}
 
-	public int getAgeGroup() {
+	public static int getAgeGroup(String birth_date) {
 
 		int age_group;
 		int days;
 
-		String[] birthArray = born_on.split("\\-");
+		String[] birthArray = birth_date.split("\\-");
 		Integer bDay = Integer.parseInt(birthArray[0]);
 		Integer bMonth = Integer.parseInt(birthArray[1]) - 1;
 		Integer bYear = Integer.parseInt(birthArray[2]);

@@ -382,14 +382,17 @@ public class Database extends SQLiteAssetHelper {
 	/**
 	 * Get all the classifications
 	 * 
+	 * @param age_group
+	 *            the age group whose classifications we want
+	 * 
 	 * @return all the classifications
 	 */
-	public Cursor getClassifications() {
+	public Cursor getClassifications(int age_group) {
 		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor mCursor = db.query("classifications", new String[] { "_id",
-				"name", "equation", "level" }, "", new String[] {}, null, null,
-				null);
+				"name", "equation", "level" }, "age_group = ?",
+				new String[] { Integer.toString(age_group) }, null, null, null);
 
 		mCursor.moveToFirst();
 		db.close();
@@ -537,7 +540,7 @@ public class Database extends SQLiteAssetHelper {
 	 *            the child id
 	 * @return the diagnostics data for the specificed child
 	 */
-	public Cursor getChildrenDiagnostics(int id) {
+	public Cursor getPatientDiagnostics(int id) {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor mCursor = db
 				.rawQuery(
