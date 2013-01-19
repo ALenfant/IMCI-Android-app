@@ -18,11 +18,19 @@ import android.widget.Toast;
  * 
  */
 public class LoginActivity extends Activity {
+	public final static String EXTRA_DEBUG_DISABLE_INITIALIZATION = "com.imci.ica.DEBUG_DISABLE_INITIALIZATION";
 	private Boolean user_remembered = false; // If a there is a remembered user
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (!ApplicationPreferences.isCenterInitialized(this)) {
+		boolean disableInitialization = false;
+		if (getIntent().getExtras() != null) {
+			disableInitialization = getIntent().getExtras().getBoolean(
+					EXTRA_DEBUG_DISABLE_INITIALIZATION, false);
+		}
+
+		if (!ApplicationPreferences.isCenterInitialized(this)
+				&& !disableInitialization) {
 			// Center not initialized
 			startActivity(new Intent(this, InitializationActivity.class));
 		}

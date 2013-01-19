@@ -2,7 +2,6 @@ package com.imci.ica.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
 

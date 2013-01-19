@@ -5,6 +5,7 @@ import com.imci.ica.Database;
 import com.imci.ica.LoginActivity;
 import com.imci.ica.R;
 
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.widget.EditText;
@@ -30,8 +31,16 @@ public class LoginActivityTest extends
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
+		// We create the activity with an intent
+		// to force it to display the login
+		// even if the center hasn't been initialized
+		Intent intent = new Intent(getInstrumentation().getTargetContext(),
+				LoginActivity.class);
+		intent.putExtra(LoginActivity.EXTRA_DEBUG_DISABLE_INITIALIZATION, true);
+		setActivityIntent(intent);
 		loginActivity = getActivity(); // We load the activity
-		// We add a fake user
+
+		// We add a fake user to the database
 		Database db = new Database(loginActivity);
 		db.addUser("testUser", "testPassword", true, 1, "1/1");
 		db.close();
@@ -48,14 +57,14 @@ public class LoginActivityTest extends
 				.setText("testUser");
 		((EditText) loginActivity.findViewById(R.id.editText_password))
 				.setText("testPassword");
-		
+
 		// And check if the login is successful
 		assertEquals(true, loginActivity.login());
-		
-		//We force-legout the user to avoid problems
+
+		// We force-legout the user to avoid problems
 		ApplicationPreferences.loggedin_user = null;
 	}
-	
+
 	@UiThreadTest
 	// Tells Android we're going to use the UI, avoids thread errors.
 	/**
@@ -67,11 +76,11 @@ public class LoginActivityTest extends
 				.setText("_testUser");
 		((EditText) loginActivity.findViewById(R.id.editText_password))
 				.setText("_testPassword");
-		
+
 		// And check if the login is unsuccessful
 		assertEquals(false, loginActivity.login());
 	}
-	
+
 	@UiThreadTest
 	// Tells Android we're going to use the UI, avoids thread errors.
 	/**
@@ -83,11 +92,11 @@ public class LoginActivityTest extends
 				.setText("_testUser");
 		((EditText) loginActivity.findViewById(R.id.editText_password))
 				.setText("testPassword");
-		
+
 		// And check if the login is unsuccessful
 		assertEquals(false, loginActivity.login());
 	}
-	
+
 	@UiThreadTest
 	// Tells Android we're going to use the UI, avoids thread errors.
 	/**
@@ -99,7 +108,7 @@ public class LoginActivityTest extends
 				.setText("testUser");
 		((EditText) loginActivity.findViewById(R.id.editText_password))
 				.setText("_testPassword");
-		
+
 		// And check if the login is unsuccessful
 		assertEquals(false, loginActivity.login());
 	}
