@@ -11,12 +11,12 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * Custom cursor adapter to inflate questions in display
+ * @author Miguel Navarro & Antonin Lenfant
+ *
+ */
 public class CursorQuestionsAdapter extends CursorAdapter {
-
-//	private final int POS_TYPE = 2;
-//	private final int POS_QUESTION = 4;
-//	private final int POS_VALUES = 5;
-//	private final int POS_TYPE = 2;
 
 	private final int TYPE_BOOLEAN = 1;
 	private final int TYPE_INTEGER = 2;
@@ -26,6 +26,12 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 	private Context mContext;
 	private final LayoutInflater mInflater;
 
+	/**
+	 * Constructor that fix current context and cursor with info
+	 * and create a new inflater
+	 * @param context
+	 * @param c
+	 */
 	public CursorQuestionsAdapter(Context context, Cursor c) {
 		super(context, c);
 		mInflater = LayoutInflater.from(context);
@@ -33,6 +39,9 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		mCursor = c;
 	}
 
+	/**
+	 * Fix all data in view fields
+	 */
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		switch (getTypeQuestion(cursor)) {
@@ -47,7 +56,10 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 			break;
 		}
 	}
-
+	
+	/**
+	 * Create a new view with layout for show questions
+	 */
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		final View view;
@@ -70,6 +82,9 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		return view;
 	}
 
+	/**
+	 * Get info of a question in cursor position
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -86,12 +101,17 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		bindView(v, mContext, mCursor);
 		return v;
 	}
-	
+
 	@Override
 	public Cursor getCursor() {
 		return mCursor;
 	}
 
+	/**
+	 *  
+	 * @param question
+	 * @return the type of question since a cursor
+	 */
 	public int getTypeQuestion(Cursor question) {
 		String type = question.getString(question.getColumnIndex("type"));
 		int option = getTypeQuestion(type);
@@ -99,6 +119,11 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		return option;
 	}
 	
+	/**
+	 * 
+	 * @param type
+	 * @return the type of question since a String
+	 */
 	public int getTypeQuestion(String type) {
 		int option;
 		if (type.equals("BooleanSign"))
@@ -111,6 +136,11 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		return option;
 	}
 	
+	/**
+	 * Fix layout for boolean question
+	 * @param view
+	 * @param cursor
+	 */
 	public void putBooleanLayout(View view, Cursor cursor) {
 		ViewHolderBoolean holder = new ViewHolderBoolean();
 		holder.textQuestion = (TextView) view.findViewById(R.id.textQuestion);
@@ -122,6 +152,11 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		holder.buttonNo.setText(R.string.no);
 	}
 
+	/**
+	 * Fix layout for integer question
+	 * @param view
+	 * @param cursor
+	 */
 	public void putIntegerLayout(View view, Cursor cursor) {
 		ViewHolderInteger holder = new ViewHolderInteger();
 		holder.textQuestion = (TextView) view.findViewById(R.id.textQuestion);
@@ -130,6 +165,11 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		holder.textQuestion.setText(cursor.getString(cursor.getColumnIndex("question")));
 	}
 	
+	/**
+	 * Fix layout for list question
+	 * @param view
+	 * @param cursor
+	 */
 	public void putListLayout(View view, Context context, Cursor cursor) {
 		ViewHolderList holder = new ViewHolderList();
 		holder.textQuestion = (TextView) view.findViewById(R.id.textQuestion);
@@ -147,40 +187,77 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		holder.spinner.setAdapter(adapter);
 	}
 	
+	/**
+	 * 
+	 * @param cursor
+	 * @return the id of illness associed to question
+	 */
 	public String getIllnessId(Cursor cursor){
 		String id = cursor.getString(cursor.getColumnIndex("illness_id"));
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @param cursor
+	 * @return the type of question
+	 */
 	public String getType(Cursor cursor){
 		String type = cursor.getString(cursor.getColumnIndex("type"));
 		return type;
 	}
 	
+	/**
+	 * 
+	 * @return true if it's the last position of cursor
+	 */
 	public boolean isLast() {
 		return (mCursor.isLast());
 	}
 	
+	/**
+	 * 
+	 * @return true if there is more illnesses in cursor
+	 */
 	public boolean moveToNext() {
 		return (mCursor.moveToNext());
 	}
 	
+	/**
+	 * Create a key to compare with equation of diagnostics in database
+	 * @param illness_key
+	 * @return the created key
+	 */
 	public String createKey(String illness_key) {
 		String key = illness_key + "." + mCursor.getString(mCursor.getColumnIndex("key"));
 		return key;
 	}
 	
+	/**
+	 * Include all fields in a layout to show a  boolean question
+	 * @author Miguel
+	 *
+	 */
 	static class ViewHolderBoolean {
 		private TextView textQuestion;
 		private RadioButton buttonYes;
 		private RadioButton buttonNo;
 	}
 
+	/**
+	 * Include all fields in a layout to show a  integer question
+	 * @author Miguel
+	 *
+	 */
 	static class ViewHolderInteger {
 		private TextView textQuestion;
-//		private EditText editValue;
 	}
 
+	/**
+	 * Include all fields in a layout to show a  list question
+	 * @author Miguel
+	 *
+	 */
 	static class ViewHolderList {
 		private TextView textQuestion;
 		private Spinner spinner;

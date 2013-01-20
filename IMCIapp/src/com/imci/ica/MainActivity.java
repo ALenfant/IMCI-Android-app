@@ -6,6 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+/**
+ * Main Activity of the Application.
+ * To login to the system and manage existing users
+ * 
+ * @author Miguel Navarro & Antonin Lenfant
+ *
+ */
 public class MainActivity extends Activity {
 
 	/*
@@ -14,24 +21,24 @@ public class MainActivity extends Activity {
 	 * BETWEEN THEM
 	 */
 
+	/**
+	 * Set the view
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
 
+	/**
+	 * Inflate
+	 * @return boolean True if success or False if error
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
-	//
-	// //Answer to Create Patient button click
-	// public void createPatient(View view) {
-	// Intent intent = new Intent(this, RegisterPatientActivity.class);
-	// startActivity(intent);
-	// }
 
 	// Answer to Search Patient button click
 	public void searchPatient(View view) {
@@ -39,13 +46,19 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
-	// Answer to Login button click
+	/**
+	 * Go to Login Activity
+	 * @param view
+	 */
 	public void login(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 
-	// Answer to Manage Users button click
+	/**
+	 * Go to Manage Users Activity
+	 * @param view
+	 */
 	public void manageUsers(View view) {
 		Intent intent = new Intent(this, ManageUsersActivity.class);
 		startActivity(intent);

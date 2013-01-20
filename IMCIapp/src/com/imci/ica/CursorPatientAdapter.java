@@ -8,11 +8,21 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+/**
+ * Custom cursor adapter to insert all patients found with request entries
+ * @author Miguel Navarro & Antonin Lenfant
+ *
+ */
 public class CursorPatientAdapter extends CursorAdapter {
 	private Cursor mCursor;
 	private Context mContext;
 	private final LayoutInflater mInflater;
 
+	/**
+	 * Constructor that fix current context and info cursor
+	 * @param context
+	 * @param c
+	 */
 	public CursorPatientAdapter(Context context, Cursor c) {
 		super(context, c);
 		mInflater = LayoutInflater.from(context);
@@ -20,6 +30,9 @@ public class CursorPatientAdapter extends CursorAdapter {
 		mCursor = c;
 	}
 
+	/**
+	 * Fix all data in view fields
+	 */
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 
@@ -48,6 +61,9 @@ public class CursorPatientAdapter extends CursorAdapter {
 		}
 	}
 
+	/**
+	 * Create a new view with layout for show patients
+	 */
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		final View view = mInflater.inflate(R.layout.layout_list_patients, parent,
@@ -55,6 +71,9 @@ public class CursorPatientAdapter extends CursorAdapter {
 		return view;
 	}
 	
+	/**
+	 * Get info of a patient in cursor position
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -71,6 +90,11 @@ public class CursorPatientAdapter extends CursorAdapter {
 	    return v;
 	}
 	
+	/**
+	 * Include all fields in a layout to show patients
+	 * @author Miguel Navarro & Antonin Lenfant
+	 *
+	 */
 	static class ViewHolder {
 		private TextView firstName;
 		private TextView lastName;
