@@ -91,5 +91,12 @@
     <string name="signsclassification_title">Results</string>
     <string name="logout">Logout</string>
     <string name="error_no_diagnostic_data">Error: No diagnostics data for this child (weight height etc). Some results may be wrong.</string>
-
+    <string name="genderBirth">Gender and Birth</string>
+    <string name="measures">Last Measures</string>
+    <string name="weight">Weight (kg): </string>
+    <string name="height">Height (cm):</string>
+    <string name="temperature">Temperature (ºC):</string>
+    <string name="muac">Muac (cm):</string>
+    <string name="noMeasures">This patient doesn\'t have any measure yet.</string>
+    
 </resources>

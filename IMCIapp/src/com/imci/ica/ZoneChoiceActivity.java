@@ -48,11 +48,10 @@ public class ZoneChoiceActivity extends Activity {
 		// We get the information provided when the activity was called
 		Intent intent = getIntent();
 		parent_zone_id = intent.getIntExtra(
-				ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1); // -1
+				ZoneChoiceActivity.EXTRA_PARENT_ZONE_ID, -1); 
 		parent_two_zone_id = intent.getIntExtra(
-				ZoneChoiceActivity.EXTRA_PARENT_TWO_ZONE_ID, -1); // -1
-		// default
-		// value
+				ZoneChoiceActivity.EXTRA_PARENT_TWO_ZONE_ID, -1); 
+
 		parentZones = intent
 				.getStringArrayListExtra(ZoneChoiceActivity.EXTRA_PARENT_ZONES);
 
@@ -63,14 +62,10 @@ public class ZoneChoiceActivity extends Activity {
 			textView.setText(implode(">", parentZones));
 		}
 
-		/*
-		 * Toast.makeText(getApplicationContext(), "parent_id:" +
-		 * parent_zone_id, Toast.LENGTH_SHORT).show();
-		 */
-
 		db = new Database(this);
+		
 		// We get data about the parent zone
-		Cursor parentCursor = db.getZone(parent_zone_id);
+		Cursor parentCursor = db.getZoneById(parent_zone_id);
 		if (parentCursor.getCount() > 0) {
 			// If there is a parent, we create the button and put its name on it
 			String parent_name = parentCursor.getString(1);
@@ -94,7 +89,7 @@ public class ZoneChoiceActivity extends Activity {
 		}
 
 		// We get all the zones to display
-		Cursor cursor = db.getZones(parent_zone_id);
+		Cursor cursor = db.getZonesInside(parent_zone_id);
 		startManagingCursor(cursor);
 
 		// We create a ListView to display the data

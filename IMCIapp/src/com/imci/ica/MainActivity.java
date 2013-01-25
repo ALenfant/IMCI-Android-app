@@ -70,7 +70,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	//Logout button
+	/**
+	 * Logout button
+	 * 
+	 * @param view
+	 */
 	public void logout(View view) {
 		//We disable the "remember me" feature if it's activated...
 		if (ApplicationPreferences.isUserRemembered(this)) {

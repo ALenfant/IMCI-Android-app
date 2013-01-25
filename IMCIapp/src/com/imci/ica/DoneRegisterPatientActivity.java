@@ -5,8 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+/**
+ * Activity to show if a register of a new patient was successfull
+ * 
+ * @author Miguel
+ *
+ */
 public class DoneRegisterPatientActivity extends Activity {
 
+	/**
+	 * Show the Activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,7 +28,12 @@ public class DoneRegisterPatientActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_done_register_patient, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Finish this activity and return to main menu
+	 * 
+	 * @param view
+	 */
 	//Finishing activity when Return button is pressed
 	public void onClick(View view){
     	finish();

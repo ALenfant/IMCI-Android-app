@@ -12,6 +12,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Activity for show all patients that agree with search done
+ * 
+ * @author Miguel
+ *
+ */
 public class FoundPatientsActivity extends Activity {
 
 	public final static String EXTRA_FINISH_ACTIVITY = "com.imci.ica.FINISH_ACTIVITY";
@@ -24,6 +30,9 @@ public class FoundPatientsActivity extends Activity {
 
 	// Cursor c;
 
+	/**
+	 * Do the search into database with parameters of previous activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,6 +89,9 @@ public class FoundPatientsActivity extends Activity {
 		return true;
 	}	
    	
+	/**
+	 * Answer to back key pressing
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -98,9 +110,12 @@ public class FoundPatientsActivity extends Activity {
 		}
 	}
 
-	
-	//Answer to Create Patient button click
-    public void createPatient(View view) {
+	/**
+	 * Answer to Create Patient button click
+	 * 
+	 * @param view
+	 */
+	public void createPatient(View view) {
     	Intent intent = getIntent();
     	intent.putExtra(SearchPatientActivity.EXTRA_MODE_CREATE, true);
 		setResult(Activity.RESULT_OK, intent);

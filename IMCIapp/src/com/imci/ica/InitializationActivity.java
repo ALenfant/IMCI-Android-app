@@ -86,7 +86,7 @@ public class InitializationActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 
 			Database db = new Database(this);
-			Cursor parentCursor = db.getZone(parent_zone_id);
+			Cursor parentCursor = db.getZoneById(parent_zone_id);
 			if (parentCursor.getCount() > 0) {
 				selected_zone_name = parentCursor.getString(1);
 				((TextView) (findViewById(R.id.textView_selectedzone)))
@@ -137,8 +137,7 @@ public class InitializationActivity extends Activity {
 		}
 
 		Database db = new Database(this);
-		if (!db.addUser(full_name, password, true, selected_zone_id,
-				selected_zone_name + "/1")) {
+		if (!db.addUser(full_name, password, true, selected_zone_id)) {
 			Toast.makeText(this, R.string.error_impossible_create_user,
 					Toast.LENGTH_LONG).show();
 			return;

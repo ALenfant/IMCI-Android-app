@@ -1,14 +1,12 @@
 package com.imci.ica;
 
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -21,6 +19,9 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  * 
  */
 public class Database extends SQLiteAssetHelper {
+
+	Context mContext;
+
 	private static final String DATABASE_NAME = "database"; // Database filename
 															// (SQLiteAssetHelper-related)
 	private static final int DATABASE_VERSION = 1; // Database version
@@ -34,6 +35,7 @@ public class Database extends SQLiteAssetHelper {
 	public Database(Context context) {
 		// We call the parent method (provided by SQLiteAssetHelper)
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		mContext = context;
 	}
 
 	// Data insertion and fetching methods
@@ -44,15 +46,7 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	public Cursor getSigns() {
 		SQLiteDatabase db = getReadableDatabase();
-		// SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-		/*
-		 * String [] sqlSelect = {"0 id", "illness_id", "type", "key",
-		 * "question"}; String sqlTables = "Employees";
-		 * 
-		 * qb.setTables("signs"); Cursor c = qb.query(db, sqlSelect, null, null,
-		 * null, null, null);
-		 */
 		Cursor c = db
 				.rawQuery(
 						"SELECT `illness_id`, `illnesses`.`key` `illness_key`, `name`, `type`, `signs`.`key` `sign_key`, `question`, `values` FROM `illnesses` "
@@ -60,7 +54,6 @@ public class Database extends SQLiteAssetHelper {
 								+ "WHERE `signs`.`age_group` = 2 "
 								+ "ORDER BY `illnesses`.`sequence`",
 						new String[0]);
-		// c.moveToFirst(); //Check if bugs?
 
 		db.close();
 		return c;
@@ -73,17 +66,8 @@ public class Database extends SQLiteAssetHelper {
 	 *            the parent zone whose children zones we want to get
 	 * @return all the children zones to the zone parent_id
 	 */
-	public Cursor getZones(int parent_id) {
+	public Cursor getZonesInside(int parent_id) {
 		SQLiteDatabase db = getReadableDatabase();
-		// SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-
-		/*
-		 * String [] sqlSelect = {"0 id", "illness_id", "type", "key",
-		 * "question"}; String sqlTables = "Employees";
-		 * 
-		 * qb.setTables("signs"); Cursor c = qb.query(db, sqlSelect, null, null,
-		 * null, null, null);
-		 */
 		Cursor c = db.rawQuery(
 				"SELECT `_id`, `name` FROM `zones` WHERE `parent_id` = "
 						+ parent_id, new String[0]);
@@ -94,23 +78,35 @@ public class Database extends SQLiteAssetHelper {
 	}
 
 	/**
+	 * Get the parent zone for the village given
+	 * 
+	 * @param village_id
+	 * 
+	 * @return the parent zone
+	 */
+	public int getParentZone(int village_id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor c = db.rawQuery(
+				"SELECT `parent_id`, `name` FROM `zones` WHERE `_id` = "
+						+ village_id, new String[0]);
+		c.moveToFirst();
+
+		int parent_id = c.getInt(c.getColumnIndex("parent_id"));
+		c.close();
+		db.close();
+		return parent_id;
+	}
+
+	/**
 	 * Get the details about a specific zone
 	 * 
 	 * @param id
 	 *            the id of the zone we want to get
 	 * @return the details about a specific zone
 	 */
-	public Cursor getZone(int id) {
+	public Cursor getZoneById(int id) {
 		SQLiteDatabase db = getReadableDatabase();
-		// SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-		/*
-		 * String [] sqlSelect = {"0 id", "illness_id", "type", "key",
-		 * "question"}; String sqlTables = "Employees";
-		 * 
-		 * qb.setTables("signs"); Cursor c = qb.query(db, sqlSelect, null, null,
-		 * null, null, null);
-		 */
 		Cursor c = db.rawQuery(
 				"SELECT `_id`, `name` FROM `zones` WHERE `_id` = " + id,
 				new String[0]);
@@ -129,7 +125,7 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	public String getNameOfZone(int id) {
 		String str;
-		Cursor c = getZone(id);
+		Cursor c = getZoneById(id);
 		if (c.getCount() > 0)
 			str = c.getString(1);
 		else
@@ -155,6 +151,14 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	public boolean insertNewPatient(int village_id, String first_name,
 			String last_name, String gender, String born_on) {
+
+		int zone_id = getParentZone(village_id);
+
+		String global_id = new String(getNameOfZone(zone_id) + "/"
+				+ getAutoIncrements("'children'"));
+
+		Toast.makeText(mContext, global_id, Toast.LENGTH_LONG).show();
+
 		SQLiteDatabase db = getWritableDatabase();
 
 		// Check database is right opened
@@ -168,8 +172,10 @@ public class Database extends SQLiteAssetHelper {
 				values.put("last_name", last_name);
 				values.put("gender", gender);
 				values.put("born_on", born_on);
+				values.put("global_id", global_id);
+				values.put("zone_id", zone_id);
 
-				String currentdatetime = getCurrentDateTime();
+				String currentdatetime = DateUtils.getCurrentDateTime();
 				values.put("created_at", currentdatetime);
 				values.put("updated_at", currentdatetime);
 
@@ -177,6 +183,7 @@ public class Database extends SQLiteAssetHelper {
 				if (resultID == -1)
 					return false;
 			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 			db.close();
@@ -187,6 +194,37 @@ public class Database extends SQLiteAssetHelper {
 			return false;
 		}
 
+	}
+
+	/**
+	 * Get the next id for a table with autoincrement id.
+	 * 
+	 * @param table
+	 * @return the next id
+	 */
+	public String getAutoIncrements(String table) {
+		SQLiteDatabase db = getWritableDatabase();
+		String query = "SELECT * FROM SQLITE_SEQUENCE WHERE `name` = " + table;
+		Cursor cursor = db.rawQuery(query, null);
+		Integer id;
+		if (cursor.moveToFirst()) {
+			do {
+				System.out.println("tableName: "
+						+ cursor.getString(cursor.getColumnIndex("name")));
+				System.out.println("autoInc: "
+						+ cursor.getString(cursor.getColumnIndex("seq")));
+				id = cursor.getInt(cursor.getColumnIndex("seq")) + 1;
+
+			} while (cursor.moveToNext());
+
+		} else {
+			id = 1;
+		}
+
+		cursor.close();
+		db.close();
+
+		return id.toString();
 	}
 
 	/**
@@ -207,7 +245,11 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	// Global id = zone_name/user_number
 	public Boolean addUser(String name, String password, Boolean administrator,
-			int zone_id, String global_id) {
+			int zone_id) {
+
+		String global_id = new String(getNameOfZone(zone_id) + "/"
+				+ getAutoIncrements("'users'"));
+
 		SQLiteDatabase db = getWritableDatabase();
 
 		// Check database is right opened
@@ -223,7 +265,7 @@ public class Database extends SQLiteAssetHelper {
 				values.put("zone_id", zone_id);
 				values.put("global_id", global_id);
 
-				String currentdatetime = getCurrentDateTime();
+				String currentdatetime = DateUtils.getCurrentDateTime();
 				values.put("created_at", currentdatetime);
 				values.put("updated_at", currentdatetime);
 
@@ -294,7 +336,7 @@ public class Database extends SQLiteAssetHelper {
 	 * 
 	 * @return all the application users
 	 */
-	public Cursor getUsers() {
+	public Cursor getAllUsers() {
 		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor mCursor = db.query("users", new String[] { "_id", "name",
@@ -306,17 +348,36 @@ public class Database extends SQLiteAssetHelper {
 	}
 
 	/**
-	 * Get a specific application user
+	 * Get a specific application user by his Id
 	 * 
 	 * @param userId
 	 *            the id of the user
 	 * @return the user
 	 */
-	public Cursor getUser(int userId) {
+	public Cursor getUserById(int userId) {
 		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor mCursor = db.query("users", new String[] { "_id", "name",
 				"admin" }, "_id=?", new String[] { Integer.toString(userId) },
+				null, null, null);
+
+		mCursor.moveToFirst();
+		db.close();
+		return mCursor;
+	}
+
+	/**
+	 * Get a specific application user by his Name
+	 * 
+	 * @param userName
+	 *            the id of the user
+	 * @return the user
+	 */
+	public Cursor getUserByName(String userName) {
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor mCursor = db.query("users", new String[] { "_id", "name",
+				"admin", "global_id" }, "name=?", new String[] { userName },
 				null, null, null);
 
 		mCursor.moveToFirst();
@@ -360,7 +421,7 @@ public class Database extends SQLiteAssetHelper {
 				values.put("zone_id", zone_id);
 				values.put("global_id", global_id);
 
-				String currentdatetime = getCurrentDateTime();
+				String currentdatetime = DateUtils.getCurrentDateTime();
 				values.put("updated_at", currentdatetime);
 
 				long resultID = db.update("users", values, "_id=?",
@@ -400,6 +461,30 @@ public class Database extends SQLiteAssetHelper {
 	}
 
 	/**
+	 * Get text of a classification
+	 * 
+	 * @param id
+	 *            of classification
+	 * 
+	 * @return text of classification
+	 */
+	public String getClassificationText(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor mCursor = db.query("classifications", new String[] { "_id",
+				"name" }, "_id = ?", new String[] { Integer.toString(id) },
+				null, null, null);
+
+		mCursor.moveToFirst();
+
+		String text = mCursor.getString(mCursor.getColumnIndex("name"));
+
+		mCursor.close();
+		db.close();
+		return text;
+	}
+
+	/**
 	 * Get the patients corresponding to the criterias provided
 	 * 
 	 * @param first_name
@@ -416,13 +501,6 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	public Cursor getPatients(String first_name, String last_name,
 			String gender, String born_on, int village_id) {
-
-		// String genderStr;
-		// if (gender) {
-		// genderStr = "t";
-		// } else {
-		// genderStr = "f";
-		// }
 
 		SQLiteDatabase db = getReadableDatabase();
 
@@ -544,29 +622,126 @@ public class Database extends SQLiteAssetHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor mCursor = db
 				.rawQuery(
-						"SELECT `children`.`born_on`, `diagnostics`.`mac`, `diagnostics`.`weight`, `diagnostics`.`height` FROM `children`"
+						"SELECT `diagnostics`.`mac`, `diagnostics`.`weight`, `diagnostics`.`height`, `diagnostics`.`temperature` FROM `children`"
 								+ "INNER JOIN `diagnostics` ON `children`.`global_id` = `diagnostics`.`child_global_id`"
 								+ "WHERE `children`.`_id` =" + id,
 						new String[0]);
-		mCursor.moveToFirst();
+		mCursor.moveToLast();
 
 		db.close();
 		return mCursor;
 	}
 
-	// Helper functions
 	/**
-	 * Gives the current date and time adapted to a SQLite datetime column
+	 * Save in system the got measures for a patient
 	 * 
-	 * @return the current time in SQLite datetime format
+	 * @param child_global_id
+	 * @param muac
+	 * @param height
+	 * @param weight
+	 * @param temp
+	 * @param age_group
+	 * @param zone_id
+	 * @return true if process is successful
 	 */
-	@SuppressLint("SimpleDateFormat")
-	private String getCurrentDateTime() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		return dateFormat.format(date);
+	public String savePatientDiagnostic(String child_global_id, String muac,
+			String height, String weight, String temp, int age_group,
+			int zone_id, String born_on) {
+
+		String global_id = new String(getNameOfZone(zone_id) + "/"
+				+ getAutoIncrements("'diagnostics'"));
+
+		String author = ApplicationPreferences.getRememberedUserName(mContext);
+		Cursor authorCursor = getUserByName(author);
+		String author_global_id = authorCursor.getString(authorCursor
+				.getColumnIndex("global_id"));
+
+		SQLiteDatabase db = getWritableDatabase();
+		// Check database is right opened
+		if (db != null) {
+			// We set the values to be inserted...
+			ContentValues values = new ContentValues();
+
+			try {
+				values.put("child_global_id", child_global_id);
+				values.put("author_global_id", author_global_id);
+				values.put("mac", muac);
+				values.put("height", height);
+				values.put("weight", weight);
+				values.put("temperature", temp);
+				values.put("saved_age_group", age_group);
+				values.put("global_id", global_id);
+				values.put("born_on", born_on);
+				values.put("state", "closed");
+
+				String currentdatetime = DateUtils.getCurrentDateTime();
+				values.put("done_on", currentdatetime);
+				values.put("created_at", currentdatetime);
+				values.put("updated_at", currentdatetime);
+
+				long resultID = db.insert("diagnostics", null, values);
+				db.close();
+
+				if (resultID == -1)
+					return "-1";
+			} catch (Exception e) {
+				return "-1";
+			}
+			return global_id;
+
+		} else {
+			return "-1";
+		}
 	}
+
+	/**
+	 * Save in system got results for a patient
+	 * 
+	 * @param classification_id
+	 *            the result for presented symptoms
+	 * @param diagnostic_global_id
+	 *            the diagnostic id
+	 * @param zone_id
+	 *            the zone id
+	 * @return true if process is successful
+	 */
+	public boolean saveDiagnosticResults(int classification_id,
+			String diagnostic_global_id, int zone_id) {
+		String global_id = new String(getNameOfZone(zone_id) + "/"
+				+ getAutoIncrements("'results'"));
+
+		SQLiteDatabase db = getWritableDatabase();
+		// Check database is right opened
+		if (db != null) {
+			// We set the values to be inserted...
+			ContentValues values = new ContentValues();
+
+			try {
+				values.put("classification_id", classification_id);
+				values.put("diagnostic_global_id", diagnostic_global_id);
+				values.put("zone_id", zone_id);
+				values.put("global_id", global_id);
+
+				String currentdatetime = DateUtils.getCurrentDateTime();
+				values.put("created_at", currentdatetime);
+				values.put("updated_at", currentdatetime);
+
+				long resultID = db.insert("results", null, values);
+				db.close();
+
+				if (resultID == -1)
+					return false;
+			} catch (Exception e) {
+				return false;
+			}
+			return true;
+
+		} else {
+			return false;
+		}
+
+	}
+
 }
 
 /**

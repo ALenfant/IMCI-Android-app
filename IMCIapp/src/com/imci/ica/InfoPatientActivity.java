@@ -1,8 +1,5 @@
 package com.imci.ica;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,7 +8,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+/**
+ * Activity to show the information of a Patient
+ * 
+ * @author Miguel
+ *
+ */
 public class InfoPatientActivity extends Activity {
 
 	public final static String EXTRA_ID_PATIENT = "com.imci.ica.ID_PATIENT";
@@ -20,6 +24,9 @@ public class InfoPatientActivity extends Activity {
 	public String born_on;
 	public final static int POS_BIRTH = 4;
 
+	/**
+	 * Show the data in fields of layout
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,6 +42,27 @@ public class InfoPatientActivity extends Activity {
 
 		PatientInflater inflater = new PatientInflater(this);
 		inflater.showPatientInScreen(id_patient, mainLayout, patient, db);
+		
+		Cursor cursor = db.getPatientDiagnostics(id_patient);
+		if (cursor.getCount() != 0) {
+			View view = getLayoutInflater().inflate(
+					R.layout.layout_measures, mainLayout, false);
+
+			mainLayout.addView(view);
+
+			TextView textWeight = (TextView) findViewById(R.id.textWeight);
+			textWeight.setText(((Float) cursor.getFloat(cursor.getColumnIndex("weight"))).toString());
+			TextView textHeight = (TextView) findViewById(R.id.textHeight);
+			textHeight.setText(((Float) cursor.getFloat(cursor.getColumnIndex("height"))).toString());
+			TextView textTemp = (TextView) findViewById(R.id.textTemp);
+			textTemp.setText(((Float) cursor.getFloat(cursor.getColumnIndex("temperature"))).toString());
+			TextView textMuac = (TextView) findViewById(R.id.textMuac);
+			textMuac.setText(((Float) cursor.getFloat(cursor.getColumnIndex("mac"))).toString());
+		} else {
+			TextView text = new TextView(this);
+			mainLayout.addView(text);
+			text.setText(R.string.noMeasures);
+		}
 
 	}
 
@@ -45,11 +73,13 @@ public class InfoPatientActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Answer to back key pressing
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = getIntent();
-//			intent.putExtra(FoundPatientsActivity.EXTRA_FINISH_ACTIVITY, false);
 			setResult(Activity.RESULT_OK, intent);
 			finish();
 			return true;
@@ -57,6 +87,11 @@ public class InfoPatientActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	/**
+	 * Answer to button to create a new diagnostic
+	 * 
+	 * @param view
+	 */
 	public void newDiagnostic(View view) {
 		Intent prevIntent = getIntent();
 		prevIntent.putExtra(FoundPatientsActivity.EXTRA_FINISH_ACTIVITY, true);
@@ -64,33 +99,8 @@ public class InfoPatientActivity extends Activity {
 		
 		Intent newIntent = new Intent(this, GetSignsActivity.class);
 		newIntent.putExtra(GetSignsActivity.EXTRA_ID_PATIENT, id_patient);
-		newIntent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP, getAgeGroup(born_on));
+		newIntent.putExtra(GetSignsActivity.EXTRA_AGE_GROUP, DateUtils.getAgeGroup(born_on));
 		startActivity(newIntent);
 	}
 
-	public static int getAgeGroup(String birth_date) {
-
-		int age_group;
-		int days;
-
-		String[] birthArray = birth_date.split("\\-");
-		Integer bDay = Integer.parseInt(birthArray[0]);
-		Integer bMonth = Integer.parseInt(birthArray[1]) - 1;
-		Integer bYear = Integer.parseInt(birthArray[2]);
-		GregorianCalendar birth = new GregorianCalendar(bYear, bMonth, bDay);
-		GregorianCalendar current = new GregorianCalendar();
-		int yearRange = current.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-		days = current.get(Calendar.DAY_OF_YEAR)
-				- birth.get(Calendar.DAY_OF_YEAR) + yearRange * 365;
-
-		if (days >= 0 && days <= 7) {
-			age_group = 0;
-		} else if (days >= 8 && days <= 60) {
-			age_group = 1;
-		} else {
-			age_group = 2;
-		}
-
-		return age_group;
-	}
 }

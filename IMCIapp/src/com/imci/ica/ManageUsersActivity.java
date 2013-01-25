@@ -29,7 +29,7 @@ public class ManageUsersActivity extends Activity {
 		ListView listCurrentCenterUsers = (ListView) findViewById(R.id.listView_currentcenterusers);
 
 		Database db = new Database(this);
-		Cursor usersCursor = db.getUsers();
+		Cursor usersCursor = db.getAllUsers();
 		startManagingCursor(usersCursor);
 
 		String[] from = new String[] { "name" };

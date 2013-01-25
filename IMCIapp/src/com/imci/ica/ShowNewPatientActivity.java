@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Class to show the information of a new patient, to check if all data is
+ * right.
+ * 
+ * @author Miguel
+ * 
+ */
 public class ShowNewPatientActivity extends Activity {
 
 	String first_name;
@@ -18,6 +25,9 @@ public class ShowNewPatientActivity extends Activity {
 	int village_id;
 	int zone_id;
 
+	/**
+	 * Show all data in screen
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,8 +40,7 @@ public class ShowNewPatientActivity extends Activity {
 		last_name = intent
 				.getStringExtra(SearchPatientActivity.EXTRA_LAST_NAME);
 		gender = intent.getStringExtra(SearchPatientActivity.EXTRA_GENDER);
-		born_on = intent
-				.getStringExtra(SearchPatientActivity.EXTRA_BORN_ON);
+		born_on = intent.getStringExtra(SearchPatientActivity.EXTRA_BORN_ON);
 		village_id = intent.getIntExtra(SearchPatientActivity.EXTRA_VILLAGE_ID,
 				0);
 		zone_id = intent.getIntExtra(SearchPatientActivity.EXTRA_ZONE_ID, 0);
@@ -44,6 +53,7 @@ public class ShowNewPatientActivity extends Activity {
 		textLastName.setText(last_name);
 
 		TextView textGender = (TextView) findViewById(R.id.TextGender);
+		
 		// Creating Male or Female text
 		if (gender.equals("t"))
 			textGender.setText(R.string.male);
@@ -55,24 +65,13 @@ public class ShowNewPatientActivity extends Activity {
 
 		Database db = new Database(this);
 		String villageName = db.getNameOfZone(village_id);
-//		
-//		Cursor villageCursor = db.getZone(village_id);
-//		if (villageCursor.getCount() > 0) {
-//			String villageName = villageCursor.getString(1);
 
-			TextView textVillage = (TextView) findViewById(R.id.TextVillage);
-			textVillage.setText(villageName);
-//		}
-//
-//		villageCursor = db.getZone(zone_id);
-//		if (villageCursor.getCount() > 0) {
-//			String zoneName = villageCursor.getString(1);
-//
-			String zoneName = db.getNameOfZone(zone_id);
-			
-			TextView textZone = (TextView) findViewById(R.id.TextZone);
-			textZone.setText(zoneName);
-//		}
+		TextView textVillage = (TextView) findViewById(R.id.TextVillage);
+		textVillage.setText(villageName);
+		String zoneName = db.getNameOfZone(zone_id);
+
+		TextView textZone = (TextView) findViewById(R.id.TextZone);
+		textZone.setText(zoneName);
 	}
 
 	@Override
@@ -82,17 +81,24 @@ public class ShowNewPatientActivity extends Activity {
 		return true;
 	}
 
-	// Answer to Confirm button click
+	/**
+	 * Answer to Confirm button click
+	 * 
+	 * @param view
+	 */
 	public void confirmInfo(View view) {
 
-		// Register in Database
+		/**
+		 * Register in Database
+		 */
 		Database db = new Database(this);
 
 		if (db.insertNewPatient(village_id, first_name, last_name, gender,
 				born_on)) {
 			// Closing previus activity
 			Intent intentPrev = getIntent();
-			intentPrev.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY, true);
+			intentPrev.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY,
+					true);
 			setResult(Activity.RESULT_OK, intentPrev);
 
 			// Creating DoneRegisterActivity
@@ -107,40 +113,24 @@ public class ShowNewPatientActivity extends Activity {
 
 	}
 
-	// Answer to Modify button
+	/**
+	 * Answer to Modify button
+	 * 
+	 * @param view
+	 */
 	public void modifyInfo(View view) {
 		Intent intent = getIntent();
-		//intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
 		setResult(Activity.RESULT_OK, intent);
 		finish();
 	}
-
-	// Creating a string with Date format
-	public String dateString(Integer day, Integer month, Integer year) {
-		String strDate = twoDigitsString(year) + "-"
-				+ twoDigitsString(month + 1) + "-" + twoDigitsString(day);
-
-		return strDate;
-	}
-
-	// Creating a string from a Integer with two digits,
-	// even if number is less than 10.
-	public String twoDigitsString(Integer number) {
-		String str;
-
-		if (number <= 9 & number >= 0)
-			str = "0" + number.toString();
-		else
-			str = number.toString();
-
-		return str;
-	}
-
+	
+	/**
+	 * Answer to back key pressing
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = getIntent();
-			//intent.putExtra(NewPatientActivity.EXTRA_FINISH_ACTIVITY, false);
 			setResult(Activity.RESULT_OK, intent);
 			finish();
 			return true;

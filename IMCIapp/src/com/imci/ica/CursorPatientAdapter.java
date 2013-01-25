@@ -55,7 +55,7 @@ public class CursorPatientAdapter extends CursorAdapter {
 
 		Database db = new Database(this.mContext);
 		int village_id = Integer.parseInt(cursor.getString(5).toString());
-		Cursor villageCursor = db.getZone(village_id);
+		Cursor villageCursor = db.getZoneById(village_id);
 		if (villageCursor.getCount() > 0) {
 			holder.village.setText(villageCursor.getString(1));
 		}

@@ -12,6 +12,16 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+/**
+ * Activity to search a Patient into the system
+ * This activity get the search criteria
+ * 
+ * If patient we search doesn't exist, it's possible to create
+ * in this activity.
+ * 
+ * @author Miguel
+ *
+ */
 public class SearchPatientActivity extends Activity {
 
 	public final static String EXTRA_FIRST_NAME = "com.imci.ica.FIRST_NAME";
@@ -32,15 +42,19 @@ public class SearchPatientActivity extends Activity {
 
 	int village_id = -1;
 	int zone_id = -1;
-
+	
+	/**
+	 * Show the interface
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_patient);
 
-		// We hide the picker
+		// Hiding the picker
 		findViewById(R.id.datePicker).setVisibility(View.GONE);
 
+		// Initialization of village button text
 		Button villageButton = ((Button) findViewById(R.id.buttonVillage));
 		villageButton.setText(R.string.select_village);
 	}
@@ -52,12 +66,18 @@ public class SearchPatientActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Treat the result of next activity
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		
+		// If it's requested to finish the activity
 		if (data.getBooleanExtra(EXTRA_FINISH_ACTIVITY, false)) {
 			finish();
 		}
+		
+		// If it's requested to check the entry of a village in search
 		if (CHECK_VILLAGE) {
 
 			super.onActivityResult(requestCode, resultCode, data);
@@ -68,7 +88,7 @@ public class SearchPatientActivity extends Activity {
 					-1);
 
 			Database db = new Database(this);
-			Cursor villageCursor = db.getZone(village_id);
+			Cursor villageCursor = db.getZoneById(village_id);
 			if (villageCursor.getCount() > 0) {
 				String villageName = villageCursor.getString(1);
 
@@ -78,6 +98,8 @@ public class SearchPatientActivity extends Activity {
 			CHECK_VILLAGE = false;
 			return;
 		}
+		
+		// If it's requested to create a new patient
 		if (data.getBooleanExtra(EXTRA_MODE_CREATE, false)) {
 			mode = CREATE;
 			showPicker(findViewById(R.id.linearLayoutSearch));
@@ -85,6 +107,11 @@ public class SearchPatientActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Answer to select village button
+	 * 
+	 * @param view
+	 */
 	public void selectVillage(View view) {
 
 		// check_result = true;
@@ -100,12 +127,20 @@ public class SearchPatientActivity extends Activity {
 		startActivityForResult(i, 0);
 	}
 
-	// Answer to Cancel button
+	/**
+	 * Answer to Cancel button
+	 * 
+	 * @param view
+	 */
 	public void cancel(View view) {
 		finish();
 	}
 
-	// Answer to Send button click
+	/**
+	 * Answer to Send button click
+	 * 
+	 * @param view
+	 */
 	public void sendInfo(View view) {
 		switch (mode) {
 		case SEARCH:
@@ -118,6 +153,9 @@ public class SearchPatientActivity extends Activity {
 		;
 	}
 
+	/**
+	 * Answer to search button, go to next activity to do a search
+	 */
 	public void searchPatient() {
 		Intent intent = new Intent(this, FoundPatientsActivity.class);
 
@@ -155,7 +193,7 @@ public class SearchPatientActivity extends Activity {
 		if (SEND_DATE) {
 			// Getting date of birth
 			DatePicker birth = (DatePicker) findViewById(R.id.datePicker);
-			String born_on = dateString(birth.getDayOfMonth(),
+			String born_on = DateUtils.dateString(birth.getDayOfMonth(),
 					birth.getMonth(), birth.getYear());
 
 			intent.putExtra(EXTRA_BORN_ON, born_on);
@@ -172,6 +210,9 @@ public class SearchPatientActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 
+	/**
+	 * Answer to create button, go to next activity to create a new patient
+	 */
 	public void createPatient() {
 		Intent intent = new Intent(this, ShowNewPatientActivity.class);
 
@@ -213,7 +254,7 @@ public class SearchPatientActivity extends Activity {
 		// Getting date of birth
 		DatePicker birth = (DatePicker) findViewById(R.id.datePicker);
 
-		String born_on = dateString(birth.getDayOfMonth(), birth.getMonth(),
+		String born_on = DateUtils.dateString(birth.getDayOfMonth(), birth.getMonth(),
 				birth.getYear());
 
 		intent.putExtra(EXTRA_BORN_ON, born_on);
@@ -233,7 +274,11 @@ public class SearchPatientActivity extends Activity {
 
 	}
 
-	// If the date is be sent
+	/**
+	 * If the date goes to be sent
+	 * 
+	 * @param view
+	 */
 	public void showPicker(View view) {
 		// We hide the button
 		findViewById(R.id.buttonDate).setVisibility(View.GONE);
@@ -242,26 +287,5 @@ public class SearchPatientActivity extends Activity {
 		findViewById(R.id.datePicker).setVisibility(View.VISIBLE);
 
 		SEND_DATE = true;
-	}
-
-	// Creating a string with Date format
-	public String dateString(Integer day, Integer month, Integer year) {
-		String strDate = twoDigitsString(year) + "-"
-				+ twoDigitsString(month + 1) + "-" + twoDigitsString(day);
-
-		return strDate;
-	}
-
-	// Creating a string from a Integer with two digits,
-	// even if number is less than 10.
-	public String twoDigitsString(Integer number) {
-		String str;
-
-		if (number <= 9 & number >= 0)
-			str = "0" + number.toString();
-		else
-			str = number.toString();
-
-		return str;
 	}
 }

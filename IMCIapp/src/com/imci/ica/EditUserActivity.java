@@ -37,7 +37,7 @@ public class EditUserActivity extends Activity {
 		if (extras != null && extras.getInt(EXTRA_USER_ID, -1) != -1) {
 			int userId = extras.getInt(EXTRA_USER_ID, -1);
 			Database db = new Database(this);
-			Cursor userCursor = db.getUser(userId);
+			Cursor userCursor = db.getUserById(userId);
 			if (userCursor.getCount() != 0) {
 				((EditText) findViewById(R.id.editText_fullname))
 						.setText(userCursor.getString(1));
@@ -113,7 +113,7 @@ public class EditUserActivity extends Activity {
 			// We want to add a new user
 			Database db = new Database(this);
 			int zoneId = ApplicationPreferences.getCenterZoneId(this);
-			if (db.addUser(name, password, admin, zoneId, zoneId + "/1")) {
+			if (db.addUser(name, password, admin, zoneId)) {
 				finish(); // Done, we close it
 			} else {
 				Toast.makeText(this, R.string.error_impossible_create_user,
