@@ -3,9 +3,6 @@ package com.imci.ica;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.database.Cursor;
@@ -67,42 +64,13 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 		} else {
 			age_group = 2; // For debugging purposes
 		}
-
-		// Will contain the results to display
-		ArrayList<Integer> results = new ArrayList<Integer>();
-
 		// Get all the equations...
 		Cursor classificationsCursor = db.getClassifications(age_group);
-		do {
-			String eq = jsDataVar + " " + baseJS + " "
-					+ classificationsCursor.getString(2);// " !(data['danger.boire'] || data['danger.vomit'] || data['danger.convulsions_passe'] || data['danger.lethargie'] || data['danger.convulsions_present'])";
-			System.out.println(eq);
-			Context context = Context.enter();
-			context.setOptimizationLevel(-1); // Disable compilation
 
-			try {
-				Scriptable scope = context.initStandardObjects();
+		// Will contain the results to display
+		ArrayList<Integer> results = JSUtils.evaluation(age_group, jsDataVar, classificationsCursor);
 
-				// scope.put("data", scope, data);
-
-				Boolean result = (Boolean) context.evaluateString(scope, eq,
-						"doit", 1, null);
-				System.out.println("Result: " + result);
-				if (result) {
-					results.add(classificationsCursor
-							.getInt(classificationsCursor.getColumnIndex("_id")));
-				}
-			} catch (Exception ex) {
-				if (ex instanceof java.lang.ClassCastException) {
-					System.out.println("Result: Unknown");
-				} else {
-					System.out.println("Result ERROR: " + ex.toString());
-				}
-			} finally {
-				Context.exit();
-			}
-		} while (classificationsCursor.moveToNext());
-
+		// Save diagnostic in database
 		String child_global_id = patient.getString(patient
 				.getColumnIndex("global_id"));
 		int zone_id = patient.getInt(patient.getColumnIndex("zone_id"));
@@ -116,6 +84,7 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 		diagnostic_global_id = db.savePatientDiagnostic(child_global_id, muac,
 				height, weight, temp, age_group, zone_id, born_on);
 
+		// If diagnostic was saved correctly, save result
 		if (!diagnostic_global_id.equals("-1")) {
 			resultsText = new ArrayList<String>();
 			int classification_id;

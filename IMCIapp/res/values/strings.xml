@@ -96,7 +96,7 @@
     <string name="weight">Weight (kg): </string>
     <string name="height">Height (cm):</string>
     <string name="temperature">Temperature (ºC):</string>
-    <string name="muac">Muac (cm):</string>
+    <string name="muac">Muac (mm):</string>
     <string name="noMeasures">This patient doesn\'t have any measure yet.</string>
     
 </resources>

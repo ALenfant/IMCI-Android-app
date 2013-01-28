@@ -601,12 +601,73 @@ public class Database extends SQLiteAssetHelper {
 	 */
 	public Cursor getQuestions(int age_group) {
 		SQLiteDatabase db = getReadableDatabase();
-		Cursor mCursor = db
-				.rawQuery(
-						"SELECT `_id`, `illness_id`, `type`, `key`, `question`, `values`, `dep`, `negative` FROM `signs` WHERE `age_group`="
-								+ age_group, new String[0]);
+		 Cursor mCursor = db
+		 .rawQuery(
+		 "SELECT `_id`, `illness_id`, `type`, `key`, `question`, `values`, `dep`, `negative` FROM `signs` WHERE `age_group`="
+		 + age_group, new String[0]);
+
 		mCursor.moveToFirst();
 
+		db.close();
+		return mCursor;
+	}
+
+	/**
+	 * Get all the questions corresponding to the provided age group
+	 * and the provided illness id
+	 * 
+	 * @param age_group
+	 *            the age group
+	 * @param illness_id
+	 * 			  the illness id
+	 * @return the questions corresponding
+	 */
+	public Cursor getQuestionsByIllnessId(int age_group, int illness_id) {
+		SQLiteDatabase db = getReadableDatabase();
+		 Cursor mCursor = db
+		 .rawQuery(
+		 "SELECT `_id`, `key`, `dep` FROM `signs` WHERE `age_group`="
+		 + age_group
+		 + " AND `illness_id`=" + illness_id, new String[0]);
+
+		mCursor.moveToFirst();
+
+		db.close();
+		return mCursor;
+	}
+
+	/**
+	 * Get the question of corresponding to the provided id
+	 *  
+	 * @param id
+	 * @return a cursor with the questions desired
+	 */
+	public Cursor getQuestionById(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		 Cursor mCursor = db
+		 .rawQuery(
+		 "SELECT `type`, `key`, `values` FROM `signs` WHERE `_id`="
+		 + id, new String[0]);
+
+		mCursor.moveToFirst();
+		db.close();
+		return mCursor;
+	}
+
+	/**
+	 * Get the question of corresponding to the provided key
+	 *  
+	 * @param key
+	 * @return a cursor with the questions desired
+	 */
+	public Cursor getQuestionByKey(String key) {
+		SQLiteDatabase db = getReadableDatabase();
+		 Cursor mCursor = db
+		 .rawQuery(
+		 "SELECT `type`, `key`, `values` FROM `signs` WHERE `key`='"
+		 + key + "'", new String[0]);
+
+		mCursor.moveToFirst();
 		db.close();
 		return mCursor;
 	}

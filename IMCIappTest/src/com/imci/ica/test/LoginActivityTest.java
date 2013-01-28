@@ -42,7 +42,7 @@ public class LoginActivityTest extends
 
 		// We add a fake user to the database
 		Database db = new Database(loginActivity);
-		db.addUser("testUser", "testPassword", true, 1, "1/1");
+		db.addUser("testUser", "testPassword", true, 1);
 		db.close();
 	}
 

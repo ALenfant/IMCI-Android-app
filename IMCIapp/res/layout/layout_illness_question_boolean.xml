@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RadioGroup
-        android:id="@+id/radioGroup1"
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >

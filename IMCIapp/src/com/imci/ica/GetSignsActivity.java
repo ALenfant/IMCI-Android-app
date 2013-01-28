@@ -7,11 +7,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -23,13 +21,13 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 /**
- * Class to take data to do a diagnostic
- * Questions are shown in screen by illness group of questions. 
+ * Class to take data to do a diagnostic Questions are shown in screen by
+ * illness group of questions.
  * 
  * @author Miguel
- *
+ * 
  */
-public class GetSignsActivity extends Activity {
+public class GetSignsActivity extends MyActivity {
 
 	public final static String EXTRA_ID_PATIENT = "com.imci.ica.ID_PATIENT";
 	public final static String EXTRA_AGE_GROUP = "com.imci.ica.AGE_GROUP";
@@ -43,15 +41,20 @@ public class GetSignsActivity extends Activity {
 	int illness_id; // , count;
 	int index;
 	boolean end = false;
+	String prevDep = null;
+	String illness_key;
 
 	Cursor illnesses, questions;
 	CursorQuestionsAdapter mAdapter;
 	Cursor mCursor;
 	TableLayout tableQuestions;
 
-HashMap<String, String> types;		// Map containing types of answer of questions
-	HashMap<String, String> answersAllQuestions;  // Map for all questions answered correctly
-	HashMap<String, String> answersOneIllness;    // Aux Map to answer of one illness
+	HashMap<String, Integer> types; // Map containing types of answer of
+									// questions
+	HashMap<String, Object> answersAllQuestions; // Map for all questions
+													// answered correctly
+	HashMap<String, Object> answersOneIllness; // Aux Map to answer of one
+												// illness
 
 	/**
 	 * Show interface and initialize all variables
@@ -60,7 +63,7 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_get_signs);
-		
+
 		ScrollView view = (ScrollView) findViewById(R.id.scrollViewQuestions);
 		view.setVisibility(View.GONE);
 
@@ -78,9 +81,9 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 
 		index = 0;
 
-		types = new HashMap<String, String>();
-		answersAllQuestions = new HashMap<String, String>();
-		answersOneIllness = new HashMap<String, String>();
+		types = new HashMap<String, Integer>();
+		answersAllQuestions = new HashMap<String, Object>();
+		answersOneIllness = new HashMap<String, Object>();
 
 		tableQuestions = null;
 	}
@@ -93,47 +96,49 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 	}
 
 	/**
-	 * Show new illnesses group of questions
+	 * Check dependencies of answers.
+	 * 
+	 * @param key
+	 *            the key of question
+	 * @param value
+	 *            the value inserted
 	 */
-	public void showNextIllness() {
-		String key;
+	@Override
+	public void checkDependencies(String key, Object value) {
 
-		LinearLayout mLayout = (LinearLayout) findViewById(R.id.layoutQuestions);
-
-		mCursor = mAdapter.getCursor();
-
-		illness_id = Integer.parseInt(mAdapter.getIllnessId(mCursor));
+		String[] keyParts = key.split("\\.");
 
 		Database db = new Database(this);
-		String illness_key = db.getIllnessKey(illness_id);
+		Cursor questionForIllness = db.getQuestionsByIllnessId(age_group,
+				illness_id);
 
-		tableQuestions = new TableLayout(GetSignsActivity.this);
-		mLayout.addView(tableQuestions);
+		Dependencies dep = new Dependencies(this, age_group, illness_id, tableQuestions, questionForIllness);
 
-		while (illness_id == Integer.parseInt(mAdapter.getIllnessId(mCursor))
-				&& !end) {
-			View view = mAdapter.getView(index, null, tableQuestions);
-
-			key = mAdapter.createKey(illness_key);
-			view.setTag(key);
-
-			types.put(key, mAdapter.getType(mCursor));
-
-			tableQuestions.addView(view);
-			if (!mAdapter.isLast()) {
-				mAdapter.moveToNext();
-				mCursor = mAdapter.getCursor();
-				index++;
-			} else {
-				end = true;
-			}
+		if(keyParts[1].equals("malnutrition")) {
+			dep.dependencyMalnutrition(answersAllQuestions);
+			return;
 		}
+		
+		Cursor thisQuestion = db.getQuestionByKey(keyParts[1]);
+		String typeCurrent = thisQuestion.getString(thisQuestion
+				.getColumnIndex("type"));
 
+		answersOneIllness.put(key, value);
+
+		if (typeCurrent.equals("BooleanSign")) {
+			dep.dependencyBoolean(key, value);
+			
+		} else if (typeCurrent.equals("IntegerSign")) {
+			dep.dependencyInteger(value);
+			
+		} else {
+			dep.dependencyList(value, answersOneIllness);
+		}
 	}
 
 	/**
-	 * Answer to Next button.
-	 * Save answers in current screen if all them are answered
+	 * Answer to Next button. Save answers in current screen if all them are
+	 * answered
 	 * 
 	 * @param view
 	 */
@@ -141,48 +146,48 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 
 		View mView;
 		String key;
-		String type;
+		int type;
 
 		// If is the first entry, hide measures layout
 		if (index == 0) {
-			if(!takeMeasures()) {
+			if (!takeMeasures()) {
 				answersOneIllness.clear();
-				return;				
+				return;
 			}
 			ScrollView scrollMeasures = (ScrollView) findViewById(R.id.scrollViewMeasures);
 			scrollMeasures.setVisibility(View.GONE);
 
 			ScrollView scrollQuestions = (ScrollView) findViewById(R.id.scrollViewQuestions);
 			scrollQuestions.setVisibility(View.VISIBLE);
-			
+
 		} else {
-			Iterator<Entry<String, String>> iterator = types.entrySet()
+			Iterator<Entry<String, Integer>> iterator = types.entrySet()
 					.iterator();
 
 			while (iterator.hasNext()) {
-				Entry<String, String> entry = iterator.next();
+				Entry<String, Integer> entry = iterator.next();
 				key = entry.getKey();
 				type = entry.getValue();
 
 				mView = (View) tableQuestions.findViewWithTag(key);
 
-				switch (mAdapter.getTypeQuestion(type)) {
+				switch (type) {
 				case TYPE_BOOLEAN: {
-					if (!takeAnswersBoolean(mView, key)) {
+					if (!checkAnswersBoolean(mView, key)) {
 						answersOneIllness.clear();
 						return;
 					}
 				}
 					break;
 				case TYPE_INTEGER: {
-					if (!takeAnswersInteger(mView, key)) {
+					if (!checkAnswersInteger(mView, key)) {
 						answersOneIllness.clear();
 						return;
 					}
 				}
 					break;
 				default:
-					takeAnswersList(mView, key);
+					checkAnswersList(mView, key);
 					break;
 				}
 
@@ -200,20 +205,20 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 		if (!end) {
 			showNextIllness();
 		} else {
-			// Only for check result of data entry (debug purposes)
-			Iterator<String> itKey = answersAllQuestions.keySet().iterator();
-			String value;
-			while (itKey.hasNext()) {
-				key = itKey.next();
-				value = answersAllQuestions.get(key);
-
-				Log.w(key, value);
-			}
+			// // Only for check result of data entry (debug purposes)
+			// Iterator<String> itKey = answersAllQuestions.keySet().iterator();
+			// String value;
+			// while (itKey.hasNext()) {
+			// key = itKey.next();
+			// value = (String) answersAllQuestions.get(key);
+			//
+			// Log.w(key, value);
+			// }
 
 			// Go to next activity
 			Intent intent = new Intent(this, SignsClassificationActivity.class);
 			intent.putExtra(SignsClassificationActivity.EXTRA_HASHMAP_DATA,
-			answersAllQuestions); //The answers
+					answersAllQuestions); // The answers
 			intent.putExtra(SignsClassificationActivity.EXTRA_ID_PATIENT,
 					id_patient); // The patient's id
 			startActivity(intent);
@@ -223,28 +228,71 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 	}
 
 	/**
+	 * Show new illnesses group of questions
+	 */
+	public void showNextIllness() {
+		LinearLayout mLayout = (LinearLayout) findViewById(R.id.layoutQuestions);
+
+		mCursor = mAdapter.getCursor();
+
+		illness_id = Integer.parseInt(mAdapter.getIllnessId(mCursor));
+
+		Database db = new Database(this);
+		illness_key = db.getIllnessKey(illness_id);
+		db.close();
+		tableQuestions = new TableLayout(GetSignsActivity.this);
+		mLayout.addView(tableQuestions);
+
+		String key;
+
+		while (illness_id == Integer.parseInt(mAdapter.getIllnessId(mCursor))
+				&& !end) {
+			View view = mAdapter.getView(index, null, tableQuestions);
+
+			key = mAdapter.createKey(illness_key);
+			view.setTag(key);
+
+			types.put(key, mAdapter.getTypeQuestion(mCursor));
+
+			tableQuestions.addView(view);
+			if (!mAdapter.isLast()) {
+				mAdapter.moveToNext();
+				mCursor = mAdapter.getCursor();
+				index++;
+			} else {
+				end = true;
+			}
+		}
+	}
+
+	/**
 	 * Get answers from a question of boolean type
 	 * 
 	 * @param view
-	 * 			the layout of the question
+	 *            the layout of the question
 	 * @param key
-	 * 			the key of the question
-	 * @return true if lecture was successful
+	 *            the key of the question
+	 * @return true if lecture was successful or element is disable
 	 */
-	public boolean takeAnswersBoolean(View view, String key) {
+	public boolean checkAnswersBoolean(View view, String key) {
 		RadioButton yesButton = (RadioButton) view.findViewById(R.id.buttonYes);
 		RadioButton noButton = (RadioButton) view.findViewById(R.id.buttonNo);
 
-		if (!yesButton.isChecked() && !noButton.isChecked()) {
-			Toast.makeText(this, R.string.allQuestionsMarked, Toast.LENGTH_LONG)
-					.show();
-			return false;
-		} else {
-			if (yesButton.isChecked()) {
-				answersOneIllness.put(key, "true");
-			} else if (noButton.isChecked()) {
-				answersOneIllness.put(key, "false");
+		if (yesButton.isEnabled()) {
+			if (!yesButton.isChecked() && !noButton.isChecked()) {
+				Toast.makeText(this, R.string.allQuestionsMarked,
+						Toast.LENGTH_LONG).show();
+				return false;
+			} else {
+				// if (yesButton.isChecked()) {
+				// answersOneIllness.put(key, true);
+				// } else if (noButton.isChecked()) {
+				// answersOneIllness.put(key, false);
+				// }
+				return true;
 			}
+		} else {
+			answersAllQuestions.remove(key);
 			return true;
 		}
 	}
@@ -253,21 +301,26 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 	 * Get answers from a question of integer type
 	 * 
 	 * @param view
-	 * 			the layout of the question
+	 *            the layout of the question
 	 * @param key
-	 * 			the key of the question
-	 * @return true if lecture was successful
+	 *            the key of the question
+	 * @return true if lecture was successful or element is disable
 	 */
-	public boolean takeAnswersInteger(View view, String key) {
+	public boolean checkAnswersInteger(View view, String key) {
 		EditText entry = (EditText) view.findViewById(R.id.editValue);
 		String number = entry.getText().toString();
 
-		if (number.length() == 0) {
-			Toast.makeText(this, R.string.allQuestionsMarked, Toast.LENGTH_LONG)
-					.show();
-			return false;
+		if (entry.isEnabled()) {
+			if (number.length() == 0) {
+				Toast.makeText(this, R.string.allQuestionsMarked,
+						Toast.LENGTH_LONG).show();
+				return false;
+			} else {
+				// answersOneIllness.put(key, number);
+				return true;
+			}
 		} else {
-			answersOneIllness.put(key, number);
+			answersAllQuestions.remove(key);
 			return true;
 		}
 	}
@@ -276,32 +329,37 @@ HashMap<String, String> types;		// Map containing types of answer of questions
 	 * Get answers from a question of list type
 	 * 
 	 * @param view
-	 * 			the layout of the question
+	 *            the layout of the question
 	 * @param key
-	 * 			the key of the question
-	 * @return true if lecture was successful
+	 *            the key of the question
+	 * @return true if lecture was successful or element is disable
 	 */
-	public boolean takeAnswersList(View view, String key) {
+	public boolean checkAnswersList(View view, String key) {
 		Spinner list = (Spinner) view.findViewById(R.id.spinner);
 		String election = list.getSelectedItem().toString();
 
-		answersOneIllness.put(key, election);
+		if (list.isEnabled() && !answersOneIllness.containsKey(key)) {
+			answersOneIllness.put(key, election);
+		} else {
+			answersAllQuestions.remove(key);
+		}
 		return true;
 	}
 
 	/**
-	 * Register answers of a illness group of questions, in final result
-	 * hashmap
+	 * Register answers of a illness group of questions, in final result hashmap
 	 * 
-	 * @param hm
+	 * @param answersOneIllness2
 	 */
-	public void registerAnswersOneIllness(HashMap<String, String> hm) {
+	public void registerAnswersOneIllness(
+			HashMap<String, Object> answersOneIllness2) {
 		String key;
-		String value;
-		Iterator<Entry<String, String>> iterator = hm.entrySet().iterator();
+		Object value;
+		Iterator<Entry<String, Object>> iterator = answersOneIllness2
+				.entrySet().iterator();
 
 		while (iterator.hasNext()) {
-			Entry<String, String> e = iterator.next();
+			Entry<String, Object> e = iterator.next();
 			key = e.getKey();
 			value = e.getValue();
 
