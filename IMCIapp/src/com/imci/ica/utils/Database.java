@@ -1,12 +1,9 @@
-package com.imci.ica;
-
-import java.security.MessageDigest;
+package com.imci.ica.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -149,15 +146,14 @@ public class Database extends SQLiteAssetHelper {
 	 *            his birth date
 	 * @return if the operation succeeded
 	 */
-	public boolean insertNewPatient(int village_id, String first_name,
+	public int insertNewPatient(int village_id, String first_name,
 			String last_name, String gender, String born_on) {
-
+		int result = -1;
+		
 		int zone_id = getParentZone(village_id);
 
 		String global_id = new String(getNameOfZone(zone_id) + "/"
 				+ getAutoIncrements("'children'"));
-
-		Toast.makeText(mContext, global_id, Toast.LENGTH_LONG).show();
 
 		SQLiteDatabase db = getWritableDatabase();
 
@@ -180,18 +176,19 @@ public class Database extends SQLiteAssetHelper {
 				values.put("updated_at", currentdatetime);
 
 				long resultID = db.insert("children", null, values);
-				if (resultID == -1)
-					return false;
+				db.close();
+
+				result = (int) resultID;
+				return result;
+				
 			} catch (Exception e) {
 				e.printStackTrace();
-				return false;
+				db.close();
+				return result;
 			}
-			db.close();
-
-			return true;
-
+			
 		} else {
-			return false;
+			return result;
 		}
 
 	}
@@ -260,7 +257,7 @@ public class Database extends SQLiteAssetHelper {
 			try {
 				values.put("name", name);
 				values.put("crypted_password",
-						MD5.md5(PASSWORD_SALT + password));
+						MD5Utils.md5(PASSWORD_SALT + password));
 				values.put("admin", administrator ? "t" : "f");
 				values.put("zone_id", zone_id);
 				values.put("global_id", global_id);
@@ -304,7 +301,7 @@ public class Database extends SQLiteAssetHelper {
 								new String[] { "_id", "name", "admin" },
 								"name=? AND crypted_password=?",
 								new String[] { name,
-										MD5.md5(PASSWORD_SALT + password) },
+										MD5Utils.md5(PASSWORD_SALT + password) },
 								null, null, null);
 
 				if (mCursor.getCount() == 0)
@@ -415,7 +412,7 @@ public class Database extends SQLiteAssetHelper {
 				values.put("name", name);
 				if (password.length() != 0) {
 					values.put("crypted_password",
-							MD5.md5(PASSWORD_SALT + password));
+							MD5Utils.md5(PASSWORD_SALT + password));
 				}
 				values.put("admin", administrator ? "t" : "f");
 				values.put("zone_id", zone_id);
@@ -679,14 +676,15 @@ public class Database extends SQLiteAssetHelper {
 	 *            the child id
 	 * @return the diagnostics data for the specificed child
 	 */
-	public Cursor getPatientDiagnostics(int id) {
+	public Cursor getLastDiagnostic(int id) {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor mCursor = db
 				.rawQuery(
-						"SELECT `diagnostics`.`mac`, `diagnostics`.`weight`, `diagnostics`.`height`, `diagnostics`.`temperature` FROM `children`"
+						"SELECT `diagnostics`.`global_id`, `diagnostics`.`mac`, `diagnostics`.`weight`, `diagnostics`.`height`, `diagnostics`.`temperature` FROM `children`"
 								+ "INNER JOIN `diagnostics` ON `children`.`global_id` = `diagnostics`.`child_global_id`"
 								+ "WHERE `children`.`_id` =" + id,
 						new String[0]);
+
 		mCursor.moveToLast();
 
 		db.close();
@@ -705,8 +703,8 @@ public class Database extends SQLiteAssetHelper {
 	 * @param zone_id
 	 * @return true if process is successful
 	 */
-	public String savePatientDiagnostic(String child_global_id, String muac,
-			String height, String weight, String temp, int age_group,
+	public String savePatientDiagnostic(String child_global_id, int muac,
+			float height, float weight, float temp, int age_group,
 			int zone_id, String born_on) {
 
 		String global_id = new String(getNameOfZone(zone_id) + "/"
@@ -734,7 +732,8 @@ public class Database extends SQLiteAssetHelper {
 				values.put("global_id", global_id);
 				values.put("born_on", born_on);
 				values.put("state", "closed");
-
+				values.put("zone_id", zone_id);
+				
 				String currentdatetime = DateUtils.getCurrentDateTime();
 				values.put("done_on", currentdatetime);
 				values.put("created_at", currentdatetime);
@@ -802,42 +801,68 @@ public class Database extends SQLiteAssetHelper {
 		}
 
 	}
-
-}
-
-/**
- * Class to use MD5 hashing
- * 
- * @author http://mobile.dzone.com/news/android-snippet-making-md5
- * 
- */
-class MD5 {
+	
 	/**
-	 * Computes the MD5 hash of the given string
+	 * Get results for given diagnostic
 	 * 
-	 * @param str
-	 *            the string we want to hash
-	 * @return the MD5 hash of the string
-	 * @throws Exception
+	 * @param diag_global_id
+	 * @return a cursor with results
 	 */
-	public static String md5(String str) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		for (byte b : md5(str.getBytes()))
-			sb.append(Integer.toHexString(0x100 + (b & 0xff)).substring(1));
-		return sb.toString();
+	public Cursor getResultsByDiagId(String diag_global_id) {
+		SQLiteDatabase db = getReadableDatabase();
+		 Cursor mCursor = db
+		 .rawQuery(
+		 "SELECT `classification_id`, `created_at` FROM `results` WHERE `diagnostic_global_id`= '"
+		 + diag_global_id + "'", new String[0]);
+
+		mCursor.moveToFirst();
+		db.close();
+		return mCursor;	
 	}
 
 	/**
-	 * Computes the MD5 hash of the given bytes array
+	 * Get illness id for a classification
 	 * 
-	 * @param data
-	 *            the data we want to hash
-	 * @return the MD5 hash of the bytes array
-	 * @throws Exception
+	 * @param id
+	 * 			id of classification
+	 * @return the illness id
 	 */
-	public static byte[] md5(byte[] data) throws Exception {
-		MessageDigest md5 = MessageDigest.getInstance("MD5");
-		md5.update(data);
-		return md5.digest();
+	public int getIllnessIdByClassification(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor mCursor = db.rawQuery(
+		 "SELECT `illness_id` FROM `classifications` WHERE `_id`= "
+		 + id, new String[0]);
+
+		int illness_id = -1;
+		if(mCursor.moveToFirst())
+			illness_id = mCursor.getInt(0);
+		
+		mCursor.close();
+		db.close();
+		return illness_id;	
+
+	}
+	
+	/**
+	 * Get the name of illness by id given
+	 * 
+	 * @param id
+	 * @return the illness name
+	 */
+	public String getIllnessName(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor mCursor = db.rawQuery(
+		 "SELECT `name` FROM `illnesses` WHERE `_id`= "
+		 + id, new String[0]);
+
+		String name = "";
+		if(mCursor.moveToFirst())
+			name = mCursor.getString(0);
+		
+		mCursor.close();
+		db.close();
+		return name;	
+
 	}
 }
+

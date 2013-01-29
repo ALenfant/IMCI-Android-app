@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import android.app.Activity;
 import android.widget.RadioGroup;

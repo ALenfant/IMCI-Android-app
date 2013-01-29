@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+
+import com.imci.ica.R;
 
 /**
  * Custom cursor adapter to insert all patients found with request entries

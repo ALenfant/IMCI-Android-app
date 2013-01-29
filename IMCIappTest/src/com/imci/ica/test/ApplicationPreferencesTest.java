@@ -1,6 +1,6 @@
 package com.imci.ica.test;
 
-import com.imci.ica.ApplicationPreferences;
+import com.imci.ica.utils.ApplicationPreferences;
 
 import android.test.AndroidTestCase;
 
@@ -21,7 +21,7 @@ public class ApplicationPreferencesTest extends AndroidTestCase {
 	}
 
 	public void testSetRememberMe() {
-		// We do exactly as if we wanted to remember a user, then we chack if
+		// We do exactly as if we wanted to remember a user, then we check if
 		// everything works as expected
 		ApplicationPreferences.rememberUser(getContext(), "testUser",
 				"testPassword");

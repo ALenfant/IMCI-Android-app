@@ -18,16 +18,13 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.imci.ica.MainActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
-        <activity
-            android:name="com.imci.ica.QuestionsActivity"
-            android:label="@string/title_activity_main" >
+            android:name="com.imci.ica.MenuActivity"
+            android:label="@string/title_activity_menu" >
         </activity>
         <activity
             android:name="com.imci.ica.InitializationActivity"
@@ -75,6 +72,10 @@
         <activity
             android:name="com.imci.ica.SignsClassificationActivity"
             android:label="@string/title_activity_signs_classification" >
+        </activity>
+        <activity
+            android:name="com.imci.ica.ShowDiagnosticActivity"
+            android:label="@string/title_activity_show_diagnostic" >
         </activity>
     </application>
 

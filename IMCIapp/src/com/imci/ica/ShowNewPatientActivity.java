@@ -1,5 +1,7 @@
 package com.imci.ica;
 
+import com.imci.ica.utils.Database;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +20,12 @@ import android.widget.Toast;
  */
 public class ShowNewPatientActivity extends Activity {
 
-	String first_name;
-	String last_name;
-	String gender;
-	String born_on;
-	int village_id;
-	int zone_id;
+	public String first_name;
+	public String last_name;
+	public String gender;
+	public String born_on;
+	public int village_id;
+	public int zone_id;
 
 	/**
 	 * Show all data in screen
@@ -53,13 +55,15 @@ public class ShowNewPatientActivity extends Activity {
 		textLastName.setText(last_name);
 
 		TextView textGender = (TextView) findViewById(R.id.TextGender);
-		
-		// Creating Male or Female text
-		if (gender.equals("t"))
-			textGender.setText(R.string.male);
-		else
-			textGender.setText(R.string.female);
 
+		// Creating Male or Female text
+		if (gender != null) {
+			if (gender.equals("t"))
+				textGender.setText(R.string.male);
+			else
+				textGender.setText(R.string.female);
+		}
+		
 		TextView textBornOn = (TextView) findViewById(R.id.TextBirth);
 		textBornOn.setText(born_on);
 
@@ -86,31 +90,38 @@ public class ShowNewPatientActivity extends Activity {
 	 * 
 	 * @param view
 	 */
-	public void confirmInfo(View view) {
+	public boolean confirmInfo(View view) {
 
 		/**
 		 * Register in Database
 		 */
 		Database db = new Database(this);
 
-		if (db.insertNewPatient(village_id, first_name, last_name, gender,
-				born_on)) {
+		int patient_id = db.insertNewPatient(village_id, first_name, last_name, gender,
+				born_on);
+		if (patient_id > 0) {
 			// Closing previus activity
 			Intent intentPrev = getIntent();
 			intentPrev.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY,
 					true);
 			setResult(Activity.RESULT_OK, intentPrev);
-
+			
+			
+			
 			// Creating DoneRegisterActivity
 			Intent intentNew = new Intent(this,
 					DoneRegisterPatientActivity.class);
+			intentNew.putExtra(DoneRegisterPatientActivity.EXTRA_ID_PATIENT, patient_id);
 			startActivity(intentNew);
 			finish();
+			db.close();
 		} else {
 			Toast.makeText(this, R.string.databaseError, Toast.LENGTH_LONG)
 					.show();
+			db.close();
+			return false;
 		}
-
+		return true;
 	}
 
 	/**
@@ -123,7 +134,7 @@ public class ShowNewPatientActivity extends Activity {
 		setResult(Activity.RESULT_OK, intent);
 		finish();
 	}
-	
+
 	/**
 	 * Answer to back key pressing
 	 */

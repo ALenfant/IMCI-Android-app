@@ -2,6 +2,8 @@ package com.imci.ica;
 
 import java.util.ArrayList;
 
+import com.imci.ica.utils.Database;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -137,8 +139,8 @@ public class ZoneChoiceActivity extends Activity {
 	/**
 	 * Called when a zone is selected on one of the child activities
 	 */
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// Toast.makeText(this, "Returned result!", Toast.LENGTH_SHORT).show();
 		setResult(0, data);// We transmit the intent
 		finish();
 	}

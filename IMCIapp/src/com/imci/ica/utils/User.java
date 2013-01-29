@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 /**
  * Stores an application user's details

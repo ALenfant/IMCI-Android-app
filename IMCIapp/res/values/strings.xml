@@ -4,7 +4,7 @@
     <string name="app_name">Intelligent Consultation Assistant</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Intelligent Consultation Assistant</string>
+    <string name="title_activity_menu">Intelligent Consultation Assistant</string>
     <string name="title_activity_initialization">Initialization</string>
     <string name="title_activity_zone_choice">Zone Choice</string>
     <string name="title_activity_register_patient">Register New Patient</string>
@@ -22,6 +22,7 @@
     <string name="cancel">Cancel</string>
     <string name="invalidFirstName">Error: please enter a valid First Name</string>
     <string name="invalidFamilyName">Error: please enter a valid Family Name</string>
+    <string name="invalidDate">Error: please enter a valid Date</string>
     <string name="invalidVillage">Error: please enter a valid Village</string>
     <string name="confirm">Confirm</string>
     <string name="modify">Modify</string>
@@ -83,6 +84,7 @@
     <string name="descr_image">Picture of patient</string>
     <string name="space"></string>
     <string name="new_diagnostic">New Diagnostic</string>
+    <string name="last_diagnostic">Last Diagnostic</string>
     <string name="title_activity_get_signs">Getting Signs</string>
     <string name="next">Next</string>
     <string name="pressGender">Error: please select a value for gender</string>
@@ -92,11 +94,16 @@
     <string name="logout">Logout</string>
     <string name="error_no_diagnostic_data">Error: No diagnostics data for this child (weight height etc). Some results may be wrong.</string>
     <string name="genderBirth">Gender and Birth</string>
-    <string name="measures">Last Measures</string>
+    <string name="last_measures">Last Measures</string>
     <string name="weight">Weight (kg): </string>
     <string name="height">Height (cm):</string>
     <string name="temperature">Temperature (ºC):</string>
     <string name="muac">Muac (mm):</string>
     <string name="noMeasures">This patient doesn\'t have any measure yet.</string>
+    <string name="title_activity_show_diagnostic">Diagnostic</string>
+    <string name="measures">Measures</string>
+    <string name="illness">Illness</string>
+    <string name="classification">Classification</string>
+    <string name="date">Date</string>
     
 </resources>

@@ -1,5 +1,8 @@
 package com.imci.ica;
 
+import com.imci.ica.utils.ApplicationPreferences;
+import com.imci.ica.utils.Database;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +26,9 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+
 		boolean disableInitialization = false;
 		if (getIntent().getExtras() != null) {
 			disableInitialization = getIntent().getExtras().getBoolean(
@@ -33,26 +39,35 @@ public class LoginActivity extends Activity {
 				&& !disableInitialization) {
 			// Center not initialized
 			startActivity(new Intent(this, InitializationActivity.class));
+			finish();
+			return;
 		}
 
 		if (ApplicationPreferences.loggedin_user != null) {
 			// User already logged in
 			// We display the main menu
-			Intent intent = new Intent(this, MainActivity.class);
+			Intent intent = new Intent(this, MenuActivity.class);
 			startActivity(intent);
 
 			// And close this activity
 			finish();
+			return;
+			
 		}
-
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
 
 		((Button) findViewById(R.id.button_login))
 				.setOnClickListener(new OnClickListener() {
 
 					public void onClick(View v) {
-						login();
+						if (login()) {
+							// IF the login is successful
+							// We then display the main menu
+							Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+							startActivity(intent);
+
+							// And close this activity
+							finish();
+						}
 					}
 				});
 
@@ -63,15 +78,25 @@ public class LoginActivity extends Activity {
 			if (login()) {
 				// IF the login is successful
 				// We then display the main menu
-				Intent intent = new Intent(this, MainActivity.class);
+				Intent intent = new Intent(this, MenuActivity.class);
 				startActivity(intent);
 
 				// And close this activity
 				finish();
+				return;
 			}
 		}
 	}
 
+	/**
+	 * Method for connect without login, for debugging purposes
+	 * 
+	 * @param view
+	 */
+	public void directConnection(View view) {
+		
+	}
+	
 	/**
 	 * Called when the Login button is clicked
 	 * 

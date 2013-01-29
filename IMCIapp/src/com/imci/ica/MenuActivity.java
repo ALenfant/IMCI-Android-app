@@ -1,5 +1,7 @@
 package com.imci.ica;
 
+import com.imci.ica.utils.ApplicationPreferences;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +15,7 @@ import android.view.View;
  * @author Miguel Navarro & Antonin Lenfant
  *
  */
-public class MainActivity extends Activity {
+public class MenuActivity extends Activity {
 
 	/*
 	 * COMMENTS: BY THE MOMENT WE DISPLAY A BUTTON FOR ANY FUNCTIONALITY, TO
@@ -27,7 +29,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_menu);
 	}
 
 	/**

@@ -1,5 +1,8 @@
 package com.imci.ica;
 
+import com.imci.ica.utils.ApplicationPreferences;
+import com.imci.ica.utils.Database;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -82,8 +85,6 @@ public class InitializationActivity extends Activity {
 
 			int parent_zone_id = data.getIntExtra(
 					ZoneChoiceActivity.EXTRA_RETURNED_ZONE_ID, -1);
-			Toast.makeText(this, "Returned result!" + parent_zone_id,
-					Toast.LENGTH_SHORT).show();
 
 			Database db = new Database(this);
 			Cursor parentCursor = db.getZoneById(parent_zone_id);
@@ -144,6 +145,9 @@ public class InitializationActivity extends Activity {
 		}
 
 		ApplicationPreferences.initializeCenter(this, selected_zone_id);
+		
+		Intent intent = new Intent(this, MenuActivity.class);
+		startActivity(intent);
 		finish();
 	}
 

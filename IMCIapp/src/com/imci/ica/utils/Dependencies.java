@@ -1,7 +1,8 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 import android.content.Context;
 import android.database.Cursor;
@@ -193,7 +194,7 @@ public class Dependencies {
 	 * 			map with patient data
 	 */
 	public void dependencyMalnutrition(HashMap<String, Object> map) {
-		enable = false;
+		enable = true;
 		
 		String jsDataVar = JSUtils.hashMapToJavascript(map, "data");
 

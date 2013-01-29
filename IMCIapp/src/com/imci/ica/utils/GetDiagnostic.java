@@ -1,15 +1,15 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import com.imci.ica.MyActivity;
+import com.imci.ica.R;
 
 /**
  * Class to get diagnostic with answers got, in background
@@ -19,12 +19,12 @@ import android.widget.Toast;
  */
 public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 
-	private Activity mActivity;
+	private MyActivity mActivity;
 	private ProgressDialog pDialog;
 	private HashMap<String, Object> data;
 	private int patient_id;
 	private String diagnostic_global_id;
-	private ArrayList<String> resultsText;
+	private ArrayList<Integer> results;
 
 	public final static String baseJS = "function AT_LEAST_TWO_OF(){var trueargs = 0;for (var i = 0; i < arguments.length; ++i) {if (arguments[i]) {trueargs++;}} return (trueargs >= 2);}";
 
@@ -34,10 +34,10 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 	 * @param activity
 	 * @param json
 	 */
-	public GetDiagnostic(Activity activity, int patient_id,
+	public GetDiagnostic(MyActivity myActivity, int patient_id,
 			HashMap<String, Object> data) {
 		super();
-		mActivity = activity;
+		mActivity = myActivity;
 		this.data = data;
 		this.patient_id = patient_id;
 	}
@@ -68,7 +68,7 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 		Cursor classificationsCursor = db.getClassifications(age_group);
 
 		// Will contain the results to display
-		ArrayList<Integer> results = JSUtils.evaluation(age_group, jsDataVar, classificationsCursor);
+		results = JSUtils.evaluation(age_group, jsDataVar, classificationsCursor);
 
 		// Save diagnostic in database
 		String child_global_id = patient.getString(patient
@@ -76,17 +76,17 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 		int zone_id = patient.getInt(patient.getColumnIndex("zone_id"));
 		String born_on = patient.getString(patient.getColumnIndex("born_on"));
 
-		String muac = (String) data.get("enfant.muac");
-		String weight = (String) data.get("enfant.weight");
-		String height = (String) data.get("enfant.height");
-		String temp = (String) data.get("enfant.temperature");
+		int muac = (Integer) data.get("enfant.muac");
+		float weight = (Float) data.get("enfant.weight");
+		float height = (Float) data.get("enfant.height");
+		float temp = (Float) data.get("enfant.temperature");
 
 		diagnostic_global_id = db.savePatientDiagnostic(child_global_id, muac,
 				height, weight, temp, age_group, zone_id, born_on);
 
 		// If diagnostic was saved correctly, save result
 		if (!diagnostic_global_id.equals("-1")) {
-			resultsText = new ArrayList<String>();
+			ArrayList<String> resultsText = new ArrayList<String>();
 			int classification_id;
 
 			for (int i = 0; i < results.size(); i++) {
@@ -120,18 +120,13 @@ public class GetDiagnostic extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void param) {
 		pDialog.dismiss();
+		
 		if (diagnostic_global_id.equals("-1")) {
 			Toast.makeText(mActivity, R.string.databaseError, Toast.LENGTH_LONG)
 					.show();
 			mActivity.finish();
-		} else {
-
-			// We now put the results inside a ListView
-			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-					mActivity, android.R.layout.simple_list_item_1, resultsText);
-			((ListView) mActivity.findViewById(R.id.listView_classifications))
-					.setAdapter(arrayAdapter);
-
+		} else {		
+			mActivity.setResutls(results);
 		}
 
 	}

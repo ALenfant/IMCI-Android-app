@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.imci.ica.R;
 
 /**
  * Class to inflate the module of patient information

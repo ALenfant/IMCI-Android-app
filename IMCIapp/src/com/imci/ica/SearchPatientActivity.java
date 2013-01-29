@@ -1,5 +1,8 @@
 package com.imci.ica;
 
+import com.imci.ica.utils.Database;
+import com.imci.ica.utils.DateUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -253,11 +256,19 @@ public class SearchPatientActivity extends Activity {
 
 		// Getting date of birth
 		DatePicker birth = (DatePicker) findViewById(R.id.datePicker);
-
+		int day = birth.getDayOfMonth();
+		int month = birth.getMonth();
+		int year = birth.getYear();
+		
+		if(DateUtils.differenceWithCurrentDate(year, month, day) < 0) {
+			Toast.makeText(this, R.string.invalidDate, Toast.LENGTH_LONG)
+			.show();
+			return;
+		} else {
 		String born_on = DateUtils.dateString(birth.getDayOfMonth(), birth.getMonth(),
 				birth.getYear());
-
 		intent.putExtra(EXTRA_BORN_ON, born_on);
+		}
 
 		if (village_id == -1 || zone_id == -1) {
 			Toast.makeText(this, R.string.invalidVillage, Toast.LENGTH_LONG)

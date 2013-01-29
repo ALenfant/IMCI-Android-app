@@ -1,4 +1,5 @@
-package com.imci.ica;
+package com.imci.ica.utils;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;

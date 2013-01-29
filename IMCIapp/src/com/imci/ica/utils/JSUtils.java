@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,11 +9,12 @@ import android.annotation.SuppressLint;
 
 /**
  * Class with Date Utils
+ * 
  * @author Miguel
- *
+ * 
  */
 public class DateUtils {
-	
+
 	/**
 	 * Gives the current date and time adapted to a SQLite datetime column
 	 * 
@@ -26,7 +27,7 @@ public class DateUtils {
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
-	
+
 	/**
 	 * Gets the difference in months between two dates
 	 * 
@@ -38,6 +39,23 @@ public class DateUtils {
 	 */
 	public static final int getMonthsDifference(Date date1, Date date2) {
 		int m1 = date1.getYear() * 12 + date1.getMonth();
+		int m2 = date2.getYear() * 12 + date2.getMonth();
+		return (m2 - m1 + 1);
+	}
+
+	/**
+	 * Gets the difference in months between two dates
+	 * 
+	 * @param year
+	 *            the year of first date
+	 * @param month
+	 *            the month of first date
+	 * @param date2
+	 *            the second date
+	 * @return the difference in months
+	 */
+	public static final int getMonthsDifference(int year, int month, Date date2) {
+		int m1 = year * 12 + month + 1;
 		int m2 = date2.getYear() * 12 + date2.getMonth();
 		return (m2 - m1 + 1);
 	}
@@ -73,7 +91,7 @@ public class DateUtils {
 
 		return age_group;
 	}
-	
+
 	/**
 	 * Creating a string with Date format
 	 * 
@@ -90,8 +108,8 @@ public class DateUtils {
 	}
 
 	/**
-	 * Creating a string from a Integer with two digits,
-	 * even if number is less than 10.
+	 * Creating a string from a Integer with two digits, even if number is less
+	 * than 10.
 	 * 
 	 * @param number
 	 * @return number with two digits
@@ -105,5 +123,35 @@ public class DateUtils {
 			str = number.toString();
 
 		return str;
+	}
+
+	/**
+	 * Get the difference in days of two dates
+	 * 
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return difference in days between two dates
+	 */
+	public static int differenceWithCurrentDate(int year, int month, int day) {
+		int result;
+		
+		GregorianCalendar date1 = new GregorianCalendar(year, month + 1, day);
+		GregorianCalendar date2 = new GregorianCalendar();
+
+		// Check if it's the same year
+		if (date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR)) {
+			result = date2.get(Calendar.DAY_OF_YEAR) - date1.get(Calendar.DAY_OF_YEAR);
+			
+		} else {
+			int yearDiff = date2.get(Calendar.YEAR)
+					- date1.get(Calendar.YEAR);
+
+			result = (yearDiff * 365)
+					+ (date2.get(Calendar.DAY_OF_YEAR)
+							- date1.get(Calendar.DAY_OF_YEAR));
+
+		}
+		return result;
 	}
 }

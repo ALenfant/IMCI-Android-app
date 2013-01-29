@@ -7,9 +7,11 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +20,13 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.imci.ica.utils.CursorQuestionsAdapter;
+import com.imci.ica.utils.Database;
+import com.imci.ica.utils.DateUtils;
+import com.imci.ica.utils.Dependencies;
 
 /**
  * Class to take data to do a diagnostic Questions are shown in screen by
@@ -38,7 +46,7 @@ public class GetSignsActivity extends MyActivity {
 
 	int id_patient, age_group;
 	String born_on;
-	int illness_id; // , count;
+	int illness_id;
 	int index;
 	boolean end = false;
 	String prevDep = null;
@@ -205,15 +213,10 @@ public class GetSignsActivity extends MyActivity {
 		if (!end) {
 			showNextIllness();
 		} else {
-			// // Only for check result of data entry (debug purposes)
-			// Iterator<String> itKey = answersAllQuestions.keySet().iterator();
-			// String value;
-			// while (itKey.hasNext()) {
-			// key = itKey.next();
-			// value = (String) answersAllQuestions.get(key);
-			//
-			// Log.w(key, value);
-			// }
+			// Finishing previous Activity
+			Intent prevIntent = getIntent();
+			prevIntent.putExtra(InfoPatientActivity.EXTRA_FINISH_ACTIVITY, true);
+			setResult(Activity.RESULT_OK, prevIntent);
 
 			// Go to next activity
 			Intent intent = new Intent(this, SignsClassificationActivity.class);
@@ -239,7 +242,11 @@ public class GetSignsActivity extends MyActivity {
 
 		Database db = new Database(this);
 		illness_key = db.getIllnessKey(illness_id);
+		String illness_name = db.getIllnessName(illness_id);
 		db.close();
+		
+		((TextView) findViewById(R.id.textTitle)).setText(illness_name);
+		
 		tableQuestions = new TableLayout(GetSignsActivity.this);
 		mLayout.addView(tableQuestions);
 
@@ -262,6 +269,10 @@ public class GetSignsActivity extends MyActivity {
 			} else {
 				end = true;
 			}
+		}
+		
+		if(illness_id == 7) {
+			checkDependencies("malnutrition.malnutrition", null);
 		}
 	}
 
@@ -375,16 +386,16 @@ public class GetSignsActivity extends MyActivity {
 	@SuppressLint("SimpleDateFormat")
 	public boolean takeMeasures() {
 		EditText editHeight = (EditText) findViewById(R.id.editHeight);
-		String height = editHeight.getText().toString();
+		String heightStr = editHeight.getText().toString();
 		EditText editWeight = (EditText) findViewById(R.id.editWeight);
-		String weight = editWeight.getText().toString();
+		String weightStr = editWeight.getText().toString();
 		EditText editTemp = (EditText) findViewById(R.id.editTemp);
-		String temp = editTemp.getText().toString();
+		String tempStr = editTemp.getText().toString();
 		EditText editMuac = (EditText) findViewById(R.id.editMuac);
-		String muac = editMuac.getText().toString();
+		String muacStr = editMuac.getText().toString();
 
-		if (height.length() == 0 || weight.length() == 0 || temp.length() == 0
-				|| muac.length() == 0) {
+		if (heightStr.length() == 0 || weightStr.length() == 0 || tempStr.length() == 0
+				|| muacStr.length() == 0) {
 			Toast.makeText(this, R.string.allQuestionsMarked, Toast.LENGTH_LONG)
 					.show();
 			return false;
@@ -404,18 +415,54 @@ public class GetSignsActivity extends MyActivity {
 			Integer months = DateUtils.getMonthsDifference(birthdate,
 					new Date());
 
-			Float wfh = Float.parseFloat(weight) / Float.parseFloat(height);
-			Float wfa = Float.parseFloat(weight) / months;
+			int muac;
+			float temp;
+			float weight;
+			float height;
+			float wfh;
+			float wfa;
+			
+			try {
+				muac = Integer.parseInt(muacStr);
+				temp = Float.parseFloat(tempStr);
+				
+				weight = Float.parseFloat(weightStr);
+				height = Float.parseFloat(heightStr);
+				
+				wfh = weight / height;
+				wfa = weight / months;
+				
+				answersOneIllness.put("enfant.months", months);
+				answersOneIllness.put("enfant.height", height);
+				answersOneIllness.put("enfant.weight", weight);
+				answersOneIllness.put("enfant.temperature", temp);
+				answersOneIllness.put("enfant.muac", muac);
+				answersOneIllness.put("enfant.wfh", wfh);
+				answersOneIllness.put("enfant.wfa", wfa);
+				return true;
 
-			answersOneIllness.put("enfant.months", months.toString());
-			answersOneIllness.put("enfant.height", height);
-			answersOneIllness.put("enfant.weight", weight);
-			answersOneIllness.put("enfant.temperature", temp);
-			answersOneIllness.put("enfant.muac", muac);
-			answersOneIllness.put("enfant.wfh", wfh.toString());
-			answersOneIllness.put("enfant.wfa", wfa.toString());
-			return true;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+
 		}
 
 	}
+	
+	/**
+	 * Answer to back key pressing
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intent = getIntent();
+			setResult(Activity.RESULT_OK, intent);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.imci.ica;
+package com.imci.ica.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -16,6 +16,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.imci.ica.MyActivity;
+import com.imci.ica.R;
 
 /**
  * Custom cursor adapter to inflate questions in display
@@ -265,15 +268,9 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 
 		String dep = cursor.getString(cursor.getColumnIndex("dep"));
 		if (!dep.equals("")) {
-			
-			if (cursor.getInt(cursor.getColumnIndex("illness_id")) == 7) {
-				mActivity.checkDependencies("malnutrition.malnutrition", null);
-			} else {
 				// Disable this view
 				holder.spinner.setEnabled(false);
 				view.setBackgroundColor(Color.GRAY);
-			}
-			
 		}
 		holder.spinner
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

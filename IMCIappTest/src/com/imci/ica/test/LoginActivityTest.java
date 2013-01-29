@@ -1,9 +1,9 @@
 package com.imci.ica.test;
 
-import com.imci.ica.ApplicationPreferences;
-import com.imci.ica.Database;
 import com.imci.ica.LoginActivity;
 import com.imci.ica.R;
+import com.imci.ica.utils.ApplicationPreferences;
+import com.imci.ica.utils.Database;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
