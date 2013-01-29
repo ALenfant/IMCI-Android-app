@@ -102,9 +102,11 @@
                 android:id="@+id/textView_selectedzone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/none"
                 android:textColor="@color/white"
-                android:textSize="@dimen/medText" />
+                android:textSize="@dimen/bigText" />
+
         </LinearLayout>
 
         <LinearLayout
