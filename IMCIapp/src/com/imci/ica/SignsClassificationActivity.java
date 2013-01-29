@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.widget.ListView;
 
 import com.imci.ica.utils.ClassificationAdapter;
@@ -57,13 +56,9 @@ public class SignsClassificationActivity extends MyActivity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_signs_classification, menu);
-		return true;
-	}
-
+	/**
+	 * Set results into a ListView
+	 */
 	@Override
 	public void setResutls(ArrayList<Integer> results) {
 		

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bkgColor"
+    android:background="@drawable/background"
     tools:context=".DoneRegister" >
 
     <TextView
@@ -10,18 +10,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
         android:text="@string/patientCreated"
-        android:textSize="30sp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/bigText" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/btn_default"
         android:onClick="onClick"
-        android:text="@string/goBack" />
+        android:text="@string/goBack"
+        android:textSize="@dimen/medText" />
 
 </RelativeLayout>

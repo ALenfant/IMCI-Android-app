@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
 
     <ScrollView
         android:id="@+id/scrollViewMeasures"
@@ -20,52 +21,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/height"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallText" />
 
             <EditText
                 android:id="@+id/editHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:background="@android:drawable/editbox_background"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/smallText" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weight"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallText" />
 
             <EditText
                 android:id="@+id/editWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:background="@android:drawable/editbox_background"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/smallText" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/temperature"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallText" />
 
             <EditText
                 android:id="@+id/editTemp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:background="@android:drawable/editbox_background"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/smallText" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/muac"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallText" />
 
             <EditText
                 android:id="@+id/editMuac"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:background="@android:drawable/editbox_background"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/smallText" />
+
         </LinearLayout>
 
     </ScrollView>
@@ -88,12 +106,14 @@
 
     <Button
         android:id="@+id/buttonNext"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@android:drawable/btn_default"
         android:onClick="saveAnswers"
-        android:text="@string/next" />
+        android:text="@string/next"
+        android:textSize="@dimen/medText" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -102,6 +122,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="@string/measures"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/bigText" />
 
 </RelativeLayout>

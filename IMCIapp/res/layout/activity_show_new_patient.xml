@@ -2,7 +2,7 @@
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bkgColor" >
+    android:background="@drawable/background" >
  
 	<LinearLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,18 +11,32 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" >
 
+		<TextView
+		    android:id="@+id/textView2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:text="@string/checkData"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="@color/white"
+		    android:textSize="@dimen/bigText" />
+
     	<TextView
-        	android:id="@+id/TextView1"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/first_name"
-        	android:textAppearance="?android:attr/textAppearanceMedium" />
+    	    android:id="@+id/TextView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/first_name"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
+    	    android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
         	android:id="@+id/TextFirstName"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
 
     	<TextView
@@ -30,6 +44,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/last_name"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
@@ -37,6 +53,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
 
     	<TextView
@@ -44,6 +62,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/gender"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
@@ -51,6 +71,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
   
     	<TextView
@@ -58,6 +80,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/birth"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
@@ -65,6 +89,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
     	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
     	<TextView
@@ -72,6 +98,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/village"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
@@ -79,6 +107,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
 
     	<TextView
@@ -86,6 +116,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/zone"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/smallText"
         	android:textAppearance="?android:attr/textAppearanceMedium" />
 
     	<TextView
@@ -93,6 +125,8 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center_horizontal"
+      	    android:textColor="@color/white"
+    	    android:textSize="@dimen/medText"
         	android:textAppearance="?android:attr/textAppearanceLarge" />
     	
  		<LinearLayout
@@ -105,16 +139,20 @@
  	    	    android:layout_width="wrap_content"
  	    	    android:layout_height="match_parent"
  	    	    android:layout_weight="1"
+ 	    	    android:background="@android:drawable/btn_default"
  	    	    android:onClick="confirmInfo"
- 	    	    android:text="@string/confirm" />
+ 	    	    android:text="@string/confirm"
+ 	    	    android:textSize="@dimen/medText" />
 	
 	    	<Button
 	    	    android:id="@+id/buttonMod"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"
 	    	    android:layout_weight="1"
+	    	    android:background="@android:drawable/btn_default"
 	    	    android:onClick="modifyInfo"
-	    	    android:text="@string/modify" />
+	    	    android:text="@string/modify"
+	    	    android:textSize="@dimen/medText" />
 
     	</LinearLayout>
    	</LinearLayout>

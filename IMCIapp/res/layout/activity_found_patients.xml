@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <ListView
@@ -19,11 +20,13 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@android:drawable/btn_default"
         android:onClick="createPatient"
-        android:text="@string/createNewPatient" />
+        android:text="@string/createNewPatient"
+        android:textSize="@dimen/medText" />
 
 </RelativeLayout>

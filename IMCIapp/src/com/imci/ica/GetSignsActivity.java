@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -94,13 +93,6 @@ public class GetSignsActivity extends MyActivity {
 		answersOneIllness = new HashMap<String, Object>();
 
 		tableQuestions = null;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_get_signs, menu);
-		return true;
 	}
 
 	/**

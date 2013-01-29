@@ -1,12 +1,9 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.ApplicationPreferences;
-import com.imci.ica.utils.Database;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
-import android.view.Menu;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +13,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
+
+import com.imci.ica.utils.ApplicationPreferences;
+import com.imci.ica.utils.Database;
 
 /**
  * Class responsible for the Edit User activity
@@ -134,13 +133,6 @@ public class EditUserActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 			}
 		}
-		return true;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_edit_user, menu);
 		return true;
 	}
 

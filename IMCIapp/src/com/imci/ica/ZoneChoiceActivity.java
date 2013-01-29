@@ -2,14 +2,11 @@ package com.imci.ica;
 
 import java.util.ArrayList;
 
-import com.imci.ica.utils.Database;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -18,6 +15,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import com.imci.ica.utils.Database;
 
 /**
  * Class responsible for the Zone Choice activity. Called when initializing a
@@ -97,12 +96,12 @@ public class ZoneChoiceActivity extends Activity {
 		// We create a ListView to display the data
 		ListView listView = (ListView) findViewById(R.id.listView);
 		String columns[] = new String[] { "name" };
-		int[] to = new int[] { android.R.id.text1 };
+		int[] to = new int[] { R.id.textWhite };
 
 		// We use a CursorAdapter to get the data from the cursor to the
 		// ListView
 		SimpleCursorAdapter myAdapter = new SimpleCursorAdapter(this,
-				android.R.layout.simple_list_item_1, cursor, columns, to);
+				R.layout.simple_list_white_text, cursor, columns, to);
 		listView.setAdapter(myAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> adapter, View view,
@@ -110,11 +109,6 @@ public class ZoneChoiceActivity extends Activity {
 				// Code managing when a zone is clicked
 				// We call the same activity to display its children
 				int selected_id = (int) id;
-
-				/*
-				 * Toast.makeText(getApplicationContext(), "selected: pos" +
-				 * position + " id:" + selected_id, Toast.LENGTH_SHORT).show();
-				 */
 
 				Cursor mycursor = (Cursor) adapter.getItemAtPosition(position);
 				String item = mycursor.getString(1);
@@ -143,12 +137,6 @@ public class ZoneChoiceActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		setResult(0, data);// We transmit the intent
 		finish();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_zone_choice, menu);
-		return true;
 	}
 
 	/**

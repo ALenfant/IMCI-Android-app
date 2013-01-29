@@ -28,12 +28,9 @@
     <string name="modify">Modify</string>
     <string name="patientCreated">This patient has been created correctly</string>
     <string name="goBack">Return</string>
-
-    <color name="bkgColor">#CEECF5</color>
-
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="options">Options</string>
+    <string name="mainMenu">Main Menu</string>
     <string name="welcome">Welcome</string>
     <string name="initialization_description">This assistant will guide you through the initialization of the application</string>
     <string name="new_center">New Center</string>
@@ -48,7 +45,7 @@
     <string name="password">Password</string>
     <string name="password_repeat">Password (Repeated)</string>
     <string name="setup_center">Setup Center</string>
-    <string name="fullname_default">John Doe</string>
+    <string name="fullname_default">User</string>
     <string name="initialization_enteradmindetails">Please enter your administator account\'s details</string>
     <string name="databaseError">Error in access to Database</string>
     <string name="error_impossible_create_user">Error: Impossible to create a new user!</string>
@@ -64,7 +61,7 @@
     <string name="zone">Zone</string>
     <string name="title_activity_search_patient">Introduce Data of Patient</string>
     <string name="title_activity_found_patients">List of Patients</string>
-    <string name="IntroDate">Introduce Date of Birth</string>
+    <string name="introDate">Introduce Date of Birth</string>
     <string name="searchPatient">Search Patient</string>
     <string name="noPatientsFound">Any patient found with parameters of search</string>
     <string name="title_activity_info_patient">Patient Information</string>
@@ -105,5 +102,8 @@
     <string name="illness">Illness</string>
     <string name="classification">Classification</string>
     <string name="date">Date</string>
-    
+    <string name="question">Question</string>
+    <string name="introData">Introduce Data</string>
+    <string name="checkData">Check Data</string>
+        
 </resources>

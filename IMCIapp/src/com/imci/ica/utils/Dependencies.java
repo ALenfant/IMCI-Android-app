@@ -219,7 +219,7 @@ public class Dependencies {
 		RadioButton buttonNo = (RadioButton) radioGroup.getChildAt(1);
 
 		if (enable) {
-			group.setBackgroundColor(Color.WHITE);
+			group.setBackgroundColor(Color.TRANSPARENT);
 			buttonYes.setEnabled(true);
 			buttonNo.setEnabled(true);
 		} else {
@@ -245,7 +245,7 @@ public class Dependencies {
 		EditText editText = (EditText) group.getChildAt(1);
 
 		if (enable) {
-			group.setBackgroundColor(Color.WHITE);
+			group.setBackgroundColor(Color.TRANSPARENT);
 			editText.setEnabled(true);
 		} else {
 			group.setBackgroundColor(Color.GRAY);
@@ -266,7 +266,7 @@ public class Dependencies {
 		Spinner spinner = (Spinner) group.getChildAt(1);
 
 		if (enable) {
-			group.setBackgroundColor(Color.WHITE);
+			group.setBackgroundColor(Color.TRANSPARENT);
 			spinner.setEnabled(true);
 		} else {
 			group.setBackgroundColor(Color.GRAY);

@@ -3,7 +3,6 @@ package com.imci.ica;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 
 /**
@@ -28,13 +27,6 @@ public class DoneRegisterPatientActivity extends Activity {
 		
 		Intent intent = getIntent();
 		patient_id = intent.getIntExtra(EXTRA_ID_PATIENT, -1);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_done_register_patient, menu);
-		return true;
 	}
 	
 	/**

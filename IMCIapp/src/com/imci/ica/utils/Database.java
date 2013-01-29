@@ -502,6 +502,7 @@ public class Database extends SQLiteAssetHelper {
 		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor mCursor = db.rawQuery(
+//				"SELECT `_id`, `first_name`, `last_name`, `gender`, (strftime('%s',`born_on`)*1000), "
 				"SELECT `_id`, `first_name`, `last_name`, `gender`, `born_on`, "
 						+ "`village_id` FROM `children` WHERE `last_name`=\""
 						+ last_name

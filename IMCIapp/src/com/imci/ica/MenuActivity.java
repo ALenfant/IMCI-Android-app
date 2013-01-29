@@ -1,12 +1,11 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.ApplicationPreferences;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
+
+import com.imci.ica.utils.ApplicationPreferences;
 
 /**
  * Main Activity of the Application.
@@ -32,17 +31,12 @@ public class MenuActivity extends Activity {
 		setContentView(R.layout.activity_menu);
 	}
 
-	/**
-	 * Inflate
-	 * @return boolean True if success or False if error
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
 
-	// Answer to Search Patient button click
+	/**
+	 * Answer to Search Patient button click
+	 * 
+	 * @param view
+	 */
 	public void searchPatient(View view) {
 		Intent intent = new Intent(this, SearchPatientActivity.class);
 		startActivity(intent);

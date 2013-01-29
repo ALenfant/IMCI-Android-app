@@ -1,19 +1,18 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.CursorPatientAdapter;
-import com.imci.ica.utils.Database;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.imci.ica.utils.CursorPatientAdapter;
+import com.imci.ica.utils.Database;
 
 /**
  * Activity for show all patients that agree with search done
@@ -30,8 +29,8 @@ public class FoundPatientsActivity extends Activity {
 	public String gender;
 	public String born_on;
 	public int village_id;
-
-	// Cursor c;
+	
+	Cursor mCursor;
 
 	/**
 	 * Do the search into database with parameters of previous activity
@@ -55,13 +54,6 @@ public class FoundPatientsActivity extends Activity {
 		searchPatients();
 
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_found_patients, menu);
-		return true;
-	}	
    	
 	/**
 	 * Answer to back key pressing
@@ -80,8 +72,21 @@ public class FoundPatientsActivity extends Activity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(data.getBooleanExtra(EXTRA_FINISH_ACTIVITY, false)) {
+			Intent prevIntent = getIntent();
+			prevIntent.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY, true);
+			setResult(Activity.RESULT_OK, prevIntent);
+
 			finish();
 		}
+	}
+	
+	@Override
+	public void onRestart() {
+		// Refresh cursor
+		Database db = new Database(this);
+		mCursor = db.getPatients(first_name, last_name, gender, born_on, village_id);
+		startManagingCursor(mCursor);
+		super.onRestart();
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class FoundPatientsActivity extends Activity {
 	public int searchPatients() {
 
 		Database db = new Database(this);
-		Cursor mCursor = db.getPatients(first_name, last_name, gender, born_on, village_id);
+		mCursor = db.getPatients(first_name, last_name, gender, born_on, village_id);
 		startManagingCursor(mCursor);
 		if (mCursor.getCount()==0) {
 			Toast.makeText(this, R.string.noPatientsFound, Toast.LENGTH_LONG)
@@ -107,10 +112,6 @@ public class FoundPatientsActivity extends Activity {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> adapter, View view,
 						int position, long id) {
-					Intent prevIntent = getIntent();
-					prevIntent.putExtra(SearchPatientActivity.EXTRA_FINISH_ACTIVITY, true);
-					setResult(Activity.RESULT_OK, prevIntent);
-
 					Cursor selectItem = (Cursor) adapter.getItemAtPosition(position);
 				    int idItem = Integer.parseInt(selectItem.getString(0));
 					
@@ -118,6 +119,8 @@ public class FoundPatientsActivity extends Activity {
 					newIntent.putExtra(InfoPatientActivity.EXTRA_ID_PATIENT, idItem);
 					newIntent.putExtra(EXTRA_FINISH_ACTIVITY, false);
 
+					stopManagingCursor(mCursor);
+					
 					startActivityForResult(newIntent, 0);
 				}
 			});

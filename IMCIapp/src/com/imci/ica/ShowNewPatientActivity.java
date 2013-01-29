@@ -1,15 +1,14 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.Database;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.imci.ica.utils.Database;
 
 /**
  * Class to show the information of a new patient, to check if all data is
@@ -76,13 +75,6 @@ public class ShowNewPatientActivity extends Activity {
 
 		TextView textZone = (TextView) findViewById(R.id.TextZone);
 		textZone.setText(zoneName);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_show_new_patient, menu);
-		return true;
 	}
 
 	/**

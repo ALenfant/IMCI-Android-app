@@ -1,18 +1,17 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.ApplicationPreferences;
-import com.imci.ica.utils.Database;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.imci.ica.utils.ApplicationPreferences;
+import com.imci.ica.utils.Database;
 
 /**
  * Class responsible for the Login activity
@@ -156,13 +155,6 @@ public class LoginActivity extends Activity {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_login, menu);
-		return true;
 	}
 
 }

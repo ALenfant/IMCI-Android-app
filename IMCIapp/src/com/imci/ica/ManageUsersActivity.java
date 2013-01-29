@@ -1,19 +1,18 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.Database;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.imci.ica.utils.Database;
 
 /**
  * Class responsible for the Manage Users activity
@@ -35,11 +34,11 @@ public class ManageUsersActivity extends Activity {
 		startManagingCursor(usersCursor);
 
 		String[] from = new String[] { "name" };
-		int[] to = new int[] { android.R.id.text1 };
+		int[] to = new int[] { R.id.textWhite };
 
 		// Now create an array adapter and set it to display using our row
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-				android.R.layout.simple_list_item_1, usersCursor, from, to);
+				R.layout.simple_list_white_text, usersCursor, from, to);
 		listCurrentCenterUsers.setAdapter(adapter);
 
 		// Make the button work...
@@ -69,13 +68,6 @@ public class ManageUsersActivity extends Activity {
 						startActivity(i);
 					}
 				});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_manage_users, menu);
-		return true;
 	}
 
 }

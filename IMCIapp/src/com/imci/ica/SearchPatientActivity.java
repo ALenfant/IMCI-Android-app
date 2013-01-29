@@ -1,19 +1,18 @@
 package com.imci.ica;
 
-import com.imci.ica.utils.Database;
-import com.imci.ica.utils.DateUtils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.imci.ica.utils.Database;
+import com.imci.ica.utils.DateUtils;
 
 /**
  * Activity to search a Patient into the system
@@ -60,13 +59,6 @@ public class SearchPatientActivity extends Activity {
 		// Initialization of village button text
 		Button villageButton = ((Button) findViewById(R.id.buttonVillage));
 		villageButton.setText(R.string.select_village);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search_patient, menu);
-		return true;
 	}
 
 	/**
