@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.imci.ica.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,42 +25,52 @@
         </activity>
         <activity
             android:name="com.imci.ica.MenuActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
             android:name="com.imci.ica.InitializationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_initialization" >
         </activity>
         <activity
             android:name="com.imci.ica.ZoneChoiceActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_zone_choice" >
         </activity>
         <activity
             android:name="com.imci.ica.ShowNewPatientActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_show_new_patient" >
         </activity>
         <activity
             android:name="com.imci.ica.DoneRegisterPatientActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_done_register_patient" >
         </activity>
         <activity
             android:name="com.imci.ica.SearchPatientActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_search_patient" >
         </activity>
         <activity
             android:name="com.imci.ica.FoundPatientsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_found_patients" >
         </activity>
         <activity
             android:name="com.imci.ica.InfoPatientActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_info_patient" >
         </activity>
         <activity
             android:name="com.imci.ica.ManageUsersActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_manage_users" >
         </activity>
         <activity
             android:name="com.imci.ica.EditUserActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_edit_user" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -67,14 +78,17 @@
         </activity>
         <activity
             android:name="com.imci.ica.GetSignsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_get_signs" >
         </activity>
         <activity
             android:name="com.imci.ica.SignsClassificationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_signs_classification" >
         </activity>
         <activity
             android:name="com.imci.ica.ShowDiagnosticActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_show_diagnostic" >
         </activity>
     </application>
