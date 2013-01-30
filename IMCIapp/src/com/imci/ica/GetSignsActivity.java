@@ -434,7 +434,8 @@ public class GetSignsActivity extends MyActivity {
 				return true;
 
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
+				Toast.makeText(this, R.string.invalidNumbers, Toast.LENGTH_LONG)
+				.show();
 				e.printStackTrace();
 				return false;
 			}

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.imci.ica.utils.ApplicationPreferences;
 import com.imci.ica.utils.Database;
+import com.imci.ica.utils.Login;
 
 /**
  * Class responsible for the Initialization activity Used to initialize a
@@ -105,7 +106,7 @@ public class InitializationActivity extends Activity {
 	 * Called when the button Setup Center is pressed
 	 */
 	protected void setupCenter() {
-		String full_name = ((EditText) (findViewById(R.id.editText_fullname)))
+		String name = ((EditText) (findViewById(R.id.editText_fullname)))
 				.getText().toString();
 		String password = ((EditText) (findViewById(R.id.editText_password)))
 				.getText().toString();
@@ -118,7 +119,7 @@ public class InitializationActivity extends Activity {
 			return;
 		}
 
-		if (full_name.length() == 0) {
+		if (name.length() == 0) {
 			Toast.makeText(this, R.string.error_empty_fullname,
 					Toast.LENGTH_LONG).show();
 			return;
@@ -137,16 +138,19 @@ public class InitializationActivity extends Activity {
 		}
 
 		Database db = new Database(this);
-		if (!db.addUser(full_name, password, true, selected_zone_id)) {
+		if (!db.addUser(name, password, true, selected_zone_id)) {
 			Toast.makeText(this, R.string.error_impossible_create_user,
 					Toast.LENGTH_LONG).show();
 			return;
 		}
 
 		ApplicationPreferences.initializeCenter(this, selected_zone_id);
-		
-		Intent intent = new Intent(this, MenuActivity.class);
-		startActivity(intent);
-		finish();
+
+		if (Login.login(this, name, password, false)) {
+
+			Intent intent = new Intent(this, MenuActivity.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 }

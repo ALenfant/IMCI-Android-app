@@ -711,8 +711,9 @@ public class Database extends SQLiteAssetHelper {
 		String global_id = new String(getNameOfZone(zone_id) + "/"
 				+ getAutoIncrements("'diagnostics'"));
 
-		String author = ApplicationPreferences.getRememberedUserName(mContext);
-		Cursor authorCursor = getUserByName(author);
+//		String author = ApplicationPreferences.getRememberedUserName(mContext);
+		User author = ApplicationPreferences.loggedin_user;
+		Cursor authorCursor = getUserByName(author.getName());
 		String author_global_id = authorCursor.getString(authorCursor
 				.getColumnIndex("global_id"));
 

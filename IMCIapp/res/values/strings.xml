@@ -105,5 +105,6 @@
     <string name="question">Question</string>
     <string name="introData">Introduce Data</string>
     <string name="checkData">Check Data</string>
+    <string name="invalidNumbers">Error: please insert valid numbers</string>
         
 </resources>

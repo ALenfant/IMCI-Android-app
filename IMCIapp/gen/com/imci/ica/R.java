@@ -224,6 +224,7 @@ public final class R {
         public static final int invalidDate=0x7f060015;
         public static final int invalidFamilyName=0x7f060014;
         public static final int invalidFirstName=0x7f060013;
+        public static final int invalidNumbers=0x7f060068;
         public static final int invalidVillage=0x7f060016;
         public static final int is_admin=0x7f060047;
         public static final int last_diagnostic=0x7f060050;
