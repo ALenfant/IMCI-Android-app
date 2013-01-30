@@ -2,7 +2,6 @@ package com.imci.ica.utils;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -171,7 +170,8 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 			// Disable this view
 			holder.buttonYes.setEnabled(false);
 			holder.buttonNo.setEnabled(false);
-			view.setBackgroundColor(Color.GRAY);
+			view.setBackgroundColor(mActivity.getResources().getColor(
+					R.color.transpGray));
 		}
 
 		holder.radioGroup
@@ -210,7 +210,8 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 		if (!dep.equals("")) {
 			// Disable this view
 			holder.editValue.setEnabled(false);
-			view.setBackgroundColor(Color.GRAY);
+			view.setBackgroundColor(mActivity.getResources().getColor(
+					R.color.transpGray));
 		}
 
 		holder.editValue.addTextChangedListener(new TextWatcher() {
@@ -268,9 +269,10 @@ public class CursorQuestionsAdapter extends CursorAdapter {
 
 		String dep = cursor.getString(cursor.getColumnIndex("dep"));
 		if (!dep.equals("")) {
-				// Disable this view
-				holder.spinner.setEnabled(false);
-				view.setBackgroundColor(Color.GRAY);
+			// Disable this view
+			holder.spinner.setEnabled(false);
+			view.setBackgroundColor(mActivity.getResources().getColor(
+					R.color.transpGray));
 		}
 		holder.spinner
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

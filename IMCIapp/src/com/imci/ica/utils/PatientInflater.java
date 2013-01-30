@@ -15,15 +15,9 @@ import com.imci.ica.R;
  * Class to inflate the module of patient information
  * 
  * @author Miguel
- *
+ * 
  */
 public class PatientInflater {
-
-	public final static int POS_FIRST_NAME = 2;
-	public final static int POS_LAST_NAME = 3;
-	public final static int POS_GENDER = 5;
-	public final static int POS_BIRTH = 4;
-	public final static int POS_VILLAGE = 1;
 
 	Activity mActivity;
 
@@ -40,13 +34,13 @@ public class PatientInflater {
 	 * Show in screen the layout with patient data
 	 * 
 	 * @param id
-	 * 			his id
+	 *            his id
 	 * @param group
-	 * 			view that contains layout
+	 *            view that contains layout
 	 * @param patient
-	 * 			cursor with patient information
+	 *            cursor with patient information
 	 * @param db
-	 * 			reference to opened database
+	 *            reference to opened database
 	 */
 	public void showPatientInScreen(int id, ViewGroup group, Cursor patient,
 			Database db) {
@@ -55,8 +49,9 @@ public class PatientInflater {
 
 		group.addView(view);
 
-		String name = new String(patient.getString(POS_FIRST_NAME) + " "
-				+ patient.getString(POS_LAST_NAME));
+		String name = new String(patient.getString(patient
+				.getColumnIndex("first_name")) + " "
+				+ patient.getString(patient.getColumnIndex("last_name")));
 		TextView textName = (TextView) mActivity.findViewById(R.id.textName);
 		textName.setText(name);
 
@@ -66,23 +61,31 @@ public class PatientInflater {
 		Resources res = mActivity.getResources();
 		Drawable drawable;
 
-		String genderValue = patient.getString(POS_GENDER).toString();
+		String genderValue = patient
+				.getString(patient.getColumnIndex("gender")).toString();
 		if (genderValue.equals("t")) {
 			String genderBirth = new String(mActivity.getString(R.string.male)
-					+ " - " + patient.getString(POS_BIRTH));
+					+ " - "
+					+ patient.getString(patient.getColumnIndex("born_on")));
 			textGenderBirth.setText(genderBirth);
 			drawable = res.getDrawable(R.drawable.male_icon);
 			image.setImageDrawable(drawable);
 		} else {
 			String genderBirth = new String(
-					mActivity.getString(R.string.female) + " - "
-							+ patient.getString(POS_BIRTH));
+					mActivity.getString(R.string.female)
+							+ " - "
+							+ patient.getString(patient
+									.getColumnIndex("born_on")));
 			textGenderBirth.setText(genderBirth);
 			drawable = res.getDrawable(R.drawable.female_icon);
 			image.setImageDrawable(drawable);
 		}
 
 		TextView village = (TextView) mActivity.findViewById(R.id.textVillage);
-		village.setText(db.getNameOfZone(patient.getInt(POS_VILLAGE)));
+		String villageName = db.getNameOfZone(patient.getInt(patient
+				.getColumnIndex("village_id")));
+		String zoneName = db.getNameOfZone(patient.getInt(patient
+				.getColumnIndex("zone_id")));
+		village.setText(villageName + " - " + zoneName);
 	}
 }

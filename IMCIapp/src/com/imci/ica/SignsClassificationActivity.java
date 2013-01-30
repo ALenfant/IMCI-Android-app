@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ListView;
 
 import com.imci.ica.utils.ClassificationAdapter;
@@ -100,6 +101,18 @@ public class SignsClassificationActivity extends MyActivity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * Finish this Activity and return to the previous
+	 * 
+	 * @param view
+	 */
+	public void goBack(View view) {
+		Intent intent = new Intent(this, InfoPatientActivity.class);
+		intent.putExtra(InfoPatientActivity.EXTRA_ID_PATIENT, patient_id);
+		startActivity(intent);
+		finish();
 	}
 
 }

@@ -12,7 +12,8 @@ public final class R {
     }
     public static final class color {
         public static final int gray=0x7f040001;
-        public static final int green=0x7f040002;
+        public static final int green=0x7f040003;
+        public static final int transpGray=0x7f040002;
         public static final int white=0x7f040000;
     }
     public static final class dimen {
@@ -242,7 +243,7 @@ public final class R {
         public static final int new_diagnostic=0x7f06004f;
         public static final int next=0x7f060052;
         public static final int no=0x7f060049;
-        public static final int noMeasures=0x7f06005f;
+        public static final int noDiagnostic=0x7f06005f;
         public static final int noPatientsFound=0x7f06003e;
         public static final int none=0x7f060026;
         public static final int password=0x7f060029;

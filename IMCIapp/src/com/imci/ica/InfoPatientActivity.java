@@ -74,8 +74,10 @@ public class InfoPatientActivity extends Activity {
 			Button button = (Button) findViewById(R.id.lastDiag);
 			button.setEnabled(false);
 			TextView text = new TextView(this);
+			text.setTextColor(this.getResources().getColor(R.color.white));
+			text.setTextSize(this.getResources().getDimension(R.dimen.medText));
 			mainLayout.addView(text);
-			text.setText(R.string.noMeasures);
+			text.setText(R.string.noDiagnostic);
 		}
 
 	}

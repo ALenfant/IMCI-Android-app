@@ -3,6 +3,7 @@ package com.imci.ica.utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.imci.ica.R;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -14,14 +15,14 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 
 /**
- * Class to manage dependencies 
+ * Class to manage dependencies
  * 
  * @author Miguel
- *
+ * 
  */
 public class Dependencies {
 
-	boolean enable;  // if enable or disable view
+	boolean enable; // if enable or disable view
 	int age_group;
 	int illness_id;
 
@@ -34,13 +35,13 @@ public class Dependencies {
 	 * 
 	 * @param context
 	 * @param age_group
-	 * 				age group of patient
+	 *            age group of patient
 	 * @param illness_id
-	 * 				id of current illness to diagnostic
+	 *            id of current illness to diagnostic
 	 * @param tableQuestions
-	 * 				contains current layout of questions
+	 *            contains current layout of questions
 	 * @param cursor
-	 * 				all questions for this illness
+	 *            all questions for this illness
 	 */
 	public Dependencies(Context context, int age_group, int illness_id,
 			TableLayout tableQuestions, Cursor cursor) {
@@ -55,9 +56,9 @@ public class Dependencies {
 	 * Check dependency for Boolean question
 	 * 
 	 * @param key
-	 * 			key of question answered
+	 *            key of question answered
 	 * @param value
-	 * 			value caught of question
+	 *            value caught of question
 	 */
 	public void dependencyBoolean(String key, Object value) {
 
@@ -73,7 +74,7 @@ public class Dependencies {
 				results.add(i);
 			}
 
-		// Particular case for ear illness
+			// Particular case for ear illness
 		} else if (key.equals("oreille.oreille_ecoulement")) {
 			if ((Boolean) value) {
 				ViewGroup layout = (ViewGroup) tableQuestions
@@ -85,8 +86,8 @@ public class Dependencies {
 				enableDisableInteger(false, layout);
 			}
 			return;
-			
-		// Default case
+
+			// Default case
 		} else {
 			enable = (Boolean) value;
 			oneEquation.put(key, true);
@@ -108,7 +109,7 @@ public class Dependencies {
 	 * Check dependency for Integer question
 	 * 
 	 * @param value
-	 * 			value introduced in EditText.
+	 *            value introduced in EditText.
 	 */
 	public void dependencyInteger(Object value) {
 		// Just illness with id = 4 has Integer dependency.
@@ -159,7 +160,7 @@ public class Dependencies {
 	 * Read result ids of questions and set them enabled or disabled
 	 * 
 	 * @param results
-	 * 				contains ids of questions
+	 *            contains ids of questions
 	 */
 	public void readResults(ArrayList<Integer> results) {
 		Database db = new Database(mContext);
@@ -186,21 +187,22 @@ public class Dependencies {
 		db.close();
 
 	}
-	
+
 	/**
 	 * Particular case for malnutrition illness
 	 * 
 	 * @param map
-	 * 			map with patient data
+	 *            map with patient data
 	 */
 	public void dependencyMalnutrition(HashMap<String, Object> map) {
 		enable = true;
-		
+
 		String jsDataVar = JSUtils.hashMapToJavascript(map, "data");
 
 		// Do evaluation of question
-		ArrayList<Integer> results = JSUtils.evaluation(age_group, jsDataVar, mCursor);
-		
+		ArrayList<Integer> results = JSUtils.evaluation(age_group, jsDataVar,
+				mCursor);
+
 		readResults(results);
 
 	}
@@ -223,7 +225,8 @@ public class Dependencies {
 			buttonYes.setEnabled(true);
 			buttonNo.setEnabled(true);
 		} else {
-			group.setBackgroundColor(Color.GRAY);
+			group.setBackgroundColor(mContext.getResources().getColor(
+					R.color.transpGray));
 			buttonYes.setChecked(false);
 			buttonNo.setChecked(false);
 
@@ -248,7 +251,8 @@ public class Dependencies {
 			group.setBackgroundColor(Color.TRANSPARENT);
 			editText.setEnabled(true);
 		} else {
-			group.setBackgroundColor(Color.GRAY);
+			group.setBackgroundColor(mContext.getResources().getColor(
+					R.color.transpGray));
 			editText.setText("");
 			editText.setEnabled(false);
 		}
@@ -269,7 +273,8 @@ public class Dependencies {
 			group.setBackgroundColor(Color.TRANSPARENT);
 			spinner.setEnabled(true);
 		} else {
-			group.setBackgroundColor(Color.GRAY);
+			group.setBackgroundColor(mContext.getResources().getColor(
+					R.color.transpGray));
 			spinner.setSelection(0);
 			spinner.setEnabled(false);
 		}
