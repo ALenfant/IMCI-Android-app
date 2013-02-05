@@ -47,7 +47,7 @@ public class MenuActivity extends Activity {
 	 * @param view
 	 */
 	public void login(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, IMCIAppActivity.class);
 		startActivity(intent);
 	}
 
@@ -81,7 +81,7 @@ public class MenuActivity extends Activity {
 		ApplicationPreferences.loggedin_user = null;
 		
 		//And we go to the Login activity!
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, IMCIAppActivity.class);
 		startActivity(intent);
 		
 		//Without forgetting to close this one

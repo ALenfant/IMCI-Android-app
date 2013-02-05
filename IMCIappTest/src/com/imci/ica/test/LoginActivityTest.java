@@ -1,6 +1,6 @@
 package com.imci.ica.test;
 
-import com.imci.ica.LoginActivity;
+import com.imci.ica.IMCIAppActivity;
 import com.imci.ica.R;
 import com.imci.ica.utils.ApplicationPreferences;
 import com.imci.ica.utils.Database;
@@ -17,11 +17,11 @@ import android.widget.EditText;
  * 
  */
 public class LoginActivityTest extends
-		ActivityInstrumentationTestCase2<LoginActivity> {
-	private LoginActivity loginActivity;
+		ActivityInstrumentationTestCase2<IMCIAppActivity> {
+	private IMCIAppActivity loginActivity;
 
 	public LoginActivityTest() {
-		super("com.imci.ica", LoginActivity.class); // Initialize the activity
+		super("com.imci.ica", IMCIAppActivity.class); // Initialize the activity
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class LoginActivityTest extends
 		// to force it to display the login
 		// even if the center hasn't been initialized
 		Intent intent = new Intent(getInstrumentation().getTargetContext(),
-				LoginActivity.class);
-		intent.putExtra(LoginActivity.EXTRA_DEBUG_DISABLE_INITIALIZATION, true);
+				IMCIAppActivity.class);
+		intent.putExtra(IMCIAppActivity.EXTRA_DEBUG_DISABLE_INITIALIZATION, true);
 		setActivityIntent(intent);
 		loginActivity = getActivity(); // We load the activity
 
