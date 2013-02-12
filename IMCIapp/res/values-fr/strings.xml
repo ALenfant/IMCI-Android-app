@@ -66,8 +66,8 @@
     <string name="noPatientsFound">Aucun patient trouvée avec les paramètres de recherche</string>
     <string name="title_activity_info_patient">Information de Patient</string>
     <string name="rememberme">Rappeler</string>
-    <string name="manage_users">Gérer les Utilisateurs</string>
-    <string name="title_activity_manage_users">Gérer les Utilisateurs</string>
+    <string name="manage_users">Gérer Les Utilisateurs</string>
+    <string name="title_activity_manage_users">Gérer Les Utilisateurs</string>
     <string name="add_user">Ajouter un Utilisateur</string>
     <string name="current_center_users">Utilisateurs actuels du Centre</string>
     <string name="title_activity_edit_user">Modifier l\'utilisateur</string>

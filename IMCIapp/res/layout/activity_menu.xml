@@ -29,39 +29,6 @@
         android:text="@string/logout"
         android:textSize="@dimen/medText" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button6"
-        android:layout_marginBottom="101dp"
-        android:layout_toLeftOf="@+id/button6"
-        android:background="@drawable/management"
-        android:onClick="manageUsers" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="104dp"
-        android:layout_toLeftOf="@+id/button6"
-        android:background="@drawable/search"
-        android:onClick="searchPatient" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_alignLeft="@+id/button6"
-        android:layout_marginLeft="35dp"
-        android:text="@string/searchPatient"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"
-        android:textSize="@dimen/medText" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -70,6 +37,38 @@
         android:layout_alignBottom="@+id/button3"
         android:layout_alignLeft="@+id/textView2"
         android:text="@string/manage_users"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/medText" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button6"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/management"
+        android:onClick="manageUsers" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/search"
+        android:onClick="searchPatient" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_marginLeft="240dp"
+        android:text="@string/searchPatient"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textSize="@dimen/medText" />
