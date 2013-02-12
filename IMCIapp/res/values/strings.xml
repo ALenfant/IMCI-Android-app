@@ -49,7 +49,7 @@
     <string name="initialization_enteradmindetails">Please enter your administator account\'s details</string>
     <string name="databaseError">Error in access to Database</string>
     <string name="error_impossible_create_user">Error: Impossible to create a new user!</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login</string>
     <string name="login">Login</string>
     <string name="login_description">Please login with your account</string>
     <string name="error_invalid_login">Error: Invalid login credentials</string>
@@ -67,10 +67,10 @@
     <string name="title_activity_info_patient">Patient Information</string>
     <string name="rememberme">Remember me</string>
     <string name="manage_users">Manage Users</string>
-    <string name="title_activity_manage_users">ManageUsersActivity</string>
+    <string name="title_activity_manage_users">Manage Users</string>
     <string name="add_user">Add User</string>
     <string name="current_center_users">Current Center Users</string>
-    <string name="title_activity_edit_user">EditUserActivity</string>
+    <string name="title_activity_edit_user">Edit User</string>
     <string name="edituser_description">Use this form to add or edit the selected user</string>
     <string name="is_admin">Administrator?</string>
     <string name="yes">Yes</string>
@@ -86,7 +86,7 @@
     <string name="next">Next</string>
     <string name="pressGender">Error: please select a value for gender</string>
     <string name="allQuestionsMarked">Error: All questions must be marked</string>
-    <string name="title_activity_signs_classification">SignsClassificationActivity</string>
+    <string name="title_activity_signs_classification">Signs Classification</string>
     <string name="signsclassification_title">Results</string>
     <string name="logout">Logout</string>
     <string name="error_no_diagnostic_data">Error: No diagnostics data for this child (weight height etc). Some results may be wrong.</string>
